@@ -5,7 +5,6 @@ import About from '@/components/ui/About';
 import Skills from '@/components/ui/Skills';
 import Projects from '@/components/ui/Projects';
 import Experience from '@/components/ui/Experience';
-import Contact from '@/components/ui/Contact';
 
 
 export default function Home() {
@@ -39,13 +38,10 @@ export default function Home() {
         <Experience />
       </section>
 
-      {/* Contact Section */}
-      <section id="contact" className="w-full">
-        <Contact />
-      </section>
+     
 
 
 
-    </main>
+      </main>
   );
 }

@@ -8,7 +8,7 @@ import { cn } from '@/lib/utils';
 // Define the props interface for type safety and reusability
 interface MinimalistHeroProps {
   logoText: string;
-  navLinks: { label: string; href: string }[];
+  navLinks?: { label: string; href: string }[];
   mainText: string;
   readMoreLink: string;
   imageSrc: string;
@@ -56,35 +56,37 @@ export const MinimalistHero = ({
         className
       )}
     >
-      {/* Island Navbar */}
-      <header className="fixed top-6 left-1/2 -translate-x-1/2 z-50 flex items-center justify-between px-6 py-3 bg-white/40 dark:bg-black/40 backdrop-blur-xl border border-black/5 dark:border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.12)] rounded-full w-[90%] max-w-3xl transition-all duration-300">
-        <motion.div
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.5 }}
-          className="text-xl font-bold tracking-wider"
-        >
-          {logoText}
-        </motion.div>
-        <div className="hidden items-center space-x-2 md:flex">
-          {navLinks.map((link) => (
-            <NavLink key={link.label} href={link.href}>
-              {link.label}
-            </NavLink>
-          ))}
-        </div>
-        <motion.button
-          initial={{ opacity: 0, x: 20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.5 }}
-          className="flex flex-col space-y-1.5 md:hidden"
-          aria-label="Open menu"
-        >
-          <span className="block h-0.5 w-6 bg-foreground"></span>
-          <span className="block h-0.5 w-6 bg-foreground"></span>
-          <span className="block h-0.5 w-5 bg-foreground"></span>
-        </motion.button>
-      </header>
+      {/* Island Navbar (conditionally rendered) */}
+      {navLinks && (
+        <header className="fixed top-6 left-1/2 -translate-x-1/2 z-50 flex items-center justify-between px-6 py-3 bg-white/40 dark:bg-black/40 backdrop-blur-xl border border-black/5 dark:border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.12)] rounded-full w-[90%] max-w-3xl transition-all duration-300">
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5 }}
+            className="text-xl font-bold tracking-wider"
+          >
+            {logoText}
+          </motion.div>
+          <div className="hidden items-center space-x-2 md:flex">
+            {navLinks.map((link) => (
+              <NavLink key={link.label} href={link.href}>
+                {link.label}
+              </NavLink>
+            ))}
+          </div>
+          <motion.button
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5 }}
+            className="flex flex-col space-y-1.5 md:hidden"
+            aria-label="Open menu"
+          >
+            <span className="block h-0.5 w-6 bg-foreground"></span>
+            <span className="block h-0.5 w-6 bg-foreground"></span>
+            <span className="block h-0.5 w-5 bg-foreground"></span>
+          </motion.button>
+        </header>
+      )}
 
       {/* Main Content Area */}
       <div className="relative grid w-full max-w-7xl flex-grow grid-cols-1 items-center md:grid-cols-3">

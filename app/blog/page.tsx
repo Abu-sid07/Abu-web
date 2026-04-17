@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react'
 // Import Components
-import Navbar from '@/components/ui/Navbar-blog'
+import { Dock, DockIcon } from '@/components/ui/Dock'
 import Header from '@/components/ui/Header-blog'
 import BlogList from '@/components/ui/BlogList-blog'
 import ArticleView from '@/components/article/ArticleView-blog'
@@ -28,7 +28,24 @@ export default function BlogPage() {
 
   return (
     <div className="min-h-screen bg-black text-white">
-      <Navbar onBackClick={handleBackToList} isArticleView={currentView === 'article'} />
+
+      {/* Dock Navbar */}
+      <div className="flex justify-center pt-6 pb-4">
+        <Dock>
+          <DockIcon>
+            <a href="/">Home</a>
+          </DockIcon>
+          <DockIcon>
+            <a href="/blog">Blog</a>
+          </DockIcon>
+          <DockIcon>
+            <a href="/projects">Projects</a>
+          </DockIcon>
+          <DockIcon>
+            <a href="/contact">Contact</a>
+          </DockIcon>
+        </Dock>
+      </div>
 
       {currentView === 'list' ? (
         <>
@@ -39,12 +56,7 @@ export default function BlogPage() {
         <ArticleView article={selectedArticle} />
       )}
 
-      <footer className="border-t border-gray-800 py-8 px-6 mt-20">
-        <div className="max-w-4xl mx-auto text-center text-gray-500">
-          <p className="mb-2">© 2025 Abu. All rights reserved.</p>
-          <p className="text-sm">Built with Next.js, TypeScript & shadcn/ui</p>
-        </div>
-      </footer>
+
     </div>
   )
 }

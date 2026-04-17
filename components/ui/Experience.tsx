@@ -73,7 +73,7 @@ export default function Experience() {
             </span>
           </motion.div>
 
-          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-gray-900 mb-4">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-gray-900 mb-2">
             Experience &amp;{" "}
             <span className="relative inline-block">
               <span className="relative z-10 text-transparent bg-clip-text bg-gradient-to-r from-yellow-500 to-amber-500">
@@ -92,13 +92,13 @@ export default function Experience() {
               />
             </span>
           </h2>
-          <p className="mt-4 text-gray-500 max-w-2xl mx-auto text-base lg:text-lg leading-relaxed">
+          <p className="mt-2 text-gray-500 max-w-xl mx-auto text-sm lg:text-base leading-relaxed">
             A look at my professional journey, academic background, and the 
             core philosophies that drive my work.
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-1 items-start">
           {/* Left: Experience Timeline */}
           <div className="lg:col-span-7 relative">
             {/* Continuous Timeline Line */}

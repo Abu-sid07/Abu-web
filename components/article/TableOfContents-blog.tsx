@@ -29,7 +29,7 @@ const TableOfContents: React.FC<TableOfContentsProps> = ({ sections, activeSecti
   }
 
   return (
-    <div className={`${isSticky ? 'sticky top-24' : ''} hidden lg:block`}>
+    <div className={`${isSticky ? 'sticky top-24' : ''} hidden md:block`}>
       <div className="bg-black/40 backdrop-blur-xl border border-white/10 shadow-2xl shadow-emerald-500/5 rounded-2xl p-6 relative overflow-hidden group">
         <div className="absolute inset-0 bg-gradient-to-b from-emerald-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
         <div className="relative z-10 flex items-center space-x-3 mb-6">

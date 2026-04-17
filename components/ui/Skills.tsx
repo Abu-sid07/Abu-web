@@ -51,8 +51,8 @@ function SkillCard({
       }}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      className="group relative flex flex-col items-center justify-center gap-3
-        p-5 sm:p-6 rounded-2xl bg-white border border-gray-100 cursor-default
+      className="group relative flex flex-col items-center justify-center gap-2
+        p-3 sm:p-5 md:p-6 rounded-2xl bg-white border border-gray-100 cursor-default
         hover:-translate-y-1.5 transition-all duration-300"
       style={{
         boxShadow: isHovered
@@ -69,7 +69,7 @@ function SkillCard({
     >
       {/* ── Dedicated Skill Icon Area ── */}
       <div
-        className="flex items-center justify-center w-14 h-14 sm:w-16 sm:h-16 rounded-xl
+        className="flex items-center justify-center w-9 h-9 sm:w-10 sm:h-10 md:w-12 md:h-12 rounded-xl
           transition-all duration-300"
         style={{
           backgroundColor: isHovered
@@ -88,9 +88,9 @@ function SkillCard({
         <Image
           src={`https://cdn.simpleicons.org/${skill.slug}/${hex}`}
           alt={skill.name}
-          className="w-8 h-8 sm:w-9 sm:h-9 transition-transform duration-300 group-hover:scale-110"
-          width={36}
-          height={36}
+          className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 transition-transform duration-300 group-hover:scale-110"
+          width={24}
+          height={24}
           unoptimized
         />
       </div>
@@ -171,7 +171,7 @@ export default function Skills() {
         </motion.div>
 
         {/* ── Skill Icon Grid (Filtered for main tech) ── */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 lg:grid-cols-5 gap-4 sm:gap-5 mb-16 max-w-5xl mx-auto justify-center">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 lg:grid-cols-5 gap-1 mb-4 max-w-4xl mx-auto justify-center">
           {allSkills
             .filter((skill) =>
               [

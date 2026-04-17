@@ -32,7 +32,7 @@ const ArticleContent: React.FC<ArticleContentProps> = ({ article }) => {
   }, [article])
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+    <div className="grid grid-cols-1 lg:grid-cols-3 gap-1">
       <div className="lg:col-span-2">
         <ArticleHeader article={article} />
 
