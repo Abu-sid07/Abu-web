@@ -1,4 +1,5 @@
 import React from 'react'
+import Image from 'next/image'
 
 interface MediaGalleryProps {
   media?: string[];
@@ -31,7 +32,14 @@ const MediaGallery: React.FC<MediaGalleryProps> = ({ media, heading }) => {
         if (mediaData.type === 'image') {
           return (
             <div key={i} className="rounded-xl overflow-hidden border border-gray-800 shadow-lg">
-              <img src={mediaData.url} alt={heading} className="w-full h-auto object-cover" loading="lazy" />
+              <Image 
+                src={mediaData.url} 
+                alt={heading || 'Media'} 
+                className="w-full h-auto object-cover" 
+                width={1200}
+                height={800}
+                priority={false}
+              />
             </div>
           )
         }

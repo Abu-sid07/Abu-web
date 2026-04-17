@@ -30,10 +30,6 @@ const MinimalistHeroDemo = () => {
       resumeLink="/abu cv.pdf"
       imageSrc="/port.png"
       imageAlt="A portrait of a person in a black turtleneck, in profile."
-      overlayText={{
-        part1: "Hi, I'm Abu",
-        part2: 'Frontend Developer.',
-      }}
       socialLinks={socialLinks}
       locationText="Tamil Nadu, India"
     />

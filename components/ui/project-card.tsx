@@ -1,4 +1,5 @@
 import * as React from "react";
+import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils"; 
 
@@ -24,11 +25,13 @@ const ProjectCard = React.forwardRef<HTMLDivElement, ProjectCardProps>(
       >
         {/* Card Image Section */}
         <div className="aspect-video overflow-hidden">
-          <img
+          <Image
             src={imgSrc}
             alt={title}
             className="h-full w-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-110"
-            loading="lazy"
+            width={800}
+            height={450}
+            priority={false}
           />
         </div>
 

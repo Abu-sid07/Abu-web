@@ -13,10 +13,6 @@ interface MinimalistHeroProps {
   readMoreLink: string;
   imageSrc: string;
   imageAlt: string;
-  overlayText: {
-    part1: string;
-    part2: string;
-  };
   socialLinks: { icon: LucideIcon; href: string }[];
   locationText: string;
   className?: string;
@@ -48,7 +44,6 @@ export const MinimalistHero = ({
   readMoreLink,
   imageSrc,
   imageAlt,
-  overlayText,
   socialLinks,
   locationText,
   className,

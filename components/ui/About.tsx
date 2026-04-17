@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useMemo } from "react";
 
 interface AnimatedTilesProps {
   rows?: number
@@ -23,20 +23,23 @@ export function AnimatedTiles({
 
   // Template opacity map (rows x cols). If grid is different size,
   // we fall back to 0 for missing entries.
-  const maxOpacities: number[][] = [
-    [0.0, 0.3, 0.5, 0.7, 0.7, 0.5, 0.3, 0.0],
-    [0.3, 0.5, 0.9, 1.0, 1.0, 0.7, 0.5, 0.3],
-    [0.3, 0.5, 1.0, 1.0, 1.0, 0.9, 0.7, 0.3],
-    [0.3, 0.7, 1.0, 1.0, 1.0, 1.0, 0.7, 0.3],
-    [0.3, 0.7, 1.0, 1.0, 1.0, 1.0, 0.7, 0.3],
-    [0.3, 0.7, 1.0, 1.0, 1.0, 1.0, 0.7, 0.3],
-    [0.3, 0.5, 0.9, 1.0, 1.0, 0.9, 0.7, 0.3],
-    [0.3, 0.5, 0.7, 0.9, 0.9, 0.7, 0.5, 0.2],
-    [0.2, 0.3, 0.5, 0.5, 0.5, 0.5, 0.3, 0.2],
-    [0.0, 0.3, 0.3, 0.3, 0.3, 0.3, 0.2, 0.2],
-    [0.0, 0.2, 0.2, 0.2, 0.2, 0.2, 0.0, 0.0],
-    [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
-  ]
+  const maxOpacities = useMemo(
+    () => [
+      [0.0, 0.3, 0.5, 0.7, 0.7, 0.5, 0.3, 0.0],
+      [0.3, 0.5, 0.9, 1.0, 1.0, 0.7, 0.5, 0.3],
+      [0.3, 0.5, 1.0, 1.0, 1.0, 0.9, 0.7, 0.3],
+      [0.3, 0.7, 1.0, 1.0, 1.0, 1.0, 0.7, 0.3],
+      [0.3, 0.7, 1.0, 1.0, 1.0, 1.0, 0.7, 0.3],
+      [0.3, 0.7, 1.0, 1.0, 1.0, 1.0, 0.7, 0.3],
+      [0.3, 0.5, 0.9, 1.0, 1.0, 0.9, 0.7, 0.3],
+      [0.3, 0.5, 0.7, 0.9, 0.9, 0.7, 0.5, 0.2],
+      [0.2, 0.3, 0.5, 0.5, 0.5, 0.5, 0.3, 0.2],
+      [0.0, 0.3, 0.3, 0.3, 0.3, 0.3, 0.2, 0.2],
+      [0.0, 0.2, 0.2, 0.2, 0.2, 0.2, 0.0, 0.0],
+      [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+    ],
+    []
+  )
 
   useEffect(() => {
     if (!tilesRef.current) return
@@ -101,7 +104,7 @@ export function AnimatedTiles({
     return () => {
       animationFrames.forEach((frameId) => cancelAnimationFrame(frameId))
     }
-  }, [rows, cols, tileSize, imageUrl])
+  }, [rows, cols, tileSize, imageUrl, maxOpacities])
 
   return (
     <div

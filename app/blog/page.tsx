@@ -36,7 +36,7 @@ export default function BlogPage() {
           <BlogList articles={articlesData.sections} onArticleClick={handleArticleClick} />
         </>
       ) : (
-        <ArticleView article={selectedArticle} onBack={handleBackToList} />
+        <ArticleView article={selectedArticle} />
       )}
 
       <footer className="border-t border-gray-800 py-8 px-6 mt-20">

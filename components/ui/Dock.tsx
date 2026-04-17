@@ -2,6 +2,7 @@
 
 import * as React from "react"
 import { useRef } from "react"
+import Image from "next/image"
 
 import { cn } from "@/lib/utils"
 
@@ -117,10 +118,12 @@ export function DockIcon({
             {name}
           </span>
           {src ? (
-            <img
+            <Image
               src={src}
               alt={name}
               className="h-full w-full rounded-[inherit]"
+              width={256}
+              height={256}
             />
           ) : (
             children

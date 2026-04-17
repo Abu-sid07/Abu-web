@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import Image from "next/image";
 import { motion } from "framer-motion";
 
 // ── Master skill list with brand colors ──────────────────────────────
@@ -84,17 +85,13 @@ function SkillCard({
             }`,
         }}
       >
-        <img
+        <Image
           src={`https://cdn.simpleicons.org/${skill.slug}/${hex}`}
           alt={skill.name}
           className="w-8 h-8 sm:w-9 sm:h-9 transition-transform duration-300 group-hover:scale-110"
           width={36}
           height={36}
-          loading="lazy"
-          onError={(e) => {
-            const t = e.target as HTMLImageElement;
-            t.style.display = "none";
-          }}
+          unoptimized
         />
       </div>
       <span className="text-[11px] sm:text-xs font-semibold text-gray-400 group-hover:text-gray-700 transition-colors duration-300 text-center leading-tight">
@@ -216,7 +213,7 @@ export default function Skills() {
                     key={`r1-${logo.slug}-${i}`}
                     className="flex items-center gap-3 shrink-0 group/logo cursor-default"
                   >
-                    <img
+                    <Image
                       src={`https://cdn.simpleicons.org/${logo.slug}/${logo.color.replace("#", "")}`}
                       alt={logo.name}
                       className="w-6 h-6 grayscale opacity-40
@@ -224,11 +221,7 @@ export default function Skills() {
                         group-hover/logo:scale-110 transition-all duration-300"
                       width={24}
                       height={24}
-                      loading="lazy"
-                      onError={(e) => {
-                        const t = e.target as HTMLImageElement;
-                        t.style.display = "none";
-                      }}
+                      unoptimized
                     />
                     <span className="text-sm font-medium text-gray-400 group-hover/logo:text-gray-800 transition-colors duration-300 whitespace-nowrap">
                       {logo.name}
@@ -248,7 +241,7 @@ export default function Skills() {
                     key={`r2-${logo.slug}-${i}`}
                     className="flex items-center gap-3 shrink-0 group/logo cursor-default"
                   >
-                    <img
+                    <Image
                       src={`https://cdn.simpleicons.org/${logo.slug}/${logo.color.replace("#", "")}`}
                       alt={logo.name}
                       className="w-6 h-6 grayscale opacity-40
@@ -256,11 +249,7 @@ export default function Skills() {
                         group-hover/logo:scale-110 transition-all duration-300"
                       width={24}
                       height={24}
-                      loading="lazy"
-                      onError={(e) => {
-                        const t = e.target as HTMLImageElement;
-                        t.style.display = "none";
-                      }}
+                      unoptimized
                     />
                     <span className="text-sm font-medium text-gray-400 group-hover/logo:text-gray-800 transition-colors duration-300 whitespace-nowrap">
                       {logo.name}

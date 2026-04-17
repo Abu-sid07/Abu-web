@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Mail, Phone, Linkedin, ArrowUpRight, Github, Send } from "lucide-react";
+import { Mail, Phone, Linkedin, ArrowUpRight, Github } from "lucide-react";
 
 const contactItems = [
   {
