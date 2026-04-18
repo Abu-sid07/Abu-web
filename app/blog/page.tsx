@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react'
 // Import Components
-import { Dock, DockIcon } from '@/components/ui/Dock'
+
 import Header from '@/components/ui/Header-blog'
 import BlogList from '@/components/ui/BlogList-blog'
 import ArticleView from '@/components/article/ArticleView-blog'
@@ -29,23 +29,7 @@ export default function BlogPage() {
   return (
     <div className="min-h-screen bg-black text-white">
 
-      {/* Dock Navbar */}
-      <div className="flex justify-center pt-6 pb-4">
-        <Dock>
-          <DockIcon>
-            <a href="/">Home</a>
-          </DockIcon>
-          <DockIcon>
-            <a href="/blog">Blog</a>
-          </DockIcon>
-          <DockIcon>
-            <a href="/projects">Projects</a>
-          </DockIcon>
-          <DockIcon>
-            <a href="/contact">Contact</a>
-          </DockIcon>
-        </Dock>
-      </div>
+     
 
       {currentView === 'list' ? (
         <>
