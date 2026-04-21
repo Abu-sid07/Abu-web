@@ -1,150 +1,228 @@
 "use client";
-
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 
-// ── Master skill list with brand colors ──────────────────────────────
 const allSkills = [
-  { name: "React", slug: "react", color: "#61DAFB" },
-  { name: "Next.js", slug: "nextdotjs", color: "#000000" },
-  { name: "TypeScript", slug: "typescript", color: "#3178C6" },
-  { name: "JavaScript", slug: "javascript", color: "#F7DF1E" },
-  { name: "Tailwind CSS", slug: "tailwindcss", color: "#06B6D4" },
-  { name: "HTML5", slug: "html5", color: "#E34F26" },
-  { name: "CSS3", slug: "css3", color: "#1572B6" },
-  { name: "Git", slug: "git", color: "#F05032" },
-  { name: "GitHub", slug: "github", color: "#181717" },
-  { name: "VS Code", slug: "visualstudiocode", color: "#007ACC" },
-  { name: "Vercel", slug: "vercel", color: "#000000" },
-  { name: "ChatGPT", slug: "openai", color: "#412991" },
-  { name: "GitHub Copilot", slug: "githubcopilot", color: "#000000" },
-  { name: "Cursor", slug: "cursor", color: "#000000" },
-  { name: "Claude", slug: "anthropic", color: "#D97757" },
+  { name: "React",          slug: "react",             color: "#61DAFB", darkColor: "#61DAFB" },
+  { name: "Next.js",        slug: "nextdotjs",         color: "#000000", darkColor: "#FFFFFF" },
+  { name: "TypeScript",     slug: "typescript",        color: "#3178C6", darkColor: "#3178C6" },
+  { name: "Tailwind CSS",   slug: "tailwindcss",       color: "#06B6D4", darkColor: "#06B6D4" },
+  { name: "Git",            slug: "git",               color: "#F05032", darkColor: "#F05032" },
+  { name: "GitHub",         slug: "github",            color: "#181717", darkColor: "#FFFFFF" },
+  { name: "VS Code",        slug: "visualstudiocode",  color: "#007ACC", darkColor: "#007ACC" },
+  { name: "Vercel",         slug: "vercel",            color: "#000000", darkColor: "#FFFFFF" },
+  { name: "ChatGPT",        slug: "openai",            color: "#10A37F", darkColor: "#10A37F" },
+  { name: "GitHub Copilot", slug: "githubcopilot",     color: "#000000", darkColor: "#FFFFFF" },
+  { name: "Cursor",         slug: "cursor",            color: "#000000", darkColor: "#FFFFFF" },
+  { name: "Claude",         slug: "anthropic",         color: "#D97757", darkColor: "#D97757" },
 ];
 
-// ── Marquee rows derived from master list ────────────────────────────
-const marqueeRow1 = allSkills.slice(0, 11);
-const marqueeRow2 = [...allSkills.slice(11), ...allSkills.slice(0, 7)];
+function getIconSrc(slug: string, hex: string): string {
+  return `https://cdn.simpleicons.org/${slug}/${hex}`;
+}
 
-// ── Skill Card with dedicated icon area & brand-color hover glow ─────
-function SkillCard({
+function SkillPill({
   skill,
   index,
+  isDark,
 }: {
   skill: (typeof allSkills)[0];
   index: number;
+  isDark: boolean;
 }) {
-  const [isHovered, setIsHovered] = useState(false);
-  const hex = skill.color.replace("#", "");
-  const isVeryDark = parseInt(hex, 16) < 0x333333;
+  const [imgError, setImgError] = useState(false);
+  const currentColor = isDark ? skill.darkColor : skill.color;
+  const hex = currentColor.replace("#", "");
+  const src = getIconSrc(skill.slug, hex);
 
   return (
     <motion.div
-      initial={{ opacity: 0, scale: 0.85, y: 20 }}
+      initial={{ opacity: 0, scale: 0.9, y: 10 }}
       whileInView={{ opacity: 1, scale: 1, y: 0 }}
       viewport={{ once: true }}
-      transition={{
-        duration: 0.5,
-        delay: index * 0.04,
-        ease: [0.22, 1, 0.36, 1],
-      }}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-      className="group relative flex flex-col items-center justify-center gap-2
-        p-3 sm:p-5 md:p-6 rounded-2xl bg-white border border-gray-100 cursor-default
-        hover:-translate-y-1.5 transition-all duration-300"
+      transition={{ duration: 0.35, delay: index * 0.04, ease: [0.22, 1, 0.36, 1] }}
+      whileHover={{ scale: 1.06, y: -2 }}
+      className={[
+        "inline-flex items-center gap-2 px-4 py-2 rounded-full",
+        "border cursor-default select-none",
+        "transition-colors duration-200",
+        isDark
+          ? "bg-gray-800/60 border-gray-700 hover:border-gray-500 hover:bg-gray-700/80"
+          : "bg-white border-gray-200 hover:border-gray-300 hover:bg-gray-50",
+      ].join(" ")}
       style={{
-        boxShadow: isHovered
-          ? isVeryDark
-            ? "0 14px 44px rgba(0,0,0,0.13)"
-            : `0 14px 44px ${skill.color}22`
-          : "0 1px 4px rgba(0,0,0,0.04)",
-        borderColor: isHovered
-          ? isVeryDark
-            ? "rgba(0,0,0,0.15)"
-            : `${skill.color}40`
-          : undefined,
+        boxShadow: isDark
+          ? "0 1px 3px rgba(0,0,0,0.3)"
+          : "0 1px 3px rgba(0,0,0,0.06)",
       }}
     >
-      {/* ── Dedicated Skill Icon Area ── */}
-      <div
-        className="flex items-center justify-center w-9 h-9 sm:w-10 sm:h-10 md:w-12 md:h-12 rounded-xl
-          transition-all duration-300"
-        style={{
-          backgroundColor: isHovered
-            ? isVeryDark
-              ? "rgba(0,0,0,0.05)"
-              : `${skill.color}0D`
-            : "rgba(0,0,0,0.02)",
-          border: `1px solid ${isHovered
-              ? isVeryDark
-                ? "rgba(0,0,0,0.08)"
-                : `${skill.color}20`
-              : "rgba(0,0,0,0.04)"
-            }`,
-        }}
+      <span className="flex-shrink-0 w-5 h-5 flex items-center justify-center">
+        {imgError ? (
+          <span className="text-[10px] font-bold" style={{ color: currentColor }}>
+            {skill.name.slice(0, 2)}
+          </span>
+        ) : (
+          <Image
+            src={src}
+            alt={skill.name}
+            width={20}
+            height={20}
+            unoptimized
+            className="w-5 h-5 object-contain"
+            onError={() => setImgError(true)}
+          />
+        )}
+      </span>
+      <span
+        className={[
+          "text-sm font-medium leading-none whitespace-nowrap",
+          isDark ? "text-gray-200" : "text-gray-700",
+        ].join(" ")}
       >
-        <Image
-          src={`https://cdn.simpleicons.org/${skill.slug}/${hex}`}
-          alt={skill.name}
-          className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 transition-transform duration-300 group-hover:scale-110"
-          width={24}
-          height={24}
-          unoptimized
-        />
-      </div>
-      <span className="text-[11px] sm:text-xs font-semibold text-gray-400 group-hover:text-gray-700 transition-colors duration-300 text-center leading-tight">
         {skill.name}
       </span>
     </motion.div>
   );
 }
 
-// ── Main Skills Section ──────────────────────────────────────────────
+function MarqueeRow({ reverse, isDark }: { reverse: boolean; isDark: boolean }) {
+  const items = [...allSkills, ...allSkills];
+
+  return (
+    <div className="overflow-hidden py-2">
+      <div
+        className={[
+          "flex gap-3 w-max",
+          reverse ? "skills-marquee-reverse" : "skills-marquee",
+        ].join(" ")}
+      >
+        {items.map((logo, i) => {
+          const currentColor = isDark ? logo.darkColor : logo.color;
+          const hex = currentColor.replace("#", "");
+          const src = getIconSrc(logo.slug, hex);
+          return (
+            <div
+              key={`${reverse ? "r" : "f"}-${logo.slug}-${i}`}
+              className={[
+                "inline-flex items-center gap-2 px-4 py-2 rounded-full border shrink-0",
+                isDark
+                  ? "bg-gray-800/60 border-gray-700"
+                  : "bg-white border-gray-200",
+              ].join(" ")}
+              style={{
+                boxShadow: isDark
+                  ? "0 1px 3px rgba(0,0,0,0.3)"
+                  : "0 1px 3px rgba(0,0,0,0.06)",
+              }}
+            >
+              <Image
+                src={src}
+                alt={logo.name}
+                width={18}
+                height={18}
+                unoptimized
+                className="w-[18px] h-[18px] object-contain opacity-70"
+              />
+              <span
+                className={[
+                  "text-sm font-medium whitespace-nowrap",
+                  isDark ? "text-gray-400" : "text-gray-500",
+                ].join(" ")}
+              >
+                {logo.name}
+              </span>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
 export default function Skills() {
+  const [isDark, setIsDark] = useState(false);
+
+  useEffect(() => {
+    const update = () =>
+      setIsDark(document.documentElement.classList.contains("dark"));
+    update();
+    const observer = new MutationObserver(update);
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["class"],
+    });
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <section
       id="skills"
-      className="relative py-28 bg-white overflow-hidden selection:bg-yellow-500/30"
+      className="relative py-16 sm:py-20 md:py-28 overflow-hidden transition-colors duration-300"
+      // ── CHANGED: dark mode now uses the same --background token as hero & about
+      // light mode keeps the original bg-gray-50/60 look
+      style={
+        isDark
+          ? { background: "hsl(var(--background))" }
+          : { background: "rgba(249,250,251,0.6)" }
+      }
     >
-      {/* Background Effects – matching other light sections */}
+      {/* Background blobs */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-1/4 right-0 w-[600px] h-[600px] bg-yellow-400/[0.04] rounded-full blur-3xl -translate-y-1/4 translate-x-1/4" />
-        <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-amber-400/[0.03] rounded-full blur-3xl translate-y-1/3 -translate-x-1/4" />
         <div
-          className="absolute inset-0 opacity-[0.03]"
-          style={{
-            backgroundImage: `radial-gradient(circle, #000 1px, transparent 1px)`,
-            backgroundSize: "32px 32px",
-          }}
+          className={[
+            "absolute top-1/4 right-0 w-[500px] h-[500px] rounded-full blur-3xl -translate-y-1/4 translate-x-1/4",
+            isDark ? "bg-yellow-500/[0.06]" : "bg-yellow-400/[0.07]",
+          ].join(" ")}
+        />
+        <div
+          className={[
+            "absolute bottom-0 left-0 w-[400px] h-[400px] rounded-full blur-3xl translate-y-1/3 -translate-x-1/4",
+            isDark ? "bg-amber-500/[0.05]" : "bg-amber-300/[0.08]",
+          ].join(" ")}
         />
       </div>
 
-      <div className="container mx-auto px-6 lg:px-12 relative z-10 max-w-7xl">
-        {/* ── Section Header ── */}
+      <div className="container mx-auto px-4 sm:px-6 lg:px-12 relative z-10 max-w-5xl">
+
+        {/* Section header */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.3 }}
-          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-          className="text-center mb-16"
+          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+          className="text-center mb-12 sm:mb-16"
         >
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="inline-flex items-center gap-2 px-4 py-2 bg-yellow-50 border border-yellow-200 rounded-full mb-6 shadow-sm"
+            className={[
+              "inline-flex items-center gap-2 px-4 py-2 border rounded-full mb-6 shadow-sm",
+              isDark
+                ? "bg-yellow-500/10 border-yellow-500/30"
+                : "bg-yellow-50 border-yellow-200",
+            ].join(" ")}
           >
             <span className="w-2 h-2 rounded-full bg-yellow-500 animate-pulse" />
-            <span className="text-yellow-700 font-semibold text-xs uppercase tracking-widest">
+            <span
+              className={[
+                "font-semibold text-xs uppercase tracking-widest",
+                isDark ? "text-yellow-400" : "text-yellow-700",
+              ].join(" ")}
+            >
               My Toolkit
             </span>
           </motion.div>
 
-          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-gray-900 tracking-tight mb-4">
-            Skills &{" "}
+          <h2
+            className={[
+              "text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight mb-4",
+              isDark ? "text-white" : "text-gray-900",
+            ].join(" ")}
+          >
+            Skills &amp;{" "}
             <span className="relative inline-block">
               <span className="relative z-10 text-transparent bg-clip-text bg-gradient-to-r from-yellow-500 to-amber-500">
                 Technologies
@@ -153,139 +231,91 @@ export default function Skills() {
                 initial={{ scaleX: 0 }}
                 whileInView={{ scaleX: 1 }}
                 viewport={{ once: true }}
-                transition={{
-                  duration: 0.6,
-                  delay: 0.4,
-                  ease: [0.22, 1, 0.36, 1] as [number, number, number, number],
-                }}
+                transition={{ duration: 0.6, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
                 className="absolute bottom-1 left-0 right-0 h-3 bg-yellow-400/20 rounded-full origin-left -z-0"
               />
             </span>
           </h2>
 
-          <p className="mt-6 text-gray-500 max-w-2xl mx-auto text-base lg:text-lg leading-relaxed">
-            The specialized tools and frameworks I use to bring outstanding
-            ideas to life — from core web technologies to cutting-edge AI
-            integrations.
+          <p
+            className={[
+              "mt-4 max-w-xl mx-auto text-sm sm:text-base leading-relaxed",
+              isDark ? "text-gray-400" : "text-gray-500",
+            ].join(" ")}
+          >
+            Tools and frameworks I use to build modern, responsive web experiences.
           </p>
         </motion.div>
 
-        {/* ── Skill Icon Grid (Filtered for main tech) ── */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 lg:grid-cols-5 gap-1 mb-4 max-w-4xl mx-auto justify-center">
-          {allSkills
-            .filter((skill) =>
-              [
-                "React",
-                "Next.js",
-                "TypeScript",
-                "Tailwind CSS",
-                "Vercel",
-                "Git",
-                "GitHub",
-                "GitHub Copilot",
-                "Cursor",
-                "Claude"
-              ].includes(skill.name)
-            )
-            .map((skill, i) => (
-              <SkillCard key={skill.slug} skill={skill} index={i} />
-            ))}
-        </div>
-
-        {/* ── Dual Marquee Logo Strips ── */}
+        {/* Pill grid */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
-          className="relative pt-10 border-t border-gray-200"
+          transition={{ duration: 0.6, delay: 0.1 }}
+          className="flex flex-wrap justify-center gap-3 mb-12 sm:mb-16"
         >
-          {/* Edge Fades */}
-          <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none" />
-          <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none" />
+          {allSkills.map((skill, i) => (
+            <SkillPill key={skill.slug} skill={skill} index={i} isDark={isDark} />
+          ))}
+        </motion.div>
 
-          {/* Row 1 – scrolls left */}
-          <div className="overflow-hidden py-3">
-            <div className="flex animate-marquee gap-12 w-max">
-              {[...marqueeRow1, ...marqueeRow1, ...marqueeRow1].map(
-                (logo, i) => (
-                  <div
-                    key={`r1-${logo.slug}-${i}`}
-                    className="flex items-center gap-3 shrink-0 group/logo cursor-default"
-                  >
-                    <Image
-                      src={`https://cdn.simpleicons.org/${logo.slug}/${logo.color.replace("#", "")}`}
-                      alt={logo.name}
-                      className="w-6 h-6 grayscale opacity-40
-                        group-hover/logo:grayscale-0 group-hover/logo:opacity-100
-                        group-hover/logo:scale-110 transition-all duration-300"
-                      width={24}
-                      height={24}
-                      unoptimized
-                    />
-                    <span className="text-sm font-medium text-gray-400 group-hover/logo:text-gray-800 transition-colors duration-300 whitespace-nowrap">
-                      {logo.name}
-                    </span>
-                  </div>
-                )
-              )}
-            </div>
-          </div>
+        {/* Marquee strips */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7, delay: 0.3 }}
+          className={[
+            "relative pt-8 border-t",
+            isDark ? "border-gray-800" : "border-gray-200",
+          ].join(" ")}
+        >
+          {/* Edge fades — match the section background exactly */}
+          <div
+            className="absolute left-0 top-0 bottom-0 w-16 sm:w-24 z-10 pointer-events-none"
+            style={{
+              background: isDark
+                ? "linear-gradient(to right, hsl(var(--background)), transparent)"
+                : "linear-gradient(to right, rgba(249,250,251,0.6), transparent)",
+            }}
+          />
+          <div
+            className="absolute right-0 top-0 bottom-0 w-16 sm:w-24 z-10 pointer-events-none"
+            style={{
+              background: isDark
+                ? "linear-gradient(to left, hsl(var(--background)), transparent)"
+                : "linear-gradient(to left, rgba(249,250,251,0.6), transparent)",
+            }}
+          />
 
-          {/* Row 2 – scrolls right (reverse) */}
-          <div className="overflow-hidden py-3">
-            <div className="flex animate-marquee-reverse gap-12 w-max">
-              {[...marqueeRow2, ...marqueeRow2, ...marqueeRow2].map(
-                (logo, i) => (
-                  <div
-                    key={`r2-${logo.slug}-${i}`}
-                    className="flex items-center gap-3 shrink-0 group/logo cursor-default"
-                  >
-                    <Image
-                      src={`https://cdn.simpleicons.org/${logo.slug}/${logo.color.replace("#", "")}`}
-                      alt={logo.name}
-                      className="w-6 h-6 grayscale opacity-40
-                        group-hover/logo:grayscale-0 group-hover/logo:opacity-100
-                        group-hover/logo:scale-110 transition-all duration-300"
-                      width={24}
-                      height={24}
-                      unoptimized
-                    />
-                    <span className="text-sm font-medium text-gray-400 group-hover/logo:text-gray-800 transition-colors duration-300 whitespace-nowrap">
-                      {logo.name}
-                    </span>
-                  </div>
-                )
-              )}
-            </div>
-          </div>
+          <MarqueeRow reverse={false} isDark={isDark} />
+          <MarqueeRow reverse={true}  isDark={isDark} />
         </motion.div>
       </div>
 
-      {/* Marquee keyframes */}
-      <style dangerouslySetInnerHTML={{
-        __html: `
-        @keyframes marquee {
-          0% { transform: translateX(0); }
-          100% { transform: translateX(-33.33%); }
-        }
-        @keyframes marquee-reverse {
-          0% { transform: translateX(-33.33%); }
-          100% { transform: translateX(0); }
-        }
-        .animate-marquee {
-          animation: marquee 30s linear infinite;
-        }
-        .animate-marquee:hover {
-          animation-play-state: paused;
-        }
-        .animate-marquee-reverse {
-          animation: marquee-reverse 28s linear infinite;
-        }
-        .animate-marquee-reverse:hover {
-          animation-play-state: paused;
-        }
-      `}} />
+      <style
+        dangerouslySetInnerHTML={{
+          __html: `
+            @keyframes skills-marquee {
+              0%   { transform: translateX(0); }
+              100% { transform: translateX(-50%); }
+            }
+            @keyframes skills-marquee-reverse {
+              0%   { transform: translateX(-50%); }
+              100% { transform: translateX(0); }
+            }
+            .skills-marquee {
+              animation: skills-marquee 38s linear infinite;
+            }
+            .skills-marquee:hover { animation-play-state: paused; }
+            .skills-marquee-reverse {
+              animation: skills-marquee-reverse 36s linear infinite;
+            }
+            .skills-marquee-reverse:hover { animation-play-state: paused; }
+          `,
+        }}
+      />
     </section>
   );
 }
