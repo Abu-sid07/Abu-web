@@ -1,11 +1,10 @@
-//components/ui/minimalist-hero.tsx
+// components/ui/minimalist-hero.tsx
 'use client'
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { LucideIcon } from 'lucide-react';
+import { LucideIcon, Menu, X } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
-// Define the props interface for type safety and reusability
 interface MinimalistHeroProps {
   logoText: string;
   navLinks?: { label: string; href: string }[];
@@ -19,24 +18,30 @@ interface MinimalistHeroProps {
   resumeLink?: string;
 }
 
-// Helper component for navigation links
 const NavLink = ({ href, children }: { href: string; children: React.ReactNode }) => (
   <a
     href={href}
-    className="text-sm font-semibold tracking-wider text-foreground/70 transition-colors hover:text-foreground px-4 py-2 hover:bg-foreground/5 rounded-full"
+    className={[
+      'text-sm font-medium px-3 py-1.5 rounded-full',
+      'text-foreground/60 hover:text-foreground',
+      'hover:bg-foreground/5 transition-colors',
+    ].join(' ')}
   >
     {children}
   </a>
 );
 
-// Helper component for social media icons
 const SocialIcon = ({ href, icon: Icon }: { href: string; icon: LucideIcon }) => (
-  <a href={href} target="_blank" rel="noopener noreferrer" className="text-foreground/60 transition-colors hover:text-foreground">
+  <a
+    href={href}
+    target="_blank"
+    rel="noopener noreferrer"
+    className="text-foreground/50 transition-colors hover:text-foreground"
+  >
     <Icon className="h-5 w-5" />
   </a>
 );
 
-// The main reusable Hero Section component
 export const MinimalistHero = ({
   logoText,
   navLinks,
@@ -49,133 +54,303 @@ export const MinimalistHero = ({
   className,
   resumeLink,
 }: MinimalistHeroProps) => {
+  const [menuOpen, setMenuOpen] = useState(false);
+
   return (
     <div
       className={cn(
-        'relative flex h-screen w-full flex-col items-center justify-between overflow-hidden bg-background p-8 font-sans md:p-12',
+        'relative flex min-h-screen w-full flex-col bg-background font-sans overflow-x-hidden',
         className
       )}
     >
-      {/* Island Navbar (conditionally rendered) */}
+      {/* Navbar */}
       {navLinks && (
-        <header className="fixed top-6 left-1/2 -translate-x-1/2 z-50 flex items-center justify-between px-6 py-3 bg-white/40 dark:bg-black/40 backdrop-blur-xl border border-black/5 dark:border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.12)] rounded-full w-[90%] max-w-3xl transition-all duration-300">
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5 }}
-            className="text-xl font-bold tracking-wider"
-          >
-            {logoText}
-          </motion.div>
-          <div className="hidden items-center space-x-2 md:flex">
-            {navLinks.map((link) => (
-              <NavLink key={link.label} href={link.href}>
-                {link.label}
-              </NavLink>
-            ))}
+        <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/80 backdrop-blur-xl">
+          <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 md:px-12">
+
+            <motion.div
+              initial={{ opacity: 0, x: -16 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.4 }}
+              className="text-xl font-bold tracking-wide"
+            >
+              {logoText}
+            </motion.div>
+
+            <nav className="hidden md:flex items-center gap-1">
+              {navLinks.map((link) => (
+                <NavLink key={link.label} href={link.href}>
+                  {link.label}
+                </NavLink>
+              ))}
+            </nav>
+
+            {resumeLink && (
+              <motion.a
+                href={resumeLink}
+                download
+                initial={{ opacity: 0, x: 16 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.4 }}
+                className="hidden md:inline-flex h-9 items-center justify-center rounded-full bg-yellow-400 px-5 text-sm font-semibold text-yellow-950 shadow-sm transition-all hover:-translate-y-0.5 hover:bg-yellow-500"
+              >
+                Download Resume
+              </motion.a>
+            )}
+
+            <button
+              className="md:hidden p-2 rounded-full hover:bg-foreground/5 transition"
+              onClick={() => setMenuOpen(!menuOpen)}
+              aria-label="Toggle menu"
+            >
+              {menuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+            </button>
           </div>
-          <motion.button
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5 }}
-            className="flex flex-col space-y-1.5 md:hidden"
-            aria-label="Open menu"
-          >
-            <span className="block h-0.5 w-6 bg-foreground"></span>
-            <span className="block h-0.5 w-6 bg-foreground"></span>
-            <span className="block h-0.5 w-5 bg-foreground"></span>
-          </motion.button>
+
+          {menuOpen && (
+            <motion.div
+              initial={{ opacity: 0, y: -8 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="md:hidden border-t border-border/40 bg-background px-6 pb-4 pt-2 flex flex-col gap-1"
+            >
+              {navLinks.map((link) => (
+                <a
+                  key={link.label}
+                  href={link.href}
+                  onClick={() => setMenuOpen(false)}
+                  className="rounded-lg px-3 py-2 text-sm font-medium text-foreground/70 hover:bg-foreground/5 hover:text-foreground transition"
+                >
+                  {link.label}
+                </a>
+              ))}
+              {resumeLink && (
+                <a
+                  href={resumeLink}
+                  download
+                  className="mt-2 inline-flex h-10 w-full items-center justify-center rounded-full bg-yellow-400 text-sm font-semibold text-yellow-950 hover:bg-yellow-500 transition"
+                >
+                  Download Resume
+                </a>
+              )}
+            </motion.div>
+          )}
         </header>
       )}
 
-      {/* Main Content Area */}
-      <div className="relative grid w-full max-w-7xl flex-grow grid-cols-1 items-center md:grid-cols-3">
-        {/* Left Text Content */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 1 }}
-          className="z-20 order-2 md:order-1 text-center md:text-left"
-        >
-          <p className="mx-auto max-w-xs text-sm leading-relaxed text-foreground/80 md:mx-0">{mainText}</p>
-          <div className="mt-6 flex flex-wrap items-center justify-center gap-4 md:justify-start">
-            {resumeLink && (
-              <a
-                href={resumeLink}
-                download
-                className="inline-flex h-11 items-center justify-center rounded-full bg-yellow-500 px-6 text-sm font-bold text-white shadow-lg shadow-yellow-500/25 transition-all hover:-translate-y-0.5 hover:bg-yellow-600 hover:shadow-xl hover:shadow-yellow-500/30"
-              >
-                Download Resume
-              </a>
-            )}
-            <a
-              href={readMoreLink}
-              className="inline-flex h-11 items-center justify-center rounded-full border border-gray-200 px-6 text-sm font-bold text-gray-700 transition-all hover:-translate-y-0.5 hover:bg-gray-50 hover:border-gray-300"
-            >
-              Read More
-            </a>
-          </div>
-        </motion.div>
+      {/* Hero body */}
+      <main className="flex flex-1 flex-col items-center justify-center px-6 py-12 md:px-12">
+        <div className="w-full max-w-7xl">
 
-        {/* Center Image with Circle */}
-        <div className="relative order-1 md:order-2 flex justify-center items-center h-full">
-            <motion.div
+          {/* ── MOBILE layout ── */}
+          <div className="flex flex-col items-center gap-6 md:hidden">
+
+            {/*
+              Image section — matches laptop view exactly:
+              - Yellow circle animates in first (scale 0.8 → 1)
+              - Person image slides up from below AFTER circle appears
+              - Person is NOT clipped — full body visible sitting in front of circle
+              - Circle sits behind, person overlaps the bottom edge (same as desktop)
+            */}
+            <div
+              className="relative flex items-end justify-center"
+              style={{ width: '280px', height: '300px' }}
+            >
+              {/* Step 1: Circle appears first */}
+              <motion.div
                 initial={{ scale: 0.8, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
                 transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
-                className="absolute z-0 h-[300px] w-[300px] rounded-full bg-yellow-400/90 md:h-[400px] md:w-[400px] lg:h-[500px] lg:w-[500px]"
-            ></motion.div>
-            <motion.img
+                className="absolute rounded-full bg-yellow-400 dark:bg-yellow-500"
+                style={{
+                  width: '220px',
+                  height: '220px',
+                  bottom: '40px',
+                  left: '50%',
+                  transform: 'translateX(-50%)',
+                  zIndex: 0,
+                }}
+              />
+
+              {/* Step 2: Person slides up from bottom after circle */}
+              <motion.img
                 src={imageSrc}
                 alt={imageAlt}
-                className="relative z-10 h-auto w-400 object-cover md:w-64 scale-150 lg:w-72"
+                initial={{ opacity: 0, y: 60 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 1, ease: [0.22, 1, 0.36, 1], delay: 0.8 }}
+                style={{
+                  position: 'relative',
+                  zIndex: 1,
+                  width: '240px',
+                  height: 'auto',
+                  objectFit: 'cover',
+                  objectPosition: 'top',
+                }}
+                onError={(e) => {
+                  const t = e.target as HTMLImageElement;
+                  t.onerror = null;
+                  t.src = 'https://placehold.co/240x300/eab308/1a1000?text=Abu';
+                }}
+              />
+            </div>
+
+            {/* Heading */}
+            <motion.h1
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 1.0 }}
+              className="text-4xl font-extrabold leading-tight text-center"
+            >
+              Hi, I&apos;m{' '}
+              <span className="text-yellow-500">Abu</span>
+              <br />
+              Frontend Developer.
+            </motion.h1>
+
+            {/* Subtitle */}
+            <motion.p
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 1.1 }}
+              className="mx-auto max-w-xs text-sm leading-relaxed text-foreground/70 text-center"
+            >
+              {mainText}
+            </motion.p>
+
+            {/* Buttons — always last */}
+            <motion.div
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 1.2 }}
+              className="flex flex-wrap items-center justify-center gap-3"
+            >
+              {resumeLink && (
+                <a
+                  href={resumeLink}
+                  download
+                  className="inline-flex h-11 items-center justify-center rounded-full bg-yellow-400 px-6 text-sm font-bold text-yellow-950 shadow transition-all hover:-translate-y-0.5 hover:bg-yellow-500"
+                >
+                  Download Resume
+                </a>
+              )}
+              <a
+                href={readMoreLink}
+                className="inline-flex h-11 items-center justify-center rounded-full border border-border px-6 text-sm font-bold text-foreground/70 transition-all hover:-translate-y-0.5 hover:bg-foreground/5"
+              >
+                Read More
+              </a>
+            </motion.div>
+          </div>
+
+          {/* ── TABLET / DESKTOP layout ── */}
+          <div className="hidden md:grid md:grid-cols-3 md:items-center md:gap-8 lg:gap-16">
+
+            {/* Left: description + buttons */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.8 }}
+              className="flex flex-col gap-5"
+            >
+              <p className="text-sm leading-relaxed text-foreground/70 max-w-[260px]">
+                {mainText}
+              </p>
+              <div className="flex flex-wrap gap-3">
+                {resumeLink && (
+                  <a
+                    href={resumeLink}
+                    download
+                    className="inline-flex h-11 items-center justify-center rounded-full bg-yellow-400 px-6 text-sm font-bold text-yellow-950 shadow transition-all hover:-translate-y-0.5 hover:bg-yellow-500"
+                  >
+                    Download Resume
+                  </a>
+                )}
+                <a
+                  href={readMoreLink}
+                  className="inline-flex h-11 items-center justify-center rounded-full border border-border px-6 text-sm font-bold text-foreground/70 transition-all hover:-translate-y-0.5 hover:bg-foreground/5"
+                >
+                  Read More
+                </a>
+              </div>
+            </motion.div>
+
+            {/* Center: image on yellow circle */}
+            <motion.div
+              className="relative flex items-end justify-center"
+              style={{ minHeight: '420px' }}
+            >
+              {/* Circle first */}
+              <motion.div
+                initial={{ scale: 0.8, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
+                className="absolute bottom-0 left-1/2 -translate-x-1/2 rounded-full bg-yellow-400/90 dark:bg-yellow-500/80 w-[260px] h-[260px] lg:w-[340px] lg:h-[340px]"
+              />
+              {/* Person slides up after */}
+              <motion.img
+                src={imageSrc}
+                alt={imageAlt}
+                className="relative z-10 w-48 lg:w-60 h-auto object-cover object-top"
                 initial={{ opacity: 0, y: 50 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 1, ease: [0.22, 1, 0.36, 1], delay: 0.8 }}
                 onError={(e) => {
-                const target = e.target as HTMLImageElement;
-                target.onerror = null;
-                target.src = `https://placehold.co/400x600/eab308/ffffff?text=Image+Not+Found`;
+                  const t = e.target as HTMLImageElement;
+                  t.onerror = null;
+                  t.src = 'https://placehold.co/240x400/eab308/1a1000?text=Abu';
                 }}
-            />
+              />
+            </motion.div>
+
+            {/* Right: big heading */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 1 }}
+              className="flex items-center"
+            >
+              <h1 className="font-extrabold leading-tight text-4xl lg:text-5xl xl:text-6xl">
+                Hi, I&apos;m
+                <br />
+                <span className="text-yellow-500">Abu</span>
+                <br />
+                Frontend
+                <br />
+                Developer.
+              </h1>
+            </motion.div>
+          </div>
         </div>
+      </main>
 
-        {/* Right Text */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 1.2 }}
-          className="z-20 order-3 flex items-center justify-center text-center md:justify-start"
-        >
-            <h1 className="font-extrabold text-4xl sm:text-5xl md:text-6xl lg:text-7xl leading-tight">
-    Hi, I&apos;m <br />
-    <span className="text-yellow-500">Abu</span> <br />
-    Frontend <br />
-    Developer.
-  </h1>
-</motion.div>
-      </div>
+      {/* Bottom fade */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background to-transparent"
+      />
 
-      {/* Footer Elements */}
-      <footer className="z-30 flex w-full max-w-7xl items-center justify-between">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 1.2 }}
-          className="flex items-center space-x-4"
-        >
-          {socialLinks.map((link, index) => (
-            <SocialIcon key={index} href={link.href} icon={link.icon} />
-          ))}
-        </motion.div>
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 1.3 }}
-          className="text-sm font-medium text-foreground/80"
-        >
-          {locationText}
-        </motion.div>
+      {/* Footer */}
+      <footer className="z-10 w-full border-t border-border/40 px-6 py-4 md:px-12">
+        <div className="mx-auto flex max-w-7xl items-center justify-between">
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1.2 }}
+            className="flex items-center gap-4"
+          >
+            {socialLinks.map((link, i) => (
+              <SocialIcon key={i} href={link.href} icon={link.icon} />
+            ))}
+          </motion.div>
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1.3 }}
+            className="text-sm text-foreground/60"
+          >
+            {locationText}
+          </motion.p>
+        </div>
       </footer>
     </div>
   );
