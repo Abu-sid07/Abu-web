@@ -1,6 +1,7 @@
 'use client';
 
-import { useEffect, useRef, useCallback } from 'react';
+import { useEffect, useRef, useCallback, useState } from 'react';
+import { motion, useReducedMotion } from 'framer-motion';
 import {
   Camera,
   Mesh,
@@ -10,6 +11,10 @@ import {
   Texture,
   Transform,
 } from 'ogl';
+
+// ─────────────────────────────────────────────────────────────────────────────
+// TYPES
+// ─────────────────────────────────────────────────────────────────────────────
 
 interface GalleryItem {
   image: string;
@@ -29,13 +34,9 @@ interface CircularGalleryProps {
 
 type GL = Renderer['gl'];
 
-function debounce<T extends (...args: unknown[]) => void>(func: T, wait: number) {
-  let timeout: ReturnType<typeof setTimeout>;
-  return function (this: unknown, ...args: Parameters<T>) {
-    clearTimeout(timeout);
-    timeout = setTimeout(() => func.apply(this, args), wait);
-  };
-}
+// ─────────────────────────────────────────────────────────────────────────────
+// UTILITIES
+// ─────────────────────────────────────────────────────────────────────────────
 
 function lerp(p1: number, p2: number, t: number): number {
   return p1 + (p2 - p1) * t;
@@ -87,6 +88,10 @@ function createTextTexture(
   return { texture, width: canvas.width, height: canvas.height };
 }
 
+// ─────────────────────────────────────────────────────────────────────────────
+// TITLE CLASS
+// ─────────────────────────────────────────────────────────────────────────────
+
 interface TitleProps {
   gl: GL;
   plane: Mesh;
@@ -105,7 +110,9 @@ class Title {
   font: string;
   mesh!: Mesh;
 
-  constructor({ gl, plane, renderer, text, textColor = '#545050', font = '30px sans-serif' }: TitleProps) {
+  constructor({
+    gl, plane, renderer, text, textColor = '#545050', font = '30px sans-serif',
+  }: TitleProps) {
     autoBind(this);
     this.gl = gl;
     this.plane = plane;
@@ -117,7 +124,9 @@ class Title {
   }
 
   createMesh() {
-    const { texture, width, height } = createTextTexture(this.gl, this.text, this.font, this.textColor);
+    const { texture, width, height } = createTextTexture(
+      this.gl, this.text, this.font, this.textColor
+    );
     const geometry = new Plane(this.gl);
     const program = new Program(this.gl, {
       vertex: `
@@ -153,6 +162,10 @@ class Title {
     this.mesh.setParent(this.plane);
   }
 }
+
+// ─────────────────────────────────────────────────────────────────────────────
+// MEDIA CLASS — CHANGED: Instagram Reel 9:16 aspect ratio
+// ─────────────────────────────────────────────────────────────────────────────
 
 interface ScreenSize { width: number; height: number }
 interface Viewport   { width: number; height: number }
@@ -348,24 +361,45 @@ class Media {
     }
   }
 
+  // CHANGED: Instagram Reel 9:16 aspect ratio
+  // Height drives width using 9/16 ratio
   onResize({ screen, viewport }: { screen?: ScreenSize; viewport?: Viewport } = {}) {
-    if (screen)   this.screen = screen;
-    if (viewport) {
-      this.viewport = viewport;
-      if (this.plane.program.uniforms.uViewportSizes) {
-        this.plane.program.uniforms.uViewportSizes.value = [this.viewport.width, this.viewport.height];
-      }
+  if (screen)   this.screen = screen;
+  if (viewport) {
+    this.viewport = viewport;
+    if (this.plane.program.uniforms.uViewportSizes) {
+      this.plane.program.uniforms.uViewportSizes.value = [
+        this.viewport.width,
+        this.viewport.height,
+      ];
     }
-    this.scale = this.screen.height / 1500;
-    this.plane.scale.y = (this.viewport.height * (900 * this.scale)) / this.screen.height;
-    this.plane.scale.x = (this.viewport.width  * (700 * this.scale)) / this.screen.width;
-    this.plane.program.uniforms.uPlaneSizes.value = [this.plane.scale.x, this.plane.scale.y];
-    this.padding    = 2;
-    this.width      = this.plane.scale.x + this.padding;
-    this.widthTotal = this.width * this.length;
-    this.x          = this.width * this.index;
   }
+  this.scale = this.screen.height / 1500;
+
+  // Instagram Reel 9:16 — tall and narrow
+  // Height same as original (900), width from 9:16 ratio
+  const cardHeight = (this.viewport.height * (900 * this.scale)) / this.screen.height;
+  const cardWidth  = cardHeight * (14 / 16);
+
+  this.plane.scale.y = cardHeight;
+  this.plane.scale.x = cardWidth;
+
+  this.plane.program.uniforms.uPlaneSizes.value = [
+    this.plane.scale.x,
+    this.plane.scale.y,
+  ];
+
+  // Tighter padding so exactly 3 reels fit on screen
+  this.padding    = 10;
+  this.width      = this.plane.scale.x + this.padding;
+  this.widthTotal = this.width * this.length;
+  this.x          = this.width * this.index;
 }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// APP CLASS
+// ─────────────────────────────────────────────────────────────────────────────
 
 interface AppConfig {
   items?:        GalleryItem[];
@@ -377,11 +411,13 @@ interface AppConfig {
   scrollEase?:   number;
 }
 
+const CARDS_TO_SHOW = 8; // Adjusted to show 3 cards with tighter padding
+const SLOW_EASE = 0.05;
+
 class App {
   container:    HTMLElement;
   scrollSpeed:  number;
   scroll: { ease: number; current: number; target: number; last: number; position?: number };
-  onCheckDebounce: (...args: unknown[]) => void;
   renderer!:    Renderer;
   gl!:          GL;
   camera!:      Camera;
@@ -394,10 +430,13 @@ class App {
   raf           = 0;
   isDown        = false;
   start         = 0;
-  dragDistance  = 0;
+  dragDistance   = 0;
+
+  maxScrollTarget = 0;
+  isComplete      = false;
+  onProgressCb?:  (p: number) => void;
 
   boundOnResize!:    () => void;
-  boundOnWheel!:     (e: Event) => void;
   boundOnTouchDown!: (e: MouseEvent | TouchEvent) => void;
   boundOnTouchMove!: (e: MouseEvent | TouchEvent) => void;
   boundOnTouchUp!:   (e: MouseEvent | TouchEvent) => void;
@@ -407,19 +446,21 @@ class App {
   constructor(
     container: HTMLElement,
     { items, bend = 1, textColor = '#ffffff', borderRadius = 0, font = 'bold 30px Figtree', scrollSpeed = 2, scrollEase = 0.05 }: AppConfig,
-    onClickCallback?: (url: string) => void
+    onClickCallback?: (url: string) => void,
+    onProgressCb?: (p: number) => void
   ) {
     this.container       = container;
     this.scrollSpeed     = scrollSpeed;
-    this.scroll          = { ease: scrollEase, current: 0, target: 0, last: 0 };
+    this.scroll          = { ease: SLOW_EASE, current: 0, target: 0, last: 0 };
     this.onClickCallback = onClickCallback;
-    this.onCheckDebounce = debounce(this.onCheck.bind(this), 200);
+    this.onProgressCb    = onProgressCb;
     this.createRenderer();
     this.createCamera();
     this.createScene();
     this.onResize();
     this.createGeometry();
     this.createMedias(items, bend, textColor, borderRadius, font);
+    this.calcMaxScroll();
     this.update();
     this.addEventListeners();
   }
@@ -460,6 +501,37 @@ class App {
     );
   }
 
+  calcMaxScroll() {
+    if (this.medias.length > 0) {
+      this.maxScrollTarget = this.medias[0].width * CARDS_TO_SHOW;
+    }
+  }
+
+  pushScroll(deltaY: number) {
+    if (this.isComplete && deltaY < 0) {
+      this.isComplete = false;
+    }
+
+    this.scroll.target += deltaY * this.scrollSpeed * 0.18;
+
+    if (this.scroll.target < 0) {
+      this.scroll.target = 0;
+    }
+
+    const p = Math.min(this.scroll.target / this.maxScrollTarget, 1);
+    this.onProgressCb?.(p);
+
+    if (this.scroll.target >= this.maxScrollTarget) {
+      this.scroll.target = this.maxScrollTarget;
+      this.isComplete = true;
+    }
+  }
+
+  reset() {
+    this.isComplete    = false;
+    this.scroll.target = 0;
+  }
+
   onTouchDown(e: MouseEvent | TouchEvent) {
     this.isDown          = true;
     this.dragDistance    = 0;
@@ -478,48 +550,24 @@ class App {
   onTouchUp(e: MouseEvent | TouchEvent) {
     if (!this.isDown) return;
     this.isDown = false;
-
-    // Only open URL if it was a clean tap (drag < 8px), not a scroll gesture
-    if (this.dragDistance < 8) {
-      this.handleClick(e);
-    }
+    if (this.dragDistance < 8) this.handleClick(e);
     this.onCheck();
   }
 
   handleClick(e: MouseEvent | TouchEvent) {
     if (!this.onClickCallback) return;
-
     const clientX    = 'changedTouches' in e ? e.changedTouches[0].clientX : (e as MouseEvent).clientX;
     const rect       = this.container.getBoundingClientRect();
-    // Normalise click X to viewport space (-1 left … +1 right)
     const normX      = ((clientX - rect.left) / rect.width) * 2 - 1;
     const halfVP     = this.viewport.width / 2;
-
     let closest: Media | null = null;
     let closestDist = Infinity;
-
     for (const media of this.medias) {
-      // plane.position.x is already in OGL world units
       const planeNorm = media.plane.position.x / halfVP;
       const dist      = Math.abs(planeNorm - normX);
-      if (dist < closestDist) {
-        closestDist = dist;
-        closest     = media;
-      }
+      if (dist < closestDist) { closestDist = dist; closest = media; }
     }
-
-    // 0.7 threshold — must click reasonably close to the nearest plane
-    if (closest?.url && closestDist < 0.7) {
-      this.onClickCallback(closest.url);
-    }
-  }
-
-  onWheel(e: Event) {
-    const we     = e as WheelEvent;
-    const legacy = we as unknown as { wheelDelta?: number; detail?: number };
-    const delta  = we.deltaY ?? legacy.wheelDelta ?? legacy.detail ?? 0;
-    this.scroll.target += delta > 0 ? this.scrollSpeed : -this.scrollSpeed;
-    this.onCheckDebounce();
+    if (closest?.url && closestDist < 0.7) this.onClickCallback(closest.url);
   }
 
   onCheck() {
@@ -539,6 +587,7 @@ class App {
     const width  = height * this.camera.aspect;
     this.viewport = { width, height };
     this.medias?.forEach((m) => m.onResize({ screen: this.screen, viewport: this.viewport }));
+    this.calcMaxScroll();
   }
 
   update() {
@@ -552,18 +601,14 @@ class App {
 
   addEventListeners() {
     this.boundOnResize    = this.onResize.bind(this);
-    this.boundOnWheel     = this.onWheel.bind(this);
     this.boundOnTouchDown = this.onTouchDown.bind(this);
     this.boundOnTouchMove = this.onTouchMove.bind(this);
     this.boundOnTouchUp   = this.onTouchUp.bind(this);
-
     window.addEventListener('resize',    this.boundOnResize);
     window.addEventListener('mousemove', this.boundOnTouchMove as EventListener);
     window.addEventListener('mouseup',   this.boundOnTouchUp  as EventListener);
     window.addEventListener('touchmove', this.boundOnTouchMove as EventListener);
     window.addEventListener('touchend',  this.boundOnTouchUp  as EventListener);
-
-    this.container.addEventListener('wheel',      this.boundOnWheel);
     this.container.addEventListener('mousedown',  this.boundOnTouchDown as EventListener);
     this.container.addEventListener('touchstart', this.boundOnTouchDown as EventListener);
   }
@@ -575,7 +620,6 @@ class App {
     window.removeEventListener('mouseup',   this.boundOnTouchUp  as EventListener);
     window.removeEventListener('touchmove', this.boundOnTouchMove as EventListener);
     window.removeEventListener('touchend',  this.boundOnTouchUp  as EventListener);
-    this.container.removeEventListener('wheel',      this.boundOnWheel);
     this.container.removeEventListener('mousedown',  this.boundOnTouchDown as EventListener);
     this.container.removeEventListener('touchstart', this.boundOnTouchDown as EventListener);
     const canvas = this.renderer?.gl?.canvas as HTMLCanvasElement | undefined;
@@ -583,105 +627,236 @@ class App {
   }
 }
 
-// ─── Base reusable component ──────────────────────────────────────────────────
-export function CircularGallery({
-  items,
-  bend         = 3,
-  textColor    = '#ffffff',
-  borderRadius = 0.05,
-  font         = 'bold 30px Figtree',
-  scrollSpeed  = 2,
-  scrollEase   = 0.05,
-}: CircularGalleryProps) {
-  const containerRef = useRef<HTMLDivElement>(null);
+// ─────────────────────────────────────────────────────────────────────────────
+// HEADER — Yellow themed, matches portfolio
+// ─────────────────────────────────────────────────────────────────────────────
 
-  const handleClick = useCallback((url: string) => {
-    window.open(url, '_blank', 'noopener,noreferrer');
-  }, []);
+function GalleryHeader({ progress }: { progress: number }) {
+  const reduced = useReducedMotion();
+  const [isDark, setIsDark] = useState(false);
 
   useEffect(() => {
-    if (!containerRef.current) return;
-    const app = new App(
-      containerRef.current,
-      { items, bend, textColor, borderRadius, font, scrollSpeed, scrollEase },
-      handleClick
-    );
-    return () => { app.destroy(); };
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [items, bend, textColor, borderRadius, font, scrollSpeed, scrollEase]);
+    const up = () => setIsDark(document.documentElement.classList.contains('dark'));
+    up();
+    const obs = new MutationObserver(up);
+    obs.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
+    return () => obs.disconnect();
+  }, []);
 
   return (
-    <div className="relative w-full h-full">
-      <div
-        ref={containerRef}
-        className="w-full h-full overflow-hidden cursor-grab active:cursor-grabbing"
-      />
-      {/* Hint label */}
-      <div className="absolute bottom-4 left-1/2 -translate-x-1/2 pointer-events-none flex items-center gap-2 px-4 py-2 rounded-full bg-black/40 backdrop-blur-sm text-white/70 text-xs font-medium whitespace-nowrap">
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-          <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
-          <polyline points="15 3 21 3 21 9"/>
-          <line x1="10" y1="14" x2="21" y2="3"/>
-        </svg>
-        Click a reel to open on Instagram
+    <div className="text-center px-6  py-2 pt-8 pb-4 relative z-10">
+    
+
+      {/* Heading */}
+      <motion.h2
+        initial={{ opacity: 0, y: 16 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: reduced ? 0.01 : 0.5, delay: 0.1 }}
+        className={[
+          'text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight mb-3',
+          isDark ? 'text-white' : 'text-gray-900',
+        ].join(' ')}
+      >
+        My Reels &amp;{' '}
+        <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-500 to-amber-500">
+          Projects
+        </span>
+      </motion.h2>
+      
+      {/* Decorative line */}
+      <div className="flex items-center justify-center gap-3 mb-4" aria-hidden="true">
+        <div className={isDark
+          ? 'h-px w-12 bg-gradient-to-r from-transparent to-yellow-500/50'
+          : 'h-px w-12 bg-gradient-to-r from-transparent to-yellow-400'} />
+        <div className="w-1.5 h-1.5 rounded-full bg-yellow-500" />
+        <div className={isDark
+          ? 'h-px w-12 bg-gradient-to-l from-transparent to-yellow-500/50'
+          : 'h-px w-12 bg-gradient-to-l from-transparent to-yellow-400'} />
       </div>
     </div>
   );
 }
 
-// ─── Your Instagram reels ─────────────────────────────────────────────────────
-// FIX: Next.js serves public/ as root — paths must start with /reel/ not /public/reel/
+// ─────────────────────────────────────────────────────────────────────────────
+// REEL DATA
+// ─────────────────────────────────────────────────────────────────────────────
+
 const MY_REELS: GalleryItem[] = [
-  {
-    image: '/reel/Resume_ATS.png',
-    text:  'Resume ATS',
-    url:   'https://www.instagram.com/reel/DP1JGkTCk-J/',
-  },
-  {
-    image: '/reel/After_Deploy.png',
-    text:  'After Deploy',
-    url:   'https://www.instagram.com/reel/DUX0bTfDGMn/',
-  },
-  {
-    image: '/reel/Learn.png',
-    text:  'Free & Easy Learn',
-    url:   'https://www.linkedin.com/feed/update/urn:li:activity:7448663654780264449/',
-  },
-  {
-    image: '/reel/140+_Ai Tools.png',
-    text:  '140 AI Tools',
-    url:   'https://www.linkedin.com/feed/update/urn:li:activity:7449343137770020864/',
-  },
-  {
-    image: '/reel/Free_Course.png',
-    text:  '2.5 Lakh Courses',
-    url:   'https://www.instagram.com/reel/REPLACE_WITH_REAL_REEL_ID/',
-  },
-  {
-    image: '/reel/Job.png',
-    text:  'Job & Degree',
-    url:   'https://www.instagram.com/reel/DPn0qCdiuUI/',
-  },
-  {
-    image: '/reel/Vibe_Coding.png',
-    text:  'Vibe Coding',
-    url:   'https://www.instagram.com/reel/DPvEHBSiorU/',
-  },
-  {
-    image: '/reel/Google.png',
-    text:  ' how Google shows results in just 1 second?',
-    url:   'https://www.instagram.com/reel/DRg1rMCAY9u/',
-  },
+  { image: '/reel/Resume_ATS.png',    text: 'Resume ATS',
+    url: 'https://www.instagram.com/reel/DP1JGkTCk-J/' },
+  { image: '/reel/After_Deploy.png',  text: 'After Deploy',
+    url: 'https://www.instagram.com/reel/DUX0bTfDGMn/' },
+  { image: '/reel/Learn.png',         text: 'Free & Easy Learn',
+    url: 'https://www.linkedin.com/feed/update/urn:li:activity:7448663654780264449/' },
+  { image: '/reel/140+_Ai Tools.png', text: '140 AI Tools',
+    url: 'https://www.linkedin.com/feed/update/urn:li:activity:7449343137770020864/' },
+  { image: '/reel/Free_Course.png',   text: '2.5 Lakh Courses',
+    url: 'https://www.instagram.com/reel/REPLACE_WITH_REAL_REEL_ID/' },
+  { image: '/reel/Job.png',           text: 'Job & Degree',
+    url: 'https://www.instagram.com/reel/DPn0qCdiuUI/' },
+  { image: '/reel/Vibe_Coding.png',   text: 'Vibe Coding',
+    url: 'https://www.instagram.com/reel/DPvEHBSiorU/' },
+  { image: '/reel/Google.png',
+    text: 'How Google shows results in just 1 second?',
+    url: 'https://www.instagram.com/reel/DRg1rMCAY9u/' },
 ];
 
-// ─── Default export ───────────────────────────────────────────────────────────
+// ─────────────────────────────────────────────────────────────────────────────
+// NAMED EXPORT — used internally
+// ─────────────────────────────────────────────────────────────────────────────
+
+export function CircularGallery({
+  items,
+  bend         = 3,
+  textColor    = '#ffffff',
+  borderRadius = 0.08,
+  font         = 'bold 30px Figtree',
+  scrollSpeed  = 2,
+  scrollEase   = 0.05,
+}: CircularGalleryProps) {
+  const sectionRef   = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const appRef       = useRef<App | null>(null);
+  const [progress, setProgress] = useState(0);
+  const reduced = useReducedMotion();
+
+  const handleClick = useCallback((url: string) => {
+    window.open(url, '_blank', 'noopener,noreferrer');
+  }, []);
+
+  // Init gallery
+  useEffect(() => {
+    if (!containerRef.current) return;
+    const app = new App(
+      containerRef.current,
+      { items, bend, textColor, borderRadius, font, scrollSpeed, scrollEase },
+      handleClick,
+      (p) => setProgress(p)
+    );
+    appRef.current = app;
+    return () => { app.destroy(); appRef.current = null; };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [items, bend, textColor, borderRadius, font, scrollSpeed, scrollEase]);
+
+  // Bidirectional scroll-pin
+  useEffect(() => {
+    if (reduced) return;
+
+    const section = sectionRef.current;
+    if (!section) return;
+
+    let pinnedY = 0;
+    let locked  = false;
+    let touchY  = 0;
+
+    const onWheel = (e: WheelEvent) => {
+      const app = appRef.current;
+      if (!app) return;
+
+      const rect    = section.getBoundingClientRect();
+      const vh      = window.innerHeight;
+      const visible = rect.top <= vh * 0.15 && rect.bottom >= vh * 0.4;
+
+      if (visible) {
+        if (e.deltaY < 0 && app.scroll.target <= 0) { locked = false; return; }
+        if (e.deltaY > 0 && app.isComplete) { locked = false; return; }
+
+        e.preventDefault();
+        if (!locked) { pinnedY = window.scrollY; locked = true; }
+        window.scrollTo({ top: pinnedY });
+        app.pushScroll(e.deltaY);
+      } else {
+        locked = false;
+        if (rect.top > vh * 0.5 && (app.isComplete || app.scroll.target > 0)) {
+          app.reset();
+          setProgress(0);
+        }
+      }
+    };
+
+    const onTouchStart = (e: TouchEvent) => { touchY = e.touches[0].clientY; };
+
+    const onTouchMove = (e: TouchEvent) => {
+      const app = appRef.current;
+      if (!app) return;
+
+      const rect    = section.getBoundingClientRect();
+      const vh      = window.innerHeight;
+      const visible = rect.top <= vh * 0.15 && rect.bottom >= vh * 0.4;
+
+      if (visible) {
+        const y  = e.touches[0].clientY;
+        const dy = touchY - y;
+        touchY   = y;
+
+        if (dy < 0 && app.scroll.target <= 0) { locked = false; return; }
+        if (dy > 0 && app.isComplete) { locked = false; return; }
+
+        e.preventDefault();
+        if (!locked) { pinnedY = window.scrollY; locked = true; }
+        window.scrollTo({ top: pinnedY });
+        app.pushScroll(dy * 1.2);
+      } else {
+        locked = false;
+        if (rect.top > vh * 0.5 && (app.isComplete || app.scroll.target > 0)) {
+          app.reset();
+          setProgress(0);
+        }
+      }
+    };
+
+    window.addEventListener('wheel',      onWheel,      { passive: false });
+    window.addEventListener('touchstart', onTouchStart, { passive: true  });
+    window.addEventListener('touchmove',  onTouchMove,  { passive: false });
+
+    return () => {
+      window.removeEventListener('wheel',      onWheel);
+      window.removeEventListener('touchstart', onTouchStart);
+      window.removeEventListener('touchmove',  onTouchMove);
+    };
+  }, [reduced]);
+
+  return (
+    <div
+      ref={sectionRef}
+      style={{ display: 'flex', flexDirection: 'column', width: '100%', height: '100%' }}
+    >
+      {/* Themed header with progress */}
+      <GalleryHeader progress={progress} />
+
+      {/* Gallery canvas */}
+      <div style={{ flex: 1, position: 'relative' }}>
+        <div
+          ref={containerRef}
+          className="w-full h-full overflow-hidden py-0 cursor-grab active:cursor-grabbing"
+        />
+
+        {/* Old UI hint label */}
+        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 pointer-events-none flex items-center gap-2 px-4 py-2 rounded-full bg-black/40 backdrop-blur-sm text-white/70 text-xs font-medium whitespace-nowrap">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+            <polyline points="15 3 21 3 21 9"/>
+            <line x1="10" y1="14" x2="21" y2="3"/>
+          </svg>
+          Click a reel to open on Instagram
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// DEFAULT EXPORT
+// ─────────────────────────────────────────────────────────────────────────────
+
 export default function ProjectGallery(props: CircularGalleryProps) {
   return (
     <CircularGallery
       items={MY_REELS}
       bend={3}
       textColor="#ffffff"
-      borderRadius={0.05}
+      borderRadius={0.08}
       scrollSpeed={2}
       scrollEase={0.05}
       {...props}
