@@ -1,4 +1,3 @@
-//components/MinimalistHeroDemo.tsx
 'use client'
 
 import React from 'react';
@@ -7,24 +6,41 @@ import { MinimalistHero } from '@/components/ui/minimalist-hero';
 
 const MinimalistHeroDemo = () => {
 
-
   const socialLinks = [
-    { icon: Facebook, href: '#' },
-    { icon: Instagram, href: 'https://www.instagram.com/abu_ibnu_rasool/' },
-    { icon: Twitter, href: 'https://x.com/abu_ibnu_rasool' },
-    { icon: Linkedin, href: 'https://www.linkedin.com/in/abusid07/' },
+    {
+      icon: Facebook,
+      href: '#',
+      // FIX — every social link now has a label
+      label: 'Visit my Facebook profile',
+    },
+    {
+      icon: Instagram,
+      href: 'https://www.instagram.com/abu_ibnu_rasool/',
+      label: 'Visit my Instagram profile',
+    },
+    {
+      icon: Twitter,
+      href: 'https://x.com/abu_ibnu_rasool',
+      label: 'Visit my X (Twitter) profile',
+    },
+    {
+      icon: Linkedin,
+      href: 'https://www.linkedin.com/in/abusid07/',
+      label: 'Visit my LinkedIn profile',
+    },
   ];
 
   return (
     <MinimalistHero
       logoText="Abu's."
-      // navLinks removed
-      mainText="Hi! I’m Abu, a passionate frontend developer specializing in creating modern, responsive, and user-friendly web experiences. I love turning ideas into interactive digital products and continuously learning the latest web technologies."
+      mainText="Passionate about creating modern, responsive, and user-friendly web experiences. I turn ideas into interactive digital products."
+      // FIX 2.5 — subtitle and role now passed as props
+      subtitle="Available for work"
+      role="Building fast, accessible, modern interfaces"
       readMoreLink="#about"
       resumeLink="/abu cv.pdf"
       imageSrc="/port.png"
-      imageAlt="A portrait of a person in a black turtleneck, in profile."
-     
+      imageAlt="Portrait of Abu, Frontend Developer"
       socialLinks={socialLinks}
       locationText="Tamil Nadu, India"
     />

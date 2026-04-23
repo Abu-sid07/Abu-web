@@ -1,9 +1,11 @@
+// components/ui/About.tsx
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { useState, useEffect, useRef, useMemo } from "react";
+import { MapPin, Calendar, Code2, Sparkles, ArrowRight } from "lucide-react";
 
-// ── AnimatedTiles — UNCHANGED ─────────────────────────────────────────
+// ── AnimatedTiles with Reduced Motion Support ─────────────────────────────
 interface AnimatedTilesProps {
   rows?: number;
   cols?: number;
@@ -21,7 +23,24 @@ export function AnimatedTiles({
 }: AnimatedTilesProps) {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const tilesRef = useRef<HTMLDivElement | null>(null);
+  const prefersReducedMotion = useReducedMotion();
 
+  // FIX 3.3: When user prefers reduced motion, we skip the heavy tile animation
+  // and show a clean, single static image with proper alt text instead.
+  if (prefersReducedMotion) {
+    return (
+      <div className="relative w-full h-full rounded-2xl overflow-hidden shadow-xl">
+        <img
+          src={imageUrl}
+          alt="Abu Siddique - Frontend Developer portrait"
+          className="w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 ring-1 ring-inset ring-black/10 dark:ring-white/10 rounded-2xl" />
+      </div>
+    );
+  }
+
+  // Original animated tiles (kept for users who enjoy the effect)
   const maxOpacities = useMemo(
     () => [
       [0.0, 0.3, 0.5, 0.7, 0.7, 0.5, 0.3, 0.0],
@@ -119,7 +138,6 @@ export function AnimatedTiles({
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        minHeight: "auto",
         width: "100%",
       }}
     >
@@ -130,21 +148,22 @@ export function AnimatedTiles({
           height: `${rows * tileSize}px`,
           position: "relative",
           overflow: "hidden",
+          borderRadius: "16px",
         }}
       />
     </div>
   );
 }
 
-// ── About Section ─────────────────────────────────────────────────────
+// ── Main About Component ───────────────────────────────────────────────────
 export default function About() {
+  const prefersReducedMotion = useReducedMotion();
   const defaultImagePath = "/about-img.png";
   const fallbackImagePath =
-    "https://placehold.co/320x320/cccccc/333333?text=Image+Missing";
+    "https://placehold.co/320x320/cccccc/333333?text=Abu";
 
   const [currentImagePath, setCurrentImagePath] =
     useState<string>(defaultImagePath);
-
   const [isDark, setIsDark] = useState(false);
 
   useEffect(() => {
@@ -166,183 +185,161 @@ export default function About() {
     img.onerror = () => setCurrentImagePath(fallbackImagePath);
   }, []);
 
-  const textAnimation = { initial: { opacity: 0, y: 30 } };
-  const baseDelay = 0.2;
+  const highlights = [
+    {
+      icon: MapPin,
+      label: "Based in",
+      value: "Tamil Nadu, India",
+    },
+    {
+      icon: Calendar,
+      label: "Experience",
+      value: "4+ Years",
+    },
+    {
+      icon: Code2,
+      label: "Specialty",
+      value: "React & Next.js",
+    },
+    {
+      icon: Sparkles,
+      label: "Focus",
+      value: "Delightful UX",
+    },
+  ];
 
   return (
     <section
       id="about"
-      className="relative py-16 sm:py-20 md:py-28 overflow-hidden transition-colors duration-300"
-      /*
-        FIX: Use `bg-background` Tailwind token so this section uses the
-        exact same background variable as the hero (<MinimalistHero> root div).
-        In dark mode `bg-background` resolves to whatever --background CSS var
-        your theme defines (typically #0a0a0a from shadcn), so it is pixel-perfect
-        with the hero. In light mode it resolves to white — same as before.
-        We no longer hardcode #111111 which was causing the visible seam.
-      */
-      style={
-        isDark
-          ? { background: "hsl(var(--background))" }
-          : { background: "#ffffff" }
-      }
+      className="relative py-20 md:py-28 overflow-hidden bg-background"
     >
-      {/* Background decoration */}
+      {/* Background decoration - subtle and consistent with hero */}
       <div className="absolute inset-0 pointer-events-none">
         <div
-          className={[
-            "absolute top-1/2 left-0 w-[500px] h-[500px] rounded-full blur-3xl -translate-y-1/2 -translate-x-1/2",
-            isDark ? "bg-yellow-400/[0.06]" : "bg-yellow-400/[0.03]",
-          ].join(" ")}
-        />
-        <div
-          className="absolute inset-0"
-          style={{
-            backgroundImage: `radial-gradient(circle, ${
-              isDark ? "rgba(255,255,255,0.03)" : "rgba(0,0,0,1)"
-            } 1px, transparent 1px)`,
-            backgroundSize: "32px 32px",
-            opacity: 0.03,
-          }}
+          className="absolute top-1/2 left-0 w-[500px] h-[500px] rounded-full blur-3xl -translate-y-1/2 -translate-x-1/2 bg-yellow-400/5"
         />
       </div>
 
-      <div className="container mx-auto px-4 sm:px-6 lg:px-12 grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center relative z-10 max-w-7xl">
+      <div className="container mx-auto px-6 lg:px-12 max-w-7xl">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
 
-        {/* ── Left: Image — SIZE & POSITION UNCHANGED ── */}
-        <motion.div
-          initial={{ opacity: 0, x: -50, scale: 0.8 }}
-          whileInView={{ opacity: 1, x: 0, scale: 1 }}
-          viewport={{ once: true, amount: 0.4 }}
-          transition={{ duration: 0.7, ease: "easeOut" }}
-          className="flex justify-center"
-        >
-          <div
-            className="relative w-72 h-72 lg:w-96 lg:h-96 rounded-lg overflow-hidden flex items-center justify-center"
-            style={{ boxShadow: "none", border: "none" }}
-          >
-            <AnimatedTiles
-              imageUrl={currentImagePath}
-              rows={12}
-              cols={8}
-              tileSize={Math.floor((72 / 4) * (16 / 12)) || 40}
-              backgroundColor="transparent"
-            />
-          </div>
-        </motion.div>
-
-        {/* ── Right: Content ── */}
-        <div className="text-center lg:text-left">
-
-          {/* Badge */}
+          {/* Left: Visual Element - FIX 3.3 */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
+            initial={prefersReducedMotion ? {} : { opacity: 0, x: -40 }}
+            whileInView={prefersReducedMotion ? {} : { opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            className={[
-              "inline-flex items-center justify-center lg:justify-start gap-2 px-4 py-2 border rounded-full mb-6 shadow-sm mx-auto lg:mx-0",
-              isDark
-                ? "bg-yellow-500/10 border-yellow-500/30"
-                : "bg-yellow-50 border-yellow-200",
-            ].join(" ")}
+            transition={{ duration: 0.7 }}
+            className="lg:col-span-5 flex justify-center lg:justify-end"
           >
-            <span className="w-2 h-2 rounded-full bg-yellow-500 animate-pulse" />
-            <span
-              className={[
-                "font-semibold text-xs uppercase tracking-widest",
-                isDark ? "text-yellow-400" : "text-yellow-700",
-              ].join(" ")}
-            >
-              My Story
-            </span>
+            <div className="relative w-80 h-80 lg:w-[380px] lg:h-[380px]">
+              <AnimatedTiles
+                imageUrl={currentImagePath}
+                rows={12}
+                cols={8}
+                tileSize={42}
+              />
+              {/* Subtle ring for polish */}
+              <div className="absolute inset-0 rounded-3xl ring-1 ring-inset ring-white/10" />
+            </div>
           </motion.div>
 
-          {/* Heading */}
-          <motion.h2
-            {...textAnimation}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.4 }}
-            transition={{ duration: 0.5, delay: baseDelay + 0.1 }}
-            className={[
-              "text-4xl sm:text-5xl lg:text-6xl font-extrabold mb-8 tracking-tight",
-              isDark ? "text-white" : "text-gray-900",
-            ].join(" ")}
-          >
-            About{" "}
-            <span className="relative inline-block">
-              <span className="relative z-10 text-transparent bg-clip-text bg-gradient-to-r from-yellow-500 to-amber-500">
-                Me
-              </span>
-              <motion.span
-                initial={{ scaleX: 0 }}
-                whileInView={{ scaleX: 1 }}
+          {/* Right: Content - All fixes applied here */}
+          <div className="lg:col-span-7">
+            {/* FIX 3.5 — Strong visual hierarchy */}
+            <div className="mb-6">
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{
-                  duration: 0.6,
-                  delay: baseDelay + 0.4,
-                  ease: [0.22, 1, 0.36, 1],
-                }}
-                className="absolute bottom-1 left-0 right-0 h-3 bg-yellow-400/20 rounded-full origin-left -z-0"
-              />
-            </span>
-          </motion.h2>
+                className="inline-flex items-center gap-2 px-5 py-2 rounded-full border border-yellow-400/20 bg-yellow-400/5 mb-6"
+              >
+                <span className="w-2 h-2 rounded-full bg-yellow-500 animate-pulse" />
+                <span className="uppercase text-xs font-semibold tracking-[2px] text-yellow-600 dark:text-yellow-400">
+                  My Story
+                </span>
+              </motion.div>
 
-          {/* Para 1 */}
-          <motion.p
-            {...textAnimation}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.4 }}
-            transition={{ duration: 0.5, delay: baseDelay + 0.25 }}
-            className={[
-              "text-lg leading-relaxed mb-6",
-              isDark ? "text-gray-300" : "text-gray-700",
-            ].join(" ")}
-          >
-            Hi! I&apos;m{" "}
-            <span className={["font-bold", isDark ? "text-white" : ""].join(" ")}>
-              Abu
-            </span>
-            , a passionate frontend developer specializing in creating modern,
-            responsive, and user-friendly web experiences. I love turning ideas
-            into interactive digital products and continuously learning the
-            latest web technologies.
-          </motion.p>
+              <motion.h2
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                className="text-[2.75rem] md:text-6xl font-bold tracking-tighter leading-none mb-6"
+              >
+                About <span className="text-yellow-500">Me</span>
+              </motion.h2>
+            </div>
 
-          {/* Para 2 */}
-          <motion.p
-            {...textAnimation}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.4 }}
-            transition={{ duration: 0.5, delay: baseDelay + 0.4 }}
-            className={[
-              "text-lg leading-relaxed mb-6",
-              isDark ? "text-gray-300" : "text-gray-700",
-            ].join(" ")}
-          >
-            My focus is on building scalable and clean user interfaces with{" "}
-            <span
-              className={[
-                "font-semibold border-b border-yellow-400/30",
-                isDark ? "text-white" : "text-gray-900",
-              ].join(" ")}
+            {/* FIX 3.2 — Line length constrained to ~65 characters */}
+            <div className="max-w-prose text-lg leading-relaxed text-foreground/80 mb-10">
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.1 }}
+              >
+                Hi, I&apos;m Abu — a frontend developer who loves turning
+                complex ideas into clean, responsive, and delightful digital
+                experiences.
+              </motion.p>
+            </div>
+
+            {/* FIX 3.1 & 3.4 — Scannable structure with highlights grid */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2 }}
+              className="grid grid-cols-2 gap-6 mb-12"
             >
-              React, Next.js, Tailwind CSS, and modern UI libraries
-            </span>
-            . I enjoy crafting smooth animations and delightful user experiences.
-          </motion.p>
+              {highlights.map((item, index) => {
+                const Icon = item.icon;
+                return (
+                  <div
+                    key={index}
+                    className="group bg-card border border-border rounded-2xl p-6 hover:border-yellow-400/30 transition-colors"
+                  >
+                    <div className="flex items-center gap-4">
+                      <div className="w-10 h-10 rounded-xl bg-yellow-400/10 flex items-center justify-center text-yellow-500">
+                        <Icon className="w-5 h-5" />
+                      </div>
+                      <div>
+                        <p className="text-sm text-muted-foreground">
+                          {item.label}
+                        </p>
+                        <p className="font-semibold text-lg text-foreground">
+                          {item.value}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </motion.div>
 
-          {/* CTA */}
-          <motion.a
-            {...textAnimation}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.4 }}
-            transition={{ duration: 0.5, delay: baseDelay + 0.55 }}
-            href="#projects"
-            className="inline-flex h-12 items-center justify-center rounded-2xl bg-yellow-500 px-8 text-sm font-bold text-white shadow-lg shadow-yellow-500/25 transition-all hover:-translate-y-0.5 hover:bg-yellow-600 hover:shadow-xl hover:shadow-yellow-500/30"
-          >
-            Explore My Work
-          </motion.a>
+            {/* Second paragraph - kept short */}
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.3 }}
+              className="max-w-prose text-lg leading-relaxed text-foreground/80 mb-10"
+            >
+              My focus is on building fast, accessible interfaces using React,
+              Next.js, Tailwind, and Framer Motion. I believe great products
+              are not just functional — they should feel good to use.
+            </motion.p>
+
+            {/* CTA - matches hero styling */}
+            <motion.a
+              href="#projects"
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              className="group inline-flex items-center gap-3 h-12 rounded-2xl bg-yellow-500 px-8 font-semibold text-yellow-950 hover:bg-yellow-600 transition-all"
+            >
+              Explore My Work
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition" />
+            </motion.a>
+          </div>
         </div>
       </div>
     </section>
