@@ -1,3 +1,4 @@
+//project-card.tsx
 import * as React from "react";
 import Image from "next/image";
 import { ArrowRight } from "lucide-react";
@@ -75,3 +76,7 @@ const ProjectCard = React.forwardRef<HTMLDivElement, ProjectCardProps>(
 ProjectCard.displayName = "ProjectCard";
 
 export { ProjectCard };
+
+
+
+

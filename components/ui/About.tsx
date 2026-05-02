@@ -1,4 +1,3 @@
-// components/ui/About.tsx
 "use client";
 
 import { motion, useReducedMotion } from "framer-motion";
@@ -164,19 +163,6 @@ export default function About() {
 
   const [currentImagePath, setCurrentImagePath] =
     useState<string>(defaultImagePath);
-  const [isDark, setIsDark] = useState(false);
-
-  useEffect(() => {
-    const update = () =>
-      setIsDark(document.documentElement.classList.contains("dark"));
-    update();
-    const observer = new MutationObserver(update);
-    observer.observe(document.documentElement, {
-      attributes: true,
-      attributeFilter: ["class"],
-    });
-    return () => observer.disconnect();
-  }, []);
 
   useEffect(() => {
     const img = new Image();
@@ -194,7 +180,7 @@ export default function About() {
     {
       icon: Calendar,
       label: "Experience",
-      value: "4+ Years",
+      value: "1 Years",
     },
     {
       icon: Code2,
@@ -204,14 +190,14 @@ export default function About() {
     {
       icon: Sparkles,
       label: "Focus",
-      value: "Delightful UX",
+      value: "UI/UX",
     },
   ];
 
   return (
     <section
       id="about"
-      className="relative py-20 md:py-28 overflow-hidden bg-background"
+      className="relative py-[80px] md:py-[40px] overflow-hidden bg-background"
     >
       {/* Background decoration - subtle and consistent with hero */}
       <div className="absolute inset-0 pointer-events-none">
@@ -220,10 +206,10 @@ export default function About() {
         />
       </div>
 
-      <div className="container mx-auto px-6 lg:px-12 max-w-7xl">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-12 max-w-7xl">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-center">
 
-          {/* Left: Visual Element - FIX 3.3 */}
+          {/* Left: Visual Element - MOBILE FIX: Reduced size and padding */}
           <motion.div
             initial={prefersReducedMotion ? {} : { opacity: 0, x: -40 }}
             whileInView={prefersReducedMotion ? {} : { opacity: 1, x: 0 }}
@@ -231,12 +217,12 @@ export default function About() {
             transition={{ duration: 0.7 }}
             className="lg:col-span-5 flex justify-center lg:justify-end"
           >
-            <div className="relative w-80 h-80 lg:w-[380px] lg:h-[380px]">
+            <div className="relative w-64 h-64 sm:w-72 sm:h-72 lg:w-96 lg:h-96">
               <AnimatedTiles
                 imageUrl={currentImagePath}
                 rows={12}
                 cols={8}
-                tileSize={42}
+                tileSize={30}
               />
               {/* Subtle ring for polish */}
               <div className="absolute inset-0 rounded-3xl ring-1 ring-inset ring-white/10" />
@@ -246,31 +232,19 @@ export default function About() {
           {/* Right: Content - All fixes applied here */}
           <div className="lg:col-span-7">
             {/* FIX 3.5 — Strong visual hierarchy */}
-            <div className="mb-6">
-              <motion.div
-                initial={{ opacity: 0, y: 10 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                className="inline-flex items-center gap-2 px-5 py-2 rounded-full border border-yellow-400/20 bg-yellow-400/5 mb-6"
-              >
-                <span className="w-2 h-2 rounded-full bg-yellow-500 animate-pulse" />
-                <span className="uppercase text-xs font-semibold tracking-[2px] text-yellow-600 dark:text-yellow-400">
-                  My Story
-                </span>
-              </motion.div>
-
-              <motion.h2
+            <div className="mb-4">
+            <motion.h2
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                className="text-[2.75rem] md:text-6xl font-bold tracking-tighter leading-none mb-6"
+                className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter leading-tight mb-4"
               >
                 About <span className="text-yellow-500">Me</span>
               </motion.h2>
             </div>
 
             {/* FIX 3.2 — Line length constrained to ~65 characters */}
-            <div className="max-w-prose text-lg leading-relaxed text-foreground/80 mb-10">
+            <div className="max-w-prose text-base sm:text-lg leading-relaxed text-foreground/80 mb-8">
               <motion.p
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -289,24 +263,24 @@ export default function About() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.2 }}
-              className="grid grid-cols-2 gap-6 mb-12"
+              className="grid grid-cols-2 gap-3 sm:gap-4 mb-8"
             >
               {highlights.map((item, index) => {
                 const Icon = item.icon;
                 return (
                   <div
                     key={index}
-                    className="group bg-card border border-border rounded-2xl p-6 hover:border-yellow-400/30 transition-colors"
+                    className="group bg-card border border-border rounded-lg sm:rounded-2xl p-3 sm:p-6 hover:border-yellow-400/30 transition-colors"
                   >
-                    <div className="flex items-center gap-4">
-                      <div className="w-10 h-10 rounded-xl bg-yellow-400/10 flex items-center justify-center text-yellow-500">
-                        <Icon className="w-5 h-5" />
+                    <div className="flex items-start sm:items-center gap-2 sm:gap-4">
+                      <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl bg-yellow-400/10 flex-shrink-0 flex items-center justify-center text-yellow-500">
+                        <Icon className="w-4 h-4 sm:w-5 sm:h-5" />
                       </div>
-                      <div>
-                        <p className="text-sm text-muted-foreground">
+                      <div className="min-w-0">
+                        <p className="text-xs sm:text-sm text-muted-foreground">
                           {item.label}
                         </p>
-                        <p className="font-semibold text-lg text-foreground">
+                        <p className="font-semibold text-sm sm:text-lg text-foreground leading-tight">
                           {item.value}
                         </p>
                       </div>
@@ -322,7 +296,7 @@ export default function About() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.3 }}
-              className="max-w-prose text-lg leading-relaxed text-foreground/80 mb-10"
+              className="max-w-prose text-base sm:text-lg leading-relaxed text-foreground/80 mb-8"
             >
               My focus is on building fast, accessible interfaces using React,
               Next.js, Tailwind, and Framer Motion. I believe great products
@@ -334,10 +308,10 @@ export default function About() {
               href="#projects"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
-              className="group inline-flex items-center gap-3 h-12 rounded-2xl bg-yellow-500 px-8 font-semibold text-yellow-950 hover:bg-yellow-600 transition-all"
+              className="group inline-flex items-center gap-2 sm:gap-3 h-10 sm:h-12 rounded-xl sm:rounded-2xl bg-yellow-500 px-5 sm:px-8 font-semibold text-yellow-950 hover:bg-yellow-600 transition-all text-sm sm:text-base"
             >
               Explore My Work
-              <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition" />
+              <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 group-hover:translate-x-0.5 transition" />
             </motion.a>
           </div>
         </div>

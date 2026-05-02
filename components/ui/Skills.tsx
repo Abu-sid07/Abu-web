@@ -412,26 +412,9 @@ export default function Skills() {
   return (
     <section
       id="skills"
-      className="relative py-20 md:py-28 overflow-hidden bg-background"
+      className="relative py-[80px] md:py-[40px] overflow-hidden bg-background"
       aria-labelledby="skills-heading"
     >
-      {/* Background decorations */}
-      <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
-        <div
-          className={[
-            "absolute top-1/4 right-0 w-[500px] h-[500px] rounded-full blur-3xl",
-            "-translate-y-1/4 translate-x-1/4",
-            isDark ? "bg-yellow-500/[0.06]" : "bg-yellow-400/[0.07]",
-          ].join(" ")}
-        />
-        <div
-          className={[
-            "absolute bottom-0 left-0 w-[400px] h-[400px] rounded-full blur-3xl",
-            "translate-y-1/3 -translate-x-1/4",
-            isDark ? "bg-amber-500/[0.05]" : "bg-amber-300/[0.08]",
-          ].join(" ")}
-        />
-      </div>
 
       <div className="container mx-auto px-6 lg:px-12 relative z-10 max-w-6xl">
 
@@ -443,31 +426,6 @@ export default function Skills() {
           transition={{ duration: prefersReducedMotion ? 0.01 : 0.6 }}
           className="text-center mb-14"
         >
-          {/* Badge */}
-          <div
-            className={[
-              "inline-flex items-center gap-2 px-4 py-2 border rounded-full mb-6",
-              isDark
-                ? "bg-yellow-500/10 border-yellow-500/30"
-                : "bg-yellow-50 border-yellow-200",
-            ].join(" ")}
-          >
-            <Sparkles
-              className={[
-                "w-4 h-4",
-                isDark ? "text-yellow-400" : "text-yellow-600",
-              ].join(" ")}
-            />
-            <span
-              className={[
-                "font-semibold text-xs uppercase tracking-widest",
-                isDark ? "text-yellow-400" : "text-yellow-700",
-              ].join(" ")}
-            >
-              My Toolkit
-            </span>
-          </div>
-
           {/* Heading - FIX 4.5: Strong visual hierarchy */}
           <h2
             id="skills-heading"

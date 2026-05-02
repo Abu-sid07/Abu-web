@@ -1,3 +1,4 @@
+// page.tsx
 "use client"
 
 import React, { useState, useEffect, useRef } from 'react';
@@ -20,9 +21,7 @@ import {
   BookOpenIcon,
 } from 'lucide-react';
 
-// ─────────────────────────────────────────
-// TYPES
-// ─────────────────────────────────────────
+
 
 interface NavItem {
   icon: React.ElementType;
@@ -531,3 +530,4 @@ export default function Home() {
     </main>
   );
 }
+
