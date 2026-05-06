@@ -2,7 +2,7 @@
 "use client"
 
 import React, { useState, useEffect, useRef } from 'react';
-import { MinimalistHeroDemo } from '@/components/MinimalistHeroDemo';
+import { MinimalistHeroDemo } from '@/components/ui/MinimalistHeroDemo';
 import About from '@/components/ui/About';
 import Skills from '@/components/ui/Skills';
 import Projects from '@/components/ui/Projects';
@@ -222,33 +222,8 @@ function DockNav() {
 
   return (
     <>
-      {/* 
-        ─────────────────────────────────────
-        FIX 1.5 — Skip to content link
-        Hidden visually but visible on focus
-        First focusable element on the page
-        ─────────────────────────────────────
-      */}
-      <a
-        href="#main-content"
-        className={[
-          // Always in DOM, only visible on focus
-          'fixed top-4 left-4 z-[9999]',
-          'px-4 py-2 rounded-lg',
-          'bg-background border border-border',
-          'text-sm font-medium text-foreground',
-          'shadow-lg',
-          // Hide when not focused
-          '-translate-y-20 opacity-0',
-          // Show on focus
-          'focus:translate-y-0 focus:opacity-100',
-          'transition-all duration-200',
-          // FIX 1.3 — clear focus outline
-          'focus:outline-2 focus:outline-offset-2 focus:outline-blue-500',
-        ].join(' ')}
-      >
-        Skip to main content
-      </a>
+    
+     
 
       {/* 
         ─────────────────────────────────────

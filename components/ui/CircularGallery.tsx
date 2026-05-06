@@ -905,7 +905,7 @@ const MY_REELS: GalleryItem[] = [
     url: 'https://www.linkedin.com/feed/update/urn:li:activity:7448663654780264449/',
   },
   {
-    image: '/reel/140+_Ai Tools.png',
+    image: '/reel/140+_Ai_Tools.png',
     text: '140 AI Tools',
     url: 'https://www.linkedin.com/feed/update/urn:li:activity:7449343137770020864/',
   },

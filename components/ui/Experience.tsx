@@ -13,7 +13,9 @@ type TimelineItem = {
   location?: string;
   badge: string;
   description?: string;
+  bullets?: string[];   // ← add this
   skills?: string[];
+  link?: string;
 };
 
 type FilterTab = "all" | "work" | "edu";
@@ -22,20 +24,19 @@ const timelineData: TimelineItem[] = [
   {
     id: "work-frontend",
     type: "work",
-    title: "Frontend Developer",
+    title: "Front-End Developer",
     organization: "Kosal.io",
     period: "07/2025 – 03/2026",
     badge: "Work",
-    description:
-      "Built responsive and modern UIs using Next.js, React, and Tailwind CSS. Created reusable components, integrated APIs, managed data flow, and used AI tools to speed up development.",
-    skills: [
-      "Next.js",
-      "React",
-      "Tailwind CSS",
-      "TypeScript",
-      "Framer Motion",
-      "AI Tools",
+    link: "https://kosallanding.vercel.app/",
+    bullets: [
+      "Develop responsive and modern user interfaces using Next.js, React.js, TypeScript, JavaScript, Tailwind CSS, shadcn/ui.",
+      "Build reusable UI components and optimize application performance for smoother, faster user experiences.",
+      "Integrate REST APIs, manage data flow, and ensure clean, maintainable front-end architecture.",
+      "Collaborate with teams using Git/GitHub, follow clean code practices, and efficiently debug issues.",
+      "Use AI-Assisted Development Tools to speed up development tasks, reduce repetitive work, and improve delivery efficiency.",
     ],
+    skills: ["Next.js", "React", "Tailwind CSS", "TypeScript", "Framer Motion", "AI Tools"],
   },
   {
     id: "work-visa",
@@ -45,16 +46,49 @@ const timelineData: TimelineItem[] = [
     period: "07/2024 – 07/2025",
     location: "Chennai, Tamil Nadu",
     badge: "Work",
+    bullets: [
+      "Processed visa applications for multiple countries, ensuring accurate documentation, compliance, and timely submission.",
+      "Handled ticket booking and travel arrangements while maintaining precision and customer satisfaction.",
+      "Utilized booking systems and CRM tools for client data management, record-keeping, and application tracking.",
+      "Demonstrated technical adaptability, including basic system troubleshooting, website content updates, and cybersecurity awareness.",
+      "Delivered excellent client service and digital communication, ensuring clear guidance, professional support, and organized workflow.",
+    ],
   },
   {
-    id: "edu-course",
+    id: "work-intern",
+    type: "work",
+    title: "Web Developer (Intern)",
+    organization: "Code Genie",
+    period: "04/2023 – 04/2023",
+    location: "Tirunelveli, Tamil Nadu",
+    badge: "Intern",
+    link: "https://www.linkedin.com/company/codegenie-solutions?originalSubdomain=in",
+    bullets: [
+      "Front-End Development: Proficient in HTML5, CSS3, JavaScript, and Bootstrap for creating responsive and visually appealing web designs.",
+      "Interactive UI & Problem-Solving: Hands-on experience with JavaScript DOM manipulation and event handling to enhance user experience.",
+      "Collaborative & Adaptive Learning: Eager to learn, adapt to new technologies, and work efficiently using GitHub, VS Code.",
+    ],
+    skills: ["HTML5", "CSS3", "JavaScript", "Bootstrap", "GitHub"],
+  },
+  {
+    id: "edu-mern",
     type: "edu",
     title: "MERN Full Stack",
     organization: "Greens Technology",
-    period: "04/2025 – 07/2025",
+    period: "07/2024 – 07/2025",
     location: "Chennai, Tamil Nadu",
     badge: "Course",
+    link: "https://www.greenstechnologys.com/",
     skills: ["MongoDB", "Express.js", "React", "Node.js"],
+  },
+  {
+    id: "edu-novit",
+    type: "edu",
+    title: "Full Stack Development",
+    organization: "NoviTech",
+    period: "12/2024 – 01/2025",
+    location: "Online",
+    badge: "Course",
   },
   {
     id: "edu-bca",
@@ -63,6 +97,7 @@ const timelineData: TimelineItem[] = [
     organization: "Sadakathullah Appa College, Tirunelveli",
     period: "06/2021 – 06/2024",
     badge: "BCA",
+    link: "https://sadakath.ac.in/",
   },
 ];
 
@@ -215,9 +250,20 @@ function TimelineItemRow({
             <h3 className="text-[17px] font-semibold leading-snug text-black dark:text-white">
               {item.title}
             </h3>
-            <p className="mt-1 text-[14px] font-medium text-black/55 dark:text-white/45">
-              {item.organization}
-            </p>
+            {item.link ? (
+              <a
+                href={item.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-1 text-[14px] font-medium text-black/55 dark:text-white/45 hover:text-yellow-600 dark:hover:text-yellow-400 transition-colors underline"
+              >
+                {item.organization}
+              </a>
+            ) : (
+              <p className="mt-1 text-[14px] font-medium text-black/55 dark:text-white/45">
+                {item.organization}
+              </p>
+            )}
           </div>
 
           <TimelineBadge label={item.badge} type={item.type} />
@@ -245,6 +291,20 @@ function TimelineItemRow({
           <p className="mb-4 text-[13px] leading-7 text-black/55 dark:text-white/50">
             {item.description}
           </p>
+        )}
+
+        {item.bullets && item.bullets.length > 0 && (
+          <ul className="mb-4 space-y-2">
+            {item.bullets.map((point, i) => (
+              <li
+                key={i}
+                className="flex items-start gap-2.5 text-[13px] leading-6 text-black/55 dark:text-white/50"
+              >
+                <span className="mt-[7px] h-[5px] w-[5px] shrink-0 rounded-full bg-yellow-500" />
+                {point}
+              </li>
+            ))}
+          </ul>
         )}
 
         {item.skills && item.skills.length > 0 && (
