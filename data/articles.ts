@@ -3,41 +3,41 @@ import { Article } from '../types/article';
 // Contextual, copyright-safe image tags are used for the media arrays.
 export const articlesData: { sections: Article[] } = {
   sections: [
+   {
+  id: 1,
+  title: 'Three Years That Changed Everything',
+  author: 'Abu',
+  date: 'November 2024',
+  read_time: '5 min read',
+  views: 350,
+  institution: 'Sadakathullah Appa College',
+  course: 'BCA',
+  duration: '2021 to 2024',
+  summary: 'I walked into Sadakathullah Appa College not knowing who I\'d become. Here\'s what I left with — and why those 1,095 days were worth every sleepless night.',
+  content_points: [
     {
-      id: 1,
-      title: 'My College Days (2021–2024)',
-      author: 'Abu',
-      date: 'Novemebr 2024',
-      read_time: '5 min read',
-      views: 350,
-      institution: 'Sadakathullah Appa College',
-      course: 'BCA',
-      duration: '2021 to 2024',
-      summary: 'I pursued my BCA at Sadakathullah Appa College from 2021 to 2024. College life was full of learning, fun, and unforgettable memories.',
-      content_points: [
-        { 
-          heading: '🌱 The Beginning', 
-          description: 'The first day was a mix of excitement and nervousness. Meeting new friends, exploring the campus, and imagining the next three years made me both anxious and thrilled.', 
-          media: ['Campus view of Sadakathullah Appa College in Tirunelveli'] 
-        },
-        { 
-          heading: '💻 Learning and Growing', 
-          description: 'The BCA course taught me coding, teamwork, and problem-solving. From late-night assignments to final-year projects, every challenge strengthened my skills. That feeling when your code finally runs successfully? Unmatched!', 
-          media: ['Students coding in a computer lab'] 
-        },
-        { 
-          heading: '🤝 Friendship and Fun', 
-          description: 'College was also about friendships — group studies, cultural events, and laughter-filled moments. These relationships made college life vibrant and memorable.', 
-          media: ['Group photo of college friends laughing together'] 
-        },
-        { 
-          heading: '🎉 Graduation Day', 
-          description: 'Receiving my degree certificate in the graduation ceremony was a proud moment, marking the end of an important chapter and the beginning of my next journey.', 
-          media: ['Graduation ceremony with students wearing gowns'] 
-        },
-      ],
-      note: 'These three years gave me memories that will stay with me forever.',
+      heading: '🌱 The Day Everything Felt Possible',
+      description: 'I still remember standing at the college gate on day one — backpack too heavy, directions unclear, heart pounding. The campus stretched out like a world I hadn\'t earned yet. New faces everywhere. New rules. New version of me. The mix of terror and excitement was something I\'d never felt before. That first walk across the grounds wasn\'t just orientation — it was the quiet beginning of the best three years of my life.',
+      media: ['Campus view of Sadakathullah Appa College in Tirunelveli']
     },
+    {
+      heading: '💻 When the Screen Finally Made Sense',
+      description: 'Nobody tells you how satisfying it is when broken code suddenly works at 2 AM. The BCA curriculum wasn\'t gentle — late submissions, semester crunch, logic errors that made no sense — but every grind built something real. I wasn\'t just learning to code. I was learning how to think. By third year, problems that once paralysed me became puzzles I actually enjoyed.',
+      media: ['Students deep in a coding lab session']
+    },
+    {
+      heading: '🤝 The People Who Made It Unforgettable',
+      description: 'Here\'s what the syllabus never taught: friendship is its own kind of curriculum. Group studies that turned into midnight snack runs. Cultural fest rehearsals that went completely off-script. The inside jokes that still land over WhatsApp today. The friends I found in those corridors showed me how much easier life is when you have people who genuinely get you.',
+      media: ['The gang — a candid group photo full of laughter']
+    },
+    {
+      heading: '🎓 The Moment I Realised It Was Over',
+      description: 'Walking across that stage to collect my degree, I expected to feel triumphant. Instead, I felt something quieter — a kind of grateful ache. Three years in one handshake. The hard nights, the exams, the friendships, the growth — all of it folded into a single certificate and a photograph. College didn\'t just give me a BCA. It gave me a blueprint for who I want to be.',
+      media: ['Graduation day — gowns, grins, and something bittersweet']
+    }
+  ],
+  note: 'Some chapters don\'t end — they just become the foundation everything else is built on. Sadakathullah Appa College is mine.',
+},
     {
       id: 2,
       title: 'Teaching Arabic & Islamic Lessons (My Morning Routine)',
