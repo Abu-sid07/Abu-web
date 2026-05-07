@@ -5,6 +5,7 @@
 // Light mode → radial gradient + animated film-grain noise hero
 
 import React, { useState, useEffect, useRef, useCallback } from "react"
+import { Suspense } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { useRouter, useSearchParams } from "next/navigation"
@@ -800,36 +801,42 @@ function BlogList({
 
 function useViewCounter(blogId: string, init: number) {
   const [views, setViews] = useState(init)
+  const [isMounted, setIsMounted] = useState(false)
+
   useEffect(() => {
+    setIsMounted(true)
+  }, [])
+
+  useEffect(() => {
+    if (!isMounted) return
     const key = `blog_views_${blogId}`
     const n   = (parseInt(localStorage.getItem(key) ?? String(init)) || init) + 1
     localStorage.setItem(key, String(n))
     setViews(n)
-  }, [blogId, init])
+  }, [blogId, init, isMounted])
+
   return views
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// PAGE ROOT
+// PAGE CONTENT (with URL sync)
 // ─────────────────────────────────────────────────────────────────────────────
 
-export default function BlogPage() {
+function BlogPageContent() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const viewParam = searchParams.get("post") as ViewMode | null
   
   const [view, setView] = useState<ViewMode>("list")
   const [animIn, setAnimIn] = useState(false)
-  const [isClient, setIsClient] = useState(false)
   const { theme } = useTheme()
   const isDark = theme === "dark"
 
   const collegeViews = useViewCounter("college", 269)
   const teachingViews = useViewCounter("teaching", 300)
 
-  // Sync with URL on mount and when URL changes
+  // Sync with URL when it changes
   useEffect(() => {
-    setIsClient(true)
     if (viewParam && (viewParam === "college" || viewParam === "teaching")) {
       setView(viewParam)
     } else {
@@ -856,8 +863,6 @@ export default function BlogPage() {
   }, [router])
 
   const back = useCallback(() => go("list"), [go])
-
-  if (!isClient) return null
 
   return (
     <div className="min-h-screen bg-[#faf9f6] dark:bg-stone-950 transition-colors duration-200">
@@ -892,5 +897,17 @@ export default function BlogPage() {
       </div>
 
     </div>
+  )
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// PAGE ROOT (with Suspense boundary for useSearchParams)
+// ─────────────────────────────────────────────────────────────────────────────
+
+export default function BlogPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-[#faf9f6] dark:bg-stone-950" />}>
+      <BlogPageContent />
+    </Suspense>
   )
 }
