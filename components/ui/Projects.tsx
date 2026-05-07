@@ -23,7 +23,7 @@ const projects: Project[] = [
     title: "Astromila⁠ — Astrology & Matchmaking App",
     description:
       "Horoscope matching and compatibility analysis platform with optimized components and clean UI.",
-    tags: ["React", "TypeScript", "Vercel"],
+    tags: ["Next.js", "React", "TypeScript", "Vercel"],
     category: "Web App",
     images: ["/asto-img.png"],
     link: "https://vishwasangam.vercel.app/",
@@ -44,20 +44,8 @@ const projects: Project[] = [
     ],
     link: "https://drive.google.com/drive/folders/1VpHmNljdpULmDucsOmIE-IhGaS3Q4aGH?usp=sharing",
   },
-  {
-    id: "03",
-    title: "ladder Acadamy Landing Page",
-    description:
-      "Visually appealing and responsive landing page  platform focused on UX.",
-    tags: ["Next.js", "Framer Motion", "Tailwind CSS"],
-    category: "Landing Page",
-    images: [
-      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2070&auto=format&fit=crop",
-    ],
-    link: "#",
-  },
-  {
-  id: "04",
+
+  {  id: "03",
   title: "Space Shooting Game",
   description:
     "Developed an interactive 2D space shooting game with smooth player controls, enemy attack mechanics, collision detection, score tracking, and responsive gameplay experience. Designed engaging UI elements and optimized animations for seamless performance across devices.",
@@ -67,7 +55,21 @@ const projects: Project[] = [
     "/space-shooting.jpg",
   ],
   link: "https://space-shooting-game-chi.vercel.app/",
-}
+},
+  {
+    id: "04",
+    title: "ladder Acadamy Landing Page",
+    description:
+      "Visually appealing and responsive landing page  platform focused on UX.",
+    tags: ["Next.js", "Framer Motion", "Tailwind CSS"],
+    category: "Landing Page",
+    images: [
+      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2070&auto=format&fit=crop",
+    ],
+    link: "",
+  },
+  
+
 ];
 
 

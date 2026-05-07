@@ -7,6 +7,7 @@
 import React, { useState, useEffect, useRef, useCallback } from "react"
 import Image from "next/image"
 import Link from "next/link"
+import { useRouter, useSearchParams } from "next/navigation"
 import { useTheme } from "next-themes"
 import {
   HomeIcon, PenLineIcon, LinkedinIcon,
@@ -813,13 +814,28 @@ function useViewCounter(blogId: string, init: number) {
 // ─────────────────────────────────────────────────────────────────────────────
 
 export default function BlogPage() {
-  const [view,   setView]   = useState<ViewMode>("list")
+  const router = useRouter()
+  const searchParams = useSearchParams()
+  const viewParam = searchParams.get("post") as ViewMode | null
+  
+  const [view, setView] = useState<ViewMode>("list")
   const [animIn, setAnimIn] = useState(false)
-  const { theme }           = useTheme()
-  const isDark              = theme === "dark"
+  const [isClient, setIsClient] = useState(false)
+  const { theme } = useTheme()
+  const isDark = theme === "dark"
 
-  const collegeViews  = useViewCounter("college",  269)
+  const collegeViews = useViewCounter("college", 269)
   const teachingViews = useViewCounter("teaching", 300)
+
+  // Sync with URL on mount and when URL changes
+  useEffect(() => {
+    setIsClient(true)
+    if (viewParam && (viewParam === "college" || viewParam === "teaching")) {
+      setView(viewParam)
+    } else {
+      setView("list")
+    }
+  }, [viewParam])
 
   useEffect(() => {
     setAnimIn(false)
@@ -827,11 +843,21 @@ export default function BlogPage() {
     return () => clearTimeout(t)
   }, [view])
 
-  const go   = useCallback((v: ViewMode) => {
+  const go = useCallback((v: ViewMode) => {
     setAnimIn(false)
-    setTimeout(() => { setView(v); window.scrollTo({ top:0, behavior:"smooth" }) }, 200)
-  }, [])
+    if (v === "list") {
+      router.push("/blog")
+    } else {
+      router.push(`/blog?post=${v}`)
+    }
+    setTimeout(() => {
+      window.scrollTo({ top: 0, behavior: "smooth" })
+    }, 200)
+  }, [router])
+
   const back = useCallback(() => go("list"), [go])
+
+  if (!isClient) return null
 
   return (
     <div className="min-h-screen bg-[#faf9f6] dark:bg-stone-950 transition-colors duration-200">
@@ -848,20 +874,20 @@ export default function BlogPage() {
 
       {view === "college" && (
         <div className="pt-10 sm:pt-12">
-          <CollegeBlog onBack={back} liveViews={collegeViews} animIn={animIn}/>
+          <CollegeBlog onBack={back} liveViews={collegeViews} animIn={animIn} />
         </div>
       )}
 
       {view === "teaching" && (
         <div className="pt-10 sm:pt-12">
-          <TeachingBlog onBack={back} liveViews={teachingViews} animIn={animIn}/>
+          <TeachingBlog onBack={back} liveViews={teachingViews} animIn={animIn} />
         </div>
       )}
 
       {/* Fixed Dock */}
       <div className="fixed bottom-4 sm:bottom-6 left-0 right-0 flex justify-center z-50 pointer-events-none">
         <div className="pointer-events-auto scale-90 sm:scale-100 origin-bottom transition-transform">
-          <DockNav/>
+          <DockNav />
         </div>
       </div>
 
