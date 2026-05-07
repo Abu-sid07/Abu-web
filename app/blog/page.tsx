@@ -36,10 +36,17 @@ function Noise({
   patternAlpha?: number
   intensity?: number
 }) {
+  const [mounted, setMounted] = useState(false)
   const grainRef = useRef<HTMLCanvasElement>(null)
   const cssSizeRef = useRef({ width: 0, height: 0 })
 
   useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  useEffect(() => {
+    if (!mounted) return
+
     const canvas = grainRef.current
     if (!canvas) return
     const ctx = canvas.getContext("2d")
@@ -91,7 +98,11 @@ function Noise({
     resize()
     loop()
     return () => { window.removeEventListener("resize", resize); cancelAnimationFrame(raf) }
-  }, [patternSize, patternScaleX, patternScaleY, patternRefreshInterval, patternAlpha, intensity])
+  }, [mounted, patternSize, patternScaleX, patternScaleY, patternRefreshInterval, patternAlpha, intensity])
+
+  if (!mounted) {
+    return <div className="absolute inset-0 w-full h-full pointer-events-none" />
+  }
 
   return <canvas ref={grainRef} className="absolute inset-0 w-full h-full pointer-events-none" />
 }
@@ -139,10 +150,17 @@ function GradientBackground({ children }: { children?: React.ReactNode }) {
 // ─────────────────────────────────────────────────────────────────────────────
 
 function SilkBackground() {
+  const [mounted, setMounted] = useState(false)
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const animRef   = useRef<number | null>(null)
 
   useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  useEffect(() => {
+    if (!mounted) return
+
     const canvas = canvasRef.current
     if (!canvas) return
     const ctx = canvas.getContext("2d")
@@ -199,7 +217,11 @@ function SilkBackground() {
 
     draw()
     return () => { ro.disconnect(); if (animRef.current) cancelAnimationFrame(animRef.current) }
-  }, [])
+  }, [mounted])
+
+  if (!mounted) {
+    return <div className="absolute inset-0 w-full h-full" />
+  }
 
   return (
     <canvas
@@ -513,7 +535,7 @@ const TEACHING = {
     intro:"Teaching isn't about trophies. But when your community acknowledges the work — it matters more than you expect.",
     images:[
       { src:"/blog/award-1.jpg", alt:"Abu receiving appreciation on stage", caption:"Guest appreciation — received from a respected elder" },
-      { src:"/blog/award-2.jpg", alt:"Abu receiving a trophy",              caption:"Student performance award — watching students excel is the real prize" },
+      { src:"/blog/Award-2.jpg", alt:"Abu receiving a trophy",              caption:"Student performance award — watching students excel is the real prize" },
     ],
     items:[
       { icon:"🏅", title:"Guest Appreciation — Madrasa Annual Day", desc:"Honoured by a former police officer and a professional auditor. Their words were a reminder that education rooted in values is something the world still deeply respects." },

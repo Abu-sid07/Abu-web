@@ -270,7 +270,7 @@ export default function Footer() {
               <ul className="mt-4 flex flex-col gap-2">
                 <li>
                   <a
-                    href="/abu cv.pdf"
+                    href="Abu-Res-abubackersiddique311@gmail.com.pdf"
                     download
                     className={[
                       "text-muted-foreground hover:text-foreground",

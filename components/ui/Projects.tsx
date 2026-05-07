@@ -13,7 +13,7 @@ type Project = {
   category: string;
   images: string[];
   link: string;
-  github: string;
+  
 };
 
 const projects: Project[] = [
@@ -31,42 +31,44 @@ const projects: Project[] = [
       "/pump1/pump%204.png",
       "/pump1/pump%205.png",
     ],
-    link: "#",
-    github: "#",
+    link: "https://drive.google.com/drive/folders/1VpHmNljdpULmDucsOmIE-IhGaS3Q4aGH?usp=sharing",
   },
   {
     id: "02",
-    title: "Vishwa Sangam — Astrology & Matchmaking App",
+    title: "Astromila⁠ — Astrology & Matchmaking App",
     description:
       "Horoscope matching and compatibility analysis platform with optimized components and clean UI.",
     tags: ["React", "TypeScript", "Vercel"],
     category: "Web App",
     images: ["/asto img.png"],
     link: "https://vishwasangam.vercel.app/",
-    github: "#",
   },
   {
     id: "03",
-    title: "Aero — AI Chatbot Landing Page",
+    title: "ladder Acadamy Landing Page",
     description:
-      "Visually appealing and responsive landing page for an AI chatbot platform focused on UX.",
+      "Visually appealing and responsive landing page  platform focused on UX.",
     tags: ["Next.js", "Framer Motion", "Tailwind CSS"],
     category: "Landing Page",
     images: [
       "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2070&auto=format&fit=crop",
     ],
     link: "#",
-    github: "#",
   },
+  {
+  id: "04",
+  title: "Space Shooting Game",
+  description:
+    "Developed an interactive 2D space shooting game with smooth player controls, enemy attack mechanics, collision detection, score tracking, and responsive gameplay experience. Designed engaging UI elements and optimized animations for seamless performance across devices.",
+  tags: [ "Next.js", "React", "Framer Motion", "Tailwind CSS", "Game Development"],
+  category: "Frontend Game",
+  images: [
+    "/space-shooting.jpg",
+  ],
+  link: "https://space-shooting-game-chi.vercel.app/",
+}
 ];
 
-function GithubIcon() {
-  return (
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
-      <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
-    </svg>
-  );
-}
 
 function ArrowIcon() {
   return (
@@ -147,8 +149,7 @@ function CyclingImage({
               className="block h-[3px] rounded-full transition-all duration-300"
               style={{
                 width: i === index ? 16 : 6,
-                background:
-                  i === index ? "#eab308" : "rgba(255,255,255,0.4)",
+                background: i === index ? "#eab308" : "rgba(255,255,255,0.4)",
               }}
             />
           ))}
@@ -237,23 +238,7 @@ function ProjectCard({ project }: { project: Project }) {
             <ArrowIcon />
           </a>
 
-          <a
-            href={project.github}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="
-              inline-flex items-center gap-2 rounded-lg px-4 py-2
-              text-[12px] font-medium
-              border border-black/15 text-black/60
-              dark:border-white/15 dark:text-white/50
-              transition-all duration-200
-              hover:bg-black/[0.04] dark:hover:bg-white/[0.06]
-              active:scale-[0.97]
-            "
-          >
-            <GithubIcon />
-            GitHub
-          </a>
+         
         </div>
       </div>
     </motion.article>
@@ -293,27 +278,6 @@ function EndCard() {
             More work coming soon
           </p>
         </div>
-
-        <motion.div
-          animate={{ y: [0, 6, 0] }}
-          transition={{ duration: 1.4, repeat: Infinity, ease: "easeInOut" }}
-        >
-          <svg
-            width="16"
-            height="16"
-            viewBox="0 0 16 16"
-            fill="none"
-            className="text-black/25 dark:text-white/25"
-          >
-            <path
-              d="M8 3V13M8 13L3.5 8.5M8 13L12.5 8.5"
-              stroke="currentColor"
-              strokeWidth="1.3"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-        </motion.div>
       </div>
     </motion.div>
   );
@@ -367,6 +331,35 @@ export default function ProjectsSection() {
             "
           />
         </ScrollArea>
+
+        {/* Improved "Scroll to view more" — Centered, Clear, Animated, Responsive */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{
+            opacity: [0.6, 1, 0.6],
+            y: [0, -6, 0],
+          }}
+          transition={{
+            duration: 2.2,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+          className="mt-8 flex justify-center items-center gap-3"
+        >
+          <div className="flex items-center gap-2 text-sm font-medium text-yellow-600 dark:text-yellow-400">
+            <span>Scroll to view more</span>
+            <motion.div
+              animate={{ x: [0, 6, 0] }}
+              transition={{
+                duration: 1.4,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+            >
+              →
+            </motion.div>
+          </div>
+        </motion.div>
       </div>
     </section>
   );

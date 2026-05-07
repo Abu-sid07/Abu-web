@@ -38,7 +38,7 @@ const MinimalistHeroDemo = () => {
       subtitle="Available for work"
       role="Building fast, accessible, modern interfaces"
       readMoreLink="#about"
-      resumeLink="/abu cv.pdf"
+      resumeLink="\Abu-Res-abubackersiddique311@gmail.com.pdf"
       imageSrc="/port.png"
       imageAlt="Portrait of Abu, Frontend Developer"
       socialLinks={socialLinks}
