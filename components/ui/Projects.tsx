@@ -17,8 +17,19 @@ type Project = {
 };
 
 const projects: Project[] = [
+  
   {
     id: "01",
+    title: "Astromila⁠ — Astrology & Matchmaking App",
+    description:
+      "Horoscope matching and compatibility analysis platform with optimized components and clean UI.",
+    tags: ["React", "TypeScript", "Vercel"],
+    category: "Web App",
+    images: ["/asto img.png"],
+    link: "https://vishwasangam.vercel.app/",
+  },
+   {
+    id: "02",
     title: "Pump Management & AI-Based Recommendation Dashboard",
     description:
       "Interactive dashboard for pump inventory management with AI-driven recommendation workflows and chat UI.",
@@ -32,16 +43,6 @@ const projects: Project[] = [
       "/pump1/pump%205.png",
     ],
     link: "https://drive.google.com/drive/folders/1VpHmNljdpULmDucsOmIE-IhGaS3Q4aGH?usp=sharing",
-  },
-  {
-    id: "02",
-    title: "Astromila⁠ — Astrology & Matchmaking App",
-    description:
-      "Horoscope matching and compatibility analysis platform with optimized components and clean UI.",
-    tags: ["React", "TypeScript", "Vercel"],
-    category: "Web App",
-    images: ["/asto img.png"],
-    link: "https://vishwasangam.vercel.app/",
   },
   {
     id: "03",
