@@ -82,7 +82,7 @@ const skillCategories: SkillCategory[] = [
         slug: "shadcnui",
         color: "#000000",
         darkColor: "#FFFFFF",
-        customIcon: "/icons/shadcn.png",
+        customIcon: "/public/shadcn.png",
       },
     ],
   },
@@ -136,6 +136,12 @@ const skillCategories: SkillCategory[] = [
         slug: "cursor",
         color: "#000000",
         darkColor: "#FFFFFF",
+      },
+      {
+        name: "Claude",
+        slug: "anthropic",
+        color: "#D97757",
+        darkColor: "#D97757",
       },
       {
         name: "Claude Code",
@@ -259,12 +265,12 @@ function SkillPill({
       }}
       whileHover={prefersReducedMotion ? {} : { scale: 1.05, y: -3 }}
       className={[
-        "inline-flex items-center gap-3 rounded-full",
+        "inline-flex items-center gap-2 rounded-full",
         "border cursor-default select-none",
         "transition-all duration-200",
         skill.isPrimary
-          ? "px-5 py-3 min-h-[48px]"
-          : "px-4 py-2.5 min-h-[44px]",
+          ? "px-3 py-1.5 min-h-[34px]"
+          : "px-3 py-1.5 min-h-[32px]",
         isDark
           ? [
               "bg-gray-800/70 border-gray-700",
@@ -291,17 +297,17 @@ function SkillPill({
       <span
         className={[
           "flex-shrink-0 flex items-center justify-center",
-          skill.isPrimary ? "w-6 h-6" : "w-5 h-5",
+          skill.isPrimary ? "w-4 h-4" : "w-4 h-4",
         ].join(" ")}
       >
-        <SkillIcon skill={skill} size={skill.isPrimary ? 24 : 20} isDark={isDark} />
+        <SkillIcon skill={skill} size={16} isDark={isDark} />
       </span>
 
       {/* Label */}
       <span
         className={[
           "font-medium leading-none whitespace-nowrap",
-          skill.isPrimary ? "text-base font-semibold" : "text-sm",
+          skill.isPrimary ? "text-sm font-semibold" : "text-xs",
           isDark ? "text-gray-100" : "text-gray-800",
         ].join(" ")}
       >
@@ -312,7 +318,7 @@ function SkillPill({
       {skill.isPrimary && (
         <span
           className={[
-            "ml-1 px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-wider rounded",
+            "ml-0.5 px-1 py-0.5 text-[9px] font-bold uppercase tracking-wider rounded",
             isDark
               ? "bg-yellow-500/20 text-yellow-400"
               : "bg-yellow-100 text-yellow-700",
@@ -354,7 +360,7 @@ function CategoryCard({
       }}
       className={[
         // ✅ h-full — card stretches to fill the grid cell so all cards are the same height
-        "relative p-6 sm:p-8 rounded-3xl border h-full",
+        "relative p-4 sm:p-5 rounded-2xl border h-full",
         "transition-colors duration-300",
         isDark
           ? "bg-gray-900/50 border-gray-800 hover:border-gray-700"
@@ -362,16 +368,16 @@ function CategoryCard({
       ].join(" ")}
     >
       {/* Card Header */}
-      <div className="flex items-center gap-3 mb-6">
+      <div className="flex items-center gap-2 mb-4">
         <div
           className={[
-            "w-10 h-10 rounded-xl flex items-center justify-center",
+            "w-8 h-8 rounded-lg flex items-center justify-center shrink-0",
             isDark ? "bg-yellow-500/15" : "bg-yellow-100",
           ].join(" ")}
         >
           <Icon
             className={[
-              "w-5 h-5",
+              "w-4 h-4",
               isDark ? "text-yellow-400" : "text-yellow-600",
             ].join(" ")}
           />
@@ -379,18 +385,18 @@ function CategoryCard({
         <div>
           <h3
             className={[
-              "font-bold text-lg",
+              "font-bold text-sm",
               isDark ? "text-white" : "text-gray-900",
             ].join(" ")}
           >
             {category.title}
           </h3>
-          <p className="text-xs text-gray-500">{category.description}</p>
+          <p className="text-[11px] text-gray-500">{category.description}</p>
         </div>
       </div>
 
       {/* Pills */}
-      <div className="flex flex-wrap gap-3">
+      <div className="flex flex-wrap gap-2">
         {primarySkills.length > 0 ? (
           <>
             {/* Primary pills — wrap freely */}
@@ -406,7 +412,7 @@ function CategoryCard({
             {/* ✅ Secondary pills (e.g. MUI + Shadcn in Frontend card only) —
                 nowrap so they always stay on the same line together */}
             {secondarySkills.length > 0 && (
-              <div className="flex gap-3 flex-nowrap">
+              <div className="flex gap-2 flex-nowrap">
                 {secondarySkills.map((skill, skillIndex) => (
                   <SkillPill
                     key={`${skill.slug}-${skill.name}`}
@@ -450,7 +456,7 @@ function MarqueeRow({
     <div
       key={id}
       className={[
-        "inline-flex items-center gap-2.5 px-4 py-2.5 rounded-full border shrink-0 min-h-[40px]",
+        "inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border shrink-0 min-h-[30px]",
         isDark
           ? "bg-gray-800/60 border-gray-700"
           : "bg-white border-gray-200",
@@ -461,12 +467,12 @@ function MarqueeRow({
           : "0 1px 3px rgba(0,0,0,0.06)",
       }}
     >
-      <span className="flex items-center justify-center w-[18px] h-[18px] flex-shrink-0 opacity-70">
-        <SkillIcon skill={logo} size={18} isDark={isDark} />
+      <span className="flex items-center justify-center w-[14px] h-[14px] flex-shrink-0 opacity-70">
+        <SkillIcon skill={logo} size={14} isDark={isDark} />
       </span>
       <span
         className={[
-          "text-sm font-medium whitespace-nowrap",
+          "text-xs font-medium whitespace-nowrap",
           isDark ? "text-gray-400" : "text-gray-500",
         ].join(" ")}
       >
@@ -478,7 +484,7 @@ function MarqueeRow({
   // Reduced-motion: static row
   if (prefersReducedMotion) {
     return (
-      <div className="flex gap-3 py-2 overflow-hidden justify-center flex-wrap">
+      <div className="flex gap-2 py-1.5 overflow-hidden justify-center flex-wrap">
         {allSkills.slice(0, 6).map((logo) => (
           <MarqueePill key={logo.slug} logo={logo} id={logo.slug} />
         ))}
@@ -490,7 +496,7 @@ function MarqueeRow({
     <div className="overflow-hidden py-2" aria-hidden="true">
       <div
         className={[
-          "flex gap-3 w-max",
+          "flex gap-2 w-max",
           reverse ? "skills-marquee-reverse" : "skills-marquee",
         ].join(" ")}
       >
@@ -564,7 +570,7 @@ export default function Skills() {
         </motion.header>
 
         {/* ✅ items-stretch ensures all cards in each row match the tallest card's height */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16 items-stretch">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-16 items-stretch">
           {skillCategories.map((category, index) => (
             <CategoryCard
               key={category.id}

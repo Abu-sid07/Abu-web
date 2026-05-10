@@ -24,8 +24,6 @@ export function AnimatedTiles({
   const tilesRef = useRef<HTMLDivElement | null>(null);
   const prefersReducedMotion = useReducedMotion();
 
-  // FIX 3.3: When user prefers reduced motion, we skip the heavy tile animation
-  // and show a clean, single static image with proper alt text instead.
   if (prefersReducedMotion) {
     return (
       <div className="relative w-full h-full rounded-2xl overflow-hidden shadow-xl">
@@ -39,7 +37,6 @@ export function AnimatedTiles({
     );
   }
 
-  // Original animated tiles (kept for users who enjoy the effect)
   const maxOpacities = useMemo(
     () => [
       [0.0, 0.3, 0.5, 0.7, 0.7, 0.5, 0.3, 0.0],
@@ -199,17 +196,10 @@ export default function About() {
       id="about"
       className="relative py-[80px] md:py-[40px] overflow-hidden bg-background"
     >
-      {/* Background decoration - subtle and consistent with hero */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div
-          className="absolute top-1/2 left-0 w-[500px] h-[500px] rounded-full blur-3xl -translate-y-1/2 -translate-x-1/2 bg-yellow-400/5"
-        />
-      </div>
-
       <div className="container mx-auto px-4 sm:px-6 lg:px-12 max-w-7xl">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-center">
 
-          {/* Left: Visual Element - MOBILE FIX: Reduced size and padding */}
+          {/* Left: Visual Element */}
           <motion.div
             initial={prefersReducedMotion ? {} : { opacity: 0, x: -40 }}
             whileInView={prefersReducedMotion ? {} : { opacity: 1, x: 0 }}
@@ -224,16 +214,14 @@ export default function About() {
                 cols={8}
                 tileSize={30}
               />
-              {/* Subtle ring for polish */}
               <div className="absolute inset-0 rounded-3xl ring-1 ring-inset ring-white/10" />
             </div>
           </motion.div>
 
-          {/* Right: Content - All fixes applied here */}
+          {/* Right: Content */}
           <div className="lg:col-span-7">
-            {/* FIX 3.5 — Strong visual hierarchy */}
             <div className="mb-4">
-            <motion.h2
+              <motion.h2
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
@@ -243,7 +231,6 @@ export default function About() {
               </motion.h2>
             </div>
 
-            {/* FIX 3.2 — Line length constrained to ~65 characters */}
             <div className="max-w-prose text-base sm:text-lg leading-relaxed text-foreground/80 mb-8">
               <motion.p
                 initial={{ opacity: 0, y: 20 }}
@@ -257,7 +244,6 @@ export default function About() {
               </motion.p>
             </div>
 
-            {/* FIX 3.1 & 3.4 — Scannable structure with highlights grid */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -290,7 +276,6 @@ export default function About() {
               })}
             </motion.div>
 
-            {/* Second paragraph - kept short */}
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -303,7 +288,6 @@ export default function About() {
               are not just functional — they should feel good to use.
             </motion.p>
 
-            {/* CTA - matches hero styling */}
             <motion.a
               href="#projects"
               whileHover={{ scale: 1.02 }}
