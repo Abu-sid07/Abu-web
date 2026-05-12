@@ -1,5 +1,6 @@
 // app/layout.tsx
 import './globals.css'
+import { Analytics } from "@vercel/analytics/next"
 import { ThemeProvider } from 'next-themes'
 
 export default function RootLayout({
@@ -24,6 +25,7 @@ export default function RootLayout({
           <main id="main-content">
             {children}
           </main>
+          <Analytics />
         </ThemeProvider>
       </body>
     </html>
