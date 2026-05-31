@@ -153,7 +153,7 @@ export const MinimalistHero = ({
   logoText,
   navLinks,
   mainText,
-  subtitle = 'Frontend Developer',
+  subtitle = ' Frontend Developer',
   role = 'Building modern, responsive web experiences',
   readMoreLink,
   imageSrc,
