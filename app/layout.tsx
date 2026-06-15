@@ -3,7 +3,7 @@ import './globals.css'
 import { Analytics } from "@vercel/analytics/next"
 import { ThemeProvider } from 'next-themes'
 import { Metadata } from 'next';
-import { GoogleTagManager } from '@next/third-parties/google';
+import { GoogleAnalytics } from '@next/third-parties/google';
 
 export const metadata: Metadata = {
   // ── Core identity ──────────────────────────────────────────────────────────
@@ -123,11 +123,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      {/* ── Google Tag Manager ───────────────────────────────────────────────
+      {/* ── Google Analytics ────────────────────────────────────────────────
           Placed directly inside <html> (Next.js best practice).
-          Injects both the <script> in <head> and <noscript> in <body>
-          automatically — no manual placement needed. */}
-      <GoogleTagManager gtmId="GTM-5R6CHEQVHY" />
+          Loads the GA4 tracking script automatically. */}
+      <GoogleAnalytics gaId="G-5R6CHEQVHY" />
       <head>
         {/*
           ── Structured Data (JSON-LD) ─────────────────────────────────────────
