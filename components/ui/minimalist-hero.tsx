@@ -478,12 +478,12 @@ export const MinimalistHero = ({
                 </LineReveal>
                 <LineReveal delay={0.44}>
                   <span className="text-yellow-500 dark:text-yellow-400">
-                    Frontend
+                    Frontend Developer
                   </span>
                 </LineReveal>
                 <LineReveal delay={0.58}>
                   <span className="text-yellow-500 dark:text-yellow-400">
-                    Developer.
+                    & Content Creator.
                   </span>
                 </LineReveal>
               </h1>

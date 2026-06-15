@@ -26,7 +26,7 @@ const timelineData: TimelineItem[] = [
     type: "work",
     title: "Front-End Developer",
     organization: "Kosal.io",
-    period: "07/2025 – 03/2026",
+    period: "07/2025 – Present",
     badge: "Work",
     link: "https://kosallanding.vercel.app/",
     bullets: [
@@ -37,7 +37,23 @@ const timelineData: TimelineItem[] = [
       "Use AI-Assisted Development Tools to speed up development tasks, reduce repetitive work, and improve delivery efficiency.",
     ],
     skills: ["Next.js", "React", "Tailwind CSS", "TypeScript", "Framer Motion", "AI Tools"],
+  },{
+    id: "work-content-creator",
+    type: "work",
+    title: "Content Creator",
+    organization: "Kosal.io",
+    period: "07/2025 – Present",
+    location: "Tirunelveli, Tamil Nadu",
+    badge: "Work",
+    bullets: [
+      "Managed and grew @theladderacademy (tech & coding education) Instagram page from 0 to 17K+ followers through targeted content strategy focused on software development, programming tips, and tech learning.",
+      "Created tech-focused content including coding tutorials, software tips, reels on web development concepts, and career guidance for aspiring developers.",
+      "Written and produced scripts for tech education reels and video content.",
+      "Planned and executed monthly content calendars aligned with trending tech topics to drive consistent audience growth.",
+    ],
+    skills: ["Instagram Content Strategy", "Script Writing", "Reels", "Social Media Growth", "Brand Storytelling", "Content Calendar"],
   },
+  
   {
     id: "work-visa",
     type: "work",
@@ -106,6 +122,7 @@ const corePhilosophies = [
   "Writing maintainable code",
   "Improving user experience",
   "Solving real-world problems",
+  "Creating engaging and accessible tech content",
 ];
 
 const tabs: { key: FilterTab; label: string }[] = [

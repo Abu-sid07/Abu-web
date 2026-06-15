@@ -161,8 +161,8 @@ export default function Footer() {
                 ].join(" ")}
                 aria-label="Go to top of page"
               >
-                <span className="text-yellow-500">Abu</span>
-                <span>Sid.</span>
+                <span className="text-yellow-500">Abubacker</span>
+                <span>Siddique</span>
               </Link>
 
               <p className="mt-4 max-w-md text-base leading-relaxed text-muted-foreground">
@@ -348,7 +348,7 @@ export default function Footer() {
           >
             <p className="text-sm text-muted-foreground text-center sm:text-left">
               {/* Fix 7.4: dynamic year */}
-              © {currentYear} Abu Siddique. All rights reserved.
+              © {currentYear} Abubacker Siddique. All rights reserved.
             </p>
 
             <p className="text-sm text-muted-foreground flex items-center gap-1">

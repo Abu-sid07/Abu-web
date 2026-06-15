@@ -182,12 +182,12 @@ export default function About() {
     {
       icon: Code2,
       label: "Specialty",
-      value: "React & Next.js",
+      value: "React, Next.js & Tech Content Creation",
     },
     {
       icon: Sparkles,
       label: "Focus",
-      value: "UI/UX",
+      value: "UI/UX & Creative Education",
     },
   ];
 
@@ -238,9 +238,9 @@ export default function About() {
                 viewport={{ once: true }}
                 transition={{ delay: 0.1 }}
               >
-                Hi, I&apos;m Abu — a frontend developer who loves turning
-                complex ideas into clean, responsive, and delightful digital
-                experiences.
+                Hi, I'm Abubacker Siddique — a frontend developer and tech content creator who loves turning complex ideas into clean, responsive, and delightful digital experiences.
+
+Whether I'm writing clean code or scripting engaging tech content, I focus on making technology accessible, interactive, and fun.
               </motion.p>
             </div>
 
@@ -283,9 +283,7 @@ export default function About() {
               transition={{ delay: 0.3 }}
               className="max-w-prose text-base sm:text-lg leading-relaxed text-foreground/80 mb-8"
             >
-              My focus is on building fast, accessible interfaces using React,
-              Next.js, Tailwind, and Framer Motion. I believe great products
-              are not just functional — they should feel good to use.
+             Building sleek, responsive UIs with Next.js and creating sharp, bite-sized tech content that makes development accessible and engaging.
             </motion.p>
 
             <motion.a

@@ -28,6 +28,7 @@ const projects: Project[] = [
     images: ["/asto-img.png"],
     link: "https://vishwasangam.vercel.app/",
   },
+  
    {
     id: "02",
     title: "Pump Management & AI-Based Recommendation Dashboard",
@@ -44,8 +45,18 @@ const projects: Project[] = [
     ],
     link: "https://drive.google.com/drive/folders/1VpHmNljdpULmDucsOmIE-IhGaS3Q4aGH?usp=sharing",
   },
+  {
+  id: "03",
+  title: "Al Amanath English Academy — Spoken English & Confidence Building",
+  description:
+    "Free spoken English education platform for underserved communities in Melapalayam, Tirunelveli. Features course curriculum, trainer profiles, admissions flow, and WhatsApp-integrated demo class registration.",
+  tags: ["Next.js", "React", "TypeScript", "Vercel"],
+  category: "Web App",
+ images: ["/al-amanth-pro.png"],
+  link: "https://al-amanath-academy.vercel.app/",
+},
 
-  {  id: "03",
+  {  id: "04",
   title: "Space Shooting Game",
   description:
     "Developed an interactive 2D space shooting game with smooth player controls, enemy attack mechanics, collision detection, score tracking, and responsive gameplay experience. Designed engaging UI elements and optimized animations for seamless performance across devices.",
@@ -57,7 +68,7 @@ const projects: Project[] = [
   link: "https://space-shooting-game-chi.vercel.app/",
 },
   {
-    id: "04",
+    id: "05",
     title: "ladder Acadamy Landing Page",
     description:
       "Visually appealing and responsive landing page  platform focused on UX.",

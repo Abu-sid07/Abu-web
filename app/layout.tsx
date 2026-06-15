@@ -2,6 +2,26 @@
 import './globals.css'
 import { Analytics } from "@vercel/analytics/next"
 import { ThemeProvider } from 'next-themes'
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Abubacker Siddique Website',
+  description: 'Hi, I\'m Abu Frontend Developer & Content Creator.',
+  verification: {
+    google: 'X6_quBVhKvNd6O5qAnCysIWKdVS56Grb1WDs4vp-nvU',
+  },
+  openGraph: {
+    title: 'Abubacker Siddique Website',
+    description: 'Hi, I\'m Abu Frontend Developer & Content Creator.',
+    images: [
+      {
+        url: '/open graph pic.png',
+        width: 1200,
+        height: 630,
+      },
+    ],
+  },
+};
 
 export default function RootLayout({
   children,
