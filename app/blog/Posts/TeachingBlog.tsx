@@ -18,7 +18,7 @@ const DATA = {
   author: "Abu",
   date: "28 Dec 2024",
   read_time: "5 min read",
-  views: 0,
+  views: 568,
   schedule: "6:00 AM – 7:30 AM",
   summary:
     "Before the world woke up, I was already teaching. Here's how a one-hour morning routine quietly became the most meaningful part of my day.",

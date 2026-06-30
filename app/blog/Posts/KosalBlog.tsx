@@ -18,7 +18,7 @@ const DATA = {
   author: "Abu",
   date: "June 2025",
   read_time: "4 min read",
-  views: 0,
+  views: 434,
   summary:
     "After a year of grinding in Chennai, one phone call from a friend changed everything. Here's how I finally walked into the software career I'd been building toward all along.",
 

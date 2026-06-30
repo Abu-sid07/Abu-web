@@ -18,7 +18,7 @@ const DATA = {
   author: "Abu",
   date: "June 2025",
   read_time: "4 min read",
-  views: 0,
+  views: 407,
   summary:
     "I arrived in Chennai with a BCA degree and a software dream. What followed was a year of early mornings, midnight coursework, and a bicycle ride I'll never forget.",
 

@@ -18,7 +18,7 @@ const DATA = {
   author: "Abu",
   date: "November 2024",
   read_time: "5 min read",
-  views: 269,
+  views: 473,
   institution: "Sadakathullah Appa College",
   course: "BCA",
   duration: "2021 to 2024",
