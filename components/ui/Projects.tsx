@@ -27,10 +27,19 @@ const projects: Project[] = [
     category: "Web App",
     images: ["/asto-img.png"],
     link: "https://vishwasangam.vercel.app/",
+  },{
+    id: "02",
+    title: "GenZ UV — Digital Marketing Agency for Principled Entrepreneurs",
+    description:
+      "Agency website for a Gen-Z-led digital marketing collective helping Muslim entrepreneurs grow halal brands through video editing, content creation, social media, branding, AI automation, and web development. Built with a custom UV (ultraviolet) violet-magenta design system.",
+    tags: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Framer Motion"],
+    category: "Agency Website",
+    images: ["/genzuv-img.png"],
+    link: "https://gen-z-uv-offical.vercel.app/",
   },
   
    {
-    id: "02",
+    id: "03",
     title: "Pump Management & AI-Based Recommendation Dashboard",
     description:
       "Interactive dashboard for pump inventory management with AI-driven recommendation workflows and chat UI.",
@@ -46,7 +55,7 @@ const projects: Project[] = [
     link: "https://drive.google.com/drive/folders/1VpHmNljdpULmDucsOmIE-IhGaS3Q4aGH?usp=sharing",
   },
   {
-  id: "03",
+  id: "04",
   title: "Al Amanath English Academy — Spoken English & Confidence Building",
   description:
     "Free spoken English education platform for underserved communities in Melapalayam, Tirunelveli. Features course curriculum, trainer profiles, admissions flow, and WhatsApp-integrated demo class registration.",
@@ -56,7 +65,7 @@ const projects: Project[] = [
   link: "https://al-amanath-academy.vercel.app/",
 },
 
-  {  id: "04",
+  {  id: "05",
   title: "Space Shooting Game",
   description:
     "Developed an interactive 2D space shooting game with smooth player controls, enemy attack mechanics, collision detection, score tracking, and responsive gameplay experience. Designed engaging UI elements and optimized animations for seamless performance across devices.",
@@ -68,7 +77,7 @@ const projects: Project[] = [
   link: "https://space-shooting-game-chi.vercel.app/",
 },
   {
-    id: "05",
+    id: "06",
     title: "ladder Acadamy Landing Page",
     description:
       "Visually appealing and responsive landing page  platform focused on UX.",
