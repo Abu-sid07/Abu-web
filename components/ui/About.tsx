@@ -177,7 +177,7 @@ export default function About() {
     {
       icon: Calendar,
       label: "Experience",
-      value: "1 Years",
+      value: "2+ Years",
     },
     {
       icon: Code2,
