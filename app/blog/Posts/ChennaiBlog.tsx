@@ -53,27 +53,27 @@ const DATA = {
         },
       ],
     },
-    {
+   {
       label: "Chapter 04",
-      heading: "My Start as a Visa Processor",
-      body: "That's when I landed a job as a Visa Processor. After the gym, I'd get ready and head straight to the office. I opened it up every morning and handled visa applications with full dedication. It wasn't my dream job — but I showed up like it was. That discipline quietly shaped who I was becoming.",
+      heading: "My Start as a Junior Frontend Developer",
+      body: "That's when I took my first steps into the tech world as a Junior Frontend Developer. I balanced my daily routines with the responsibility of managing the agency's digital operations. I didn't just handle visa applications; I began optimizing them. It wasn't my ultimate destination — but I approached every task with the focus of a developer, learning to build and maintain digital systems from the ground up.",
       images: [
         {
           src: "/blog/visa-office.jpeg",
-          alt: "Abu at his office desk, looking focused and professional",
-          caption: "Every morning, the office opened — and so did a new version of me",
+          alt: "Abu at his workstation, coding and managing digital tools",
+          caption: "Every morning, the office opened — and so did my journey into development",
         },
       ],
     },
     {
       label: "Chapter 05",
-      heading: "Hard Work and Promotion",
-      body: "During this time, I also picked up CRM skills on the job. My performance didn't go unnoticed — within six months, I was promoted to Visa Executive. I continued in that role for a full year, handling responsibilities with the same sincerity I brought from day one. But even while climbing that ladder, a different dream was still running quietly in the background.",
+      heading: "Automating and Growing",
+      body: "During this time, I dove deep into web technologies and CRM tools. My focus on digitizing manual workflows didn't go unnoticed — within six months, I was taking on more technical responsibilities as a lead for our digital portals. I continued in this hybrid role for a year, bridging the gap between operations and frontend development. While I was delivering results for the agency, my passion for building web applications was growing stronger every day.",
       images: [
         {
           src: "/blog/promotion.jpg",
-          alt: "An achievement or certificate, representing growth and recognition",
-          caption: "Six months in — promoted. The work was paying off",
+          alt: "A display of digital projects or a professional workspace, representing growth",
+          caption: "Six months in — moving from manual tasks to digital solutions. The growth was real.",
         },
       ],
     },

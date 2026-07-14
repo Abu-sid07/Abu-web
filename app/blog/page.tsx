@@ -187,6 +187,14 @@ function SilkBackground() {
 }
 
 function HeroBackground({ isDark }: { isDark: boolean }) {
+  const [mounted, setMounted] = useState(false)
+  useEffect(() => { setMounted(true) }, [])
+
+  if (!mounted) {
+    // Render a neutral, SSR-safe placeholder that matches on both server & client
+    return <GradientBackground />
+  }
+
   return isDark ? <SilkBackground /> : <GradientBackground />
 }
 
@@ -384,18 +392,30 @@ function BlogList({
 // VIEW COUNTER
 // ─────────────────────────────────────────────────────────────────────────────
 
-function useViewCounter(blogId: string, init: number) {
+function useViewCounter(blogId: string, init: number, isActive: boolean) {
   const [views, setViews] = useState(init)
-  const [isMounted, setIsMounted] = useState(false)
-  useEffect(() => { setIsMounted(true) }, [])
+
   useEffect(() => {
-    if (!isMounted) return
-    const key = `blog_views_${blogId}`
-    const n = (parseInt(localStorage.getItem(key) ?? String(init)) || init) + 1
-    localStorage.setItem(key, String(n))
-    setViews(n)
-  }, [blogId, init, isMounted])
-  return isMounted ? views : init
+    if (typeof window === "undefined") return
+
+    const storageKey = `blog_views_${blogId}`
+    const sessionKey = `blog_viewed_${blogId}`
+
+    // Always read current stored count so the number displayed is accurate
+    const stored = parseInt(localStorage.getItem(storageKey) ?? String(init), 10) || init
+    setViews(stored)
+
+    // Only increment when this specific blog is the one being actively viewed,
+    // and only once per browser session (sessionStorage flag prevents refresh spam)
+    if (isActive && !sessionStorage.getItem(sessionKey)) {
+      const updated = stored + 1
+      localStorage.setItem(storageKey, String(updated))
+      sessionStorage.setItem(sessionKey, "1")
+      setViews(updated)
+    }
+  }, [blogId, init, isActive])
+
+  return views
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -406,17 +426,23 @@ function BlogPageContent() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const viewParam = searchParams.get("post") as ViewMode | null
-
   const [view, setView] = useState<ViewMode>("list")
   const [animIn, setAnimIn] = useState(false)
+
+  // Prevent hydration mismatches by keeping theme-derived UI stable
+  // until the component has mounted on the client. Server renders
+  // should match the initial client render (mounted === false).
+  const [mounted, setMounted] = useState(false)
+  useEffect(() => { setMounted(true) }, [])
+
   const { theme } = useTheme()
-  const isDark = theme === "dark"
+  const isDark = mounted ? theme === "dark" : false
 
   // ③ VIEW COUNTERS — add one line per blog
-  const collegeViews  = useViewCounter("college",  COLLEGE_CARD.initialViews)
-  const teachingViews = useViewCounter("teaching", TEACHING_CARD.initialViews)
-  const chennaiViews  = useViewCounter("chennai",  CHENNAI_CARD.initialViews)
-  const kosalViews    = useViewCounter("kosal",    KOSAL_CARD.initialViews)
+  const collegeViews  = useViewCounter("college",  COLLEGE_CARD.initialViews,  view === "college")
+  const teachingViews = useViewCounter("teaching", TEACHING_CARD.initialViews, view === "teaching")
+  const chennaiViews  = useViewCounter("chennai",  CHENNAI_CARD.initialViews,  view === "chennai")
+  const kosalViews    = useViewCounter("kosal",    KOSAL_CARD.initialViews,    view === "kosal")
 
   // ④ VIEW COUNTS MAP — add your blog id → views here
   const viewCounts: Record<string, number> = {

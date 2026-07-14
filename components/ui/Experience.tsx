@@ -22,54 +22,40 @@ type FilterTab = "all" | "work" | "edu";
 
 const timelineData: TimelineItem[] = [
   {
-    id: "work-frontend",
+    id: "work-kosal-io",
     type: "work",
-    title: "Front-End Developer",
-    organization: "Kosal.io",
-    period: "07/2025 – Present",
-    badge: "Work",
-    link: "https://kosallanding.vercel.app/",
-    bullets: [
-      "Develop responsive and modern user interfaces using Next.js, React.js, TypeScript, JavaScript, Tailwind CSS, shadcn/ui.",
-      "Build reusable UI components and optimize application performance for smoother, faster user experiences.",
-      "Integrate REST APIs, manage data flow, and ensure clean, maintainable front-end architecture.",
-      "Collaborate with teams using Git/GitHub, follow clean code practices, and efficiently debug issues.",
-      "Use AI-Assisted Development Tools to speed up development tasks, reduce repetitive work, and improve delivery efficiency.",
-    ],
-    skills: ["Next.js", "React", "Tailwind CSS", "TypeScript", "Framer Motion", "AI Tools"],
-  },{
-    id: "work-content-creator",
-    type: "work",
-    title: "Content Creator",
+    title: "Front-End Developer & Content Creator",
     organization: "Kosal.io",
     period: "07/2025 – Present",
     location: "Tirunelveli, Tamil Nadu",
     badge: "Work",
+    link: "https://kosallanding.vercel.app/",
     bullets: [
-      "Managed and grew @theladderacademy (tech & coding education) Instagram page from 0 to 17K+ followers through targeted content strategy focused on software development, programming tips, and tech learning.",
-      "Created tech-focused content including coding tutorials, software tips, reels on web development concepts, and career guidance for aspiring developers.",
-      "Written and produced scripts for tech education reels and video content.",
-      "Planned and executed monthly content calendars aligned with trending tech topics to drive consistent audience growth.",
+      "Develop responsive and modern user interfaces using Next.js, React.js, TypeScript, Tailwind CSS, and shadcn/ui to build scalable web applications.",
+      "Integrate REST APIs and optimize front-end architecture to ensure high performance and seamless data flow.",
+      "Spearheaded the growth of @theladderacademy, scaling it to 17K+ followers through strategic content creation and programming tutorials.",
+      "Translate complex technical concepts into engaging video content, including coding tutorials and career guidance, to foster a tech-learning community.",
+      "Leverage AI-assisted development tools and creative storytelling to streamline both software development and brand engagement workflows."
     ],
-    skills: ["Instagram Content Strategy", "Script Writing", "Reels", "Social Media Growth", "Brand Storytelling", "Content Calendar"],
-  },
+    skills: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Content Strategy", "Social Media Growth", "AI Tools"],
+},
   
   {
     id: "work-visa",
     type: "work",
-    title: "Visa Executive",
+    title: "Junior Frontend Developer",
     organization: "Hameed Air Travels",
     period: "07/2024 – 07/2025",
     location: "Chennai, Tamil Nadu",
     badge: "Work",
     bullets: [
-      "Processed visa applications for multiple countries, ensuring accurate documentation, compliance, and timely submission.",
-      "Handled ticket booking and travel arrangements while maintaining precision and customer satisfaction.",
-      "Utilized booking systems and CRM tools for client data management, record-keeping, and application tracking.",
-      "Demonstrated technical adaptability, including basic system troubleshooting, website content updates, and cybersecurity awareness.",
-      "Delivered excellent client service and digital communication, ensuring clear guidance, professional support, and organized workflow.",
+      "Assisted in digitizing manual visa application processes by developing simple web-based tracking tools.",
+      "Managed and updated the agency’s digital portal, ensuring travel schedules and service information were accurate.",
+      "Automated daily data entry tasks using digital solutions, which helped in reducing manual errors.",
+      "Worked with the team to improve customer communication through digital portals."
     ],
-  },
+     skills: ["Next.js", "React", "Tailwind CSS", "TypeScript", "Framer Motion", "AI Tools"],
+},
   {
     id: "work-intern",
     type: "work",
@@ -95,9 +81,15 @@ const timelineData: TimelineItem[] = [
     location: "Chennai, Tamil Nadu",
     badge: "Course",
     link: "https://www.greenstechnologys.com/",
+    bullets: [
+      "Completed an intensive program mastering the MERN stack for building scalable full-stack applications.",
+      "Gained hands-on experience in database design with MongoDB and server-side logic using Node.js and Express.js.",
+      "Developed dynamic front-end interfaces using React.js and integrated them with RESTful APIs.",
+      "Acquired solid fundamentals in web architecture, data management, and modern JavaScript development practices."
+    ],
     skills: ["MongoDB", "Express.js", "React", "Node.js"],
-  },
-  {
+},
+{
     id: "edu-novit",
     type: "edu",
     title: "Full Stack Development",
@@ -105,7 +97,13 @@ const timelineData: TimelineItem[] = [
     period: "12/2024 – 01/2025",
     location: "Online",
     badge: "Course",
-  },
+    bullets: [
+      "Participated in a comprehensive full-stack training focused on modern web development workflows.",
+      "Built and deployed end-to-end web projects, enhancing skills in frontend-backend connectivity.",
+      "Gained practical knowledge in debugging, state management, and deploying web applications.",
+      "Collaborated on project modules to solve real-world problems using contemporary coding standards."
+    ],
+},
   {
     id: "edu-bca",
     type: "edu",
@@ -114,7 +112,13 @@ const timelineData: TimelineItem[] = [
     period: "06/2021 – 06/2024",
     badge: "BCA",
     link: "https://sadakath.ac.in/",
-  },
+    bullets: [
+      "Graduated with a strong foundation in computer science, software development, and information technology.",
+      "Gained comprehensive knowledge in programming languages, database management systems, and web technologies.",
+      "Developed problem-solving and analytical skills through various academic projects and technical assignments.",
+      "Acquired core competency in software engineering principles, networking, and system analysis."
+    ],
+},
 ];
 
 const corePhilosophies = [

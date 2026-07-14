@@ -13,25 +13,25 @@ import { BackBtn, BlogImg, ClosingQuote, PostSection, SHeading, SLabel } from ".
 // ── Data ─────────────────────────────────────────────────────────────────────
 
 const DATA = {
-  title: "My Journey: From Visa Work to Software Development",
+  title: "My Journey:  Frontend Development",
   subtitle: "Career · Kosal.io",
   author: "Abu",
   date: "June 2025",
   read_time: "4 min read",
   views: 434,
   summary:
-    "After a year of grinding in Chennai, one phone call from a friend changed everything. Here's how I finally walked into the software career I'd been building toward all along.",
+    "After a year of balancing operations work in Chennai with relentless coding practice, a single opportunity shifted my trajectory. Here is the story of how I transitioned into the software career I had been building toward all along.",
 
   chapters: [
     {
       label: "Chapter 01",
-      heading: "Late June 2025 – A Big Change",
-      body: "I was living in Chennai, working as a Visa Executive — handling passports, stamping documents, and managing visa files every single day. It was a fast-paced job, and I gave it my best. But deep inside, I always knew where I truly wanted to be: in front of a laptop, writing code. So while working full-time, I quietly completed my MERN Full Stack course on the side. One day, my college friend Gouse called me with exciting news — he was heading to an interview at a new company.",
+      heading: "Late June 2025 – Bridging the Gap",
+      body: "I was based in Chennai, working as a Junior Frontend Developer . My days were a mix of managing travel documentation and optimizing digital workflows for the agency. While the operations work was fast-paced, my true focus was always on the screen in front of me—coding. Evenings and weekends were dedicated to completing my MERN Full Stack course and refining my React skills. Everything changed with one phone call from my friend Gouse, who shared an exciting opening at a growing tech startup. That call wasn't just an alert; it was the bridge I had been preparing to cross.",
       images: [
         {
           src: "/blog/laptop-work.jpg",
-          alt: "Abu working on his laptop with a focused look",
-          caption: "The moment I knew the grind was about to pay off",
+          alt: "Abu working on his laptop, balancing professional tasks with coding",
+          caption: "Building digital solutions while mastering the stack",
         },
       ],
     },
