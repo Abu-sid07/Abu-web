@@ -27,57 +27,74 @@ const timelineData: TimelineItem[] = [
     title: "Front-End Developer & Content Creator",
     organization: "Kosal.io",
     period: "07/2025 – Present",
-    location: "Tirunelveli, Tamil Nadu",
+    location: "Kovilpatti, Tamil Nadu",
     badge: "Work",
     link: "https://kosallanding.vercel.app/",
     bullets: [
-      "Develop responsive and modern user interfaces using Next.js, React.js, TypeScript, Tailwind CSS, and shadcn/ui to build scalable web applications.",
-      "Integrate REST APIs and optimize front-end architecture to ensure high performance and seamless data flow.",
-      "Spearheaded the growth of @theladderacademy, scaling it to 17K+ followers through strategic content creation and programming tutorials.",
-      "Translate complex technical concepts into engaging video content, including coding tutorials and career guidance, to foster a tech-learning community.",
-      "Leverage AI-assisted development tools and creative storytelling to streamline both software development and brand engagement workflows."
+      "Built responsive UI using Next.js, React.js, TypeScript, Tailwind CSS and shadcn/UI with optimized component architecture.",
+      "Integrated REST APIs with AI-assisted development tools using Git and GitHub.",
+      "Grew @theladderacademy Instagram from 0 to 17,000+ followers through strategic content and reels.",
+      "Produced technical content including tutorials and career guidance videos for developers."
     ],
     skills: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Content Strategy", "Social Media Growth", "AI Tools"],
-},
-  
+  },
+
+  {
+    id: "work-mern-greens",
+    type: "work",
+    title: "MERN Stack Development Internship",
+    organization: "Greens Technology",
+    period: "04/2025 – 07/2025",
+    location: "Chennai, Tamil Nadu",
+    badge: "Internship",
+    link: "https://www.greenstechnologys.com/",
+    bullets: [
+      "Built full-stack web applications using MongoDB, Express.js, React.js and Node.js, covering both frontend and backend development.",
+      "Developed responsive, component-based user interfaces with React.js, improving usability and performance.",
+      "Designed and integrated RESTful APIs using Express.js and Node.js, enabling smooth communication between frontend and database.",
+      "Worked with MongoDB for data storage and management, handling CRUD operations for real-world project scenarios."
+    ],
+    skills: ["MongoDB", "Express.js", "React", "Node.js"],
+  },
+
   {
     id: "work-visa",
     type: "work",
     title: "Junior Frontend Developer",
     organization: "Hameed Air Travels",
-    period: "07/2024 – 07/2025",
+    period: "07/2024 – 04/2025",
     location: "Chennai, Tamil Nadu",
     badge: "Work",
     bullets: [
-      "Assisted in digitizing manual visa application processes by developing simple web-based tracking tools.",
-      "Managed and updated the agency’s digital portal, ensuring travel schedules and service information were accurate.",
-      "Automated daily data entry tasks using digital solutions, which helped in reducing manual errors.",
-      "Worked with the team to improve customer communication through digital portals."
+      "Assisted in digitizing manual visa application processes with web-based tracking tools.",
+      "Managed the agency's digital portal, automating data entry and reducing manual errors.",
+      "Collaborated with the team to improve customer communication through digital channels."
     ],
-     skills: ["Next.js", "React", "Tailwind CSS", "TypeScript", "Framer Motion", "AI Tools"],
-},
+    skills: ["Next.js", "React", "Tailwind CSS", "TypeScript", "Framer Motion", "AI Tools"],
+  },
+
   {
     id: "work-intern",
     type: "work",
-    title: "Web Developer (Intern)",
+    title: "Web Developer Intern",
     organization: "Code Genie",
-    period: "04/2023 – 04/2023",
+    period: "04/2023",
     location: "Tirunelveli, Tamil Nadu",
     badge: "Intern",
     link: "https://www.linkedin.com/company/codegenie-solutions?originalSubdomain=in",
     bullets: [
-      "Front-End Development: Proficient in HTML5, CSS3, JavaScript, and Bootstrap for creating responsive and visually appealing web designs.",
-      "Interactive UI & Problem-Solving: Hands-on experience with JavaScript DOM manipulation and event handling to enhance user experience.",
-      "Collaborative & Adaptive Learning: Eager to learn, adapt to new technologies, and work efficiently using GitHub, VS Code.",
+      "Developed responsive, visually appealing web designs using HTML5, CSS3, JavaScript and Bootstrap.",
+      "Implemented DOM manipulation and event handling to enhance interactivity."
     ],
     skills: ["HTML5", "CSS3", "JavaScript", "Bootstrap", "GitHub"],
   },
+
   {
     id: "edu-mern",
     type: "edu",
     title: "MERN Full Stack",
     organization: "Greens Technology",
-    period: "07/2024 – 07/2025",
+    period: "04/2025 – 07/2025",
     location: "Chennai, Tamil Nadu",
     badge: "Course",
     link: "https://www.greenstechnologys.com/",
@@ -88,28 +105,15 @@ const timelineData: TimelineItem[] = [
       "Acquired solid fundamentals in web architecture, data management, and modern JavaScript development practices."
     ],
     skills: ["MongoDB", "Express.js", "React", "Node.js"],
-},
-{
-    id: "edu-novit",
-    type: "edu",
-    title: "Full Stack Development",
-    organization: "NoviTech",
-    period: "12/2024 – 01/2025",
-    location: "Online",
-    badge: "Course",
-    bullets: [
-      "Participated in a comprehensive full-stack training focused on modern web development workflows.",
-      "Built and deployed end-to-end web projects, enhancing skills in frontend-backend connectivity.",
-      "Gained practical knowledge in debugging, state management, and deploying web applications.",
-      "Collaborated on project modules to solve real-world problems using contemporary coding standards."
-    ],
-},
+  },
+
   {
     id: "edu-bca",
     type: "edu",
     title: "Bachelor of Computer Application (BCA)",
     organization: "Sadakathullah Appa College, Tirunelveli",
-    period: "06/2021 – 06/2024",
+    period: "2021 – 2024",
+    location: "Tirunelveli, Tamil Nadu",
     badge: "BCA",
     link: "https://sadakath.ac.in/",
     bullets: [
@@ -118,7 +122,7 @@ const timelineData: TimelineItem[] = [
       "Developed problem-solving and analytical skills through various academic projects and technical assignments.",
       "Acquired core competency in software engineering principles, networking, and system analysis."
     ],
-},
+  },
 ];
 
 const corePhilosophies = [
