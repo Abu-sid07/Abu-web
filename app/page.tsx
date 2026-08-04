@@ -173,7 +173,7 @@ function DockNav() {
     {
       icon: FileTextIcon,
       label: 'Resume',
-      href: 'https://flowcv.com/resume/qlsvslu978kd',
+      href: 'https://flowcv.com/resume/lf8n1rng7ncs',
       external: true,
     },
     {
