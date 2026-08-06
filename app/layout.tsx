@@ -10,13 +10,20 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body>
+        
+
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
           enableSystem
           disableTransitionOnChange
         >
-          {children}
+          {/* ② <main> landmark — id matches the skip link href.
+              Wraps page-level content so screen readers can jump here
+              and WCAG 2.1 SC 2.4.1 bypass-block requirement is met. */}
+          <main id="main-content">
+            {children}
+          </main>
         </ThemeProvider>
       </body>
     </html>
