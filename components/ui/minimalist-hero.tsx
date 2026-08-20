@@ -478,7 +478,7 @@ export const MinimalistHero = ({
                 </LineReveal>
                 <LineReveal delay={0.44}>
                   <span className="text-yellow-500 dark:text-yellow-400">
-                    Frontend Developer
+                    Software Developer
                   </span>
                 </LineReveal>
                 <LineReveal delay={0.58}>

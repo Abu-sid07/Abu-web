@@ -22,11 +22,28 @@ type FilterTab = "all" | "work" | "edu";
 
 const timelineData: TimelineItem[] = [
   {
+    id: "work-genz-uv",
+    type: "work",
+    title: "Software Developer",
+    organization: "GenZ UV Digital Marketing Solutions",
+    period: "04/2026 – Present",
+    location: "Remote",
+    badge: "Work",
+    link: "https://genzuv.in",
+    bullets: [
+      "Building and maintaining the agency website and client-facing web pages using Next.js, React.js, Tailwind CSS, and Framer Motion.",
+      "Developing responsive UI components for digital marketing service pages to support SEO and lead generation.",
+      "Collaborating with the marketing team to translate campaign requirements into performant, conversion-focused web experiences."
+    ],
+    skills: ["Next.js", "React", "Tailwind CSS", "Framer Motion", "SEO", "Lead Generation"],
+  },
+
+  {
     id: "work-kosal-io",
     type: "work",
     title: "Front-End Developer & Content Creator",
     organization: "Kosal.io",
-    period: "07/2025 – Present",
+    period: "07/2025 – 03/2026",
     location: "Kovilpatti, Tamil Nadu",
     badge: "Work",
     link: "https://kosallanding.vercel.app/",
@@ -65,6 +82,7 @@ const timelineData: TimelineItem[] = [
     period: "07/2024 – 04/2025",
     location: "Chennai, Tamil Nadu",
     badge: "Work",
+     link: "https://hameedairtravels.vercel.app",  
     bullets: [
       "Assisted in digitizing manual visa application processes with web-based tracking tools.",
       "Managed the agency's digital portal, automating data entry and reducing manual errors.",

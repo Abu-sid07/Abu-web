@@ -206,7 +206,7 @@ const NAV_ITEMS = [
   { icon: HomeIcon,     label: "Home",     href: "/",                                     external: false },
   { icon: PenLineIcon,  label: "Blog",     href: "/blog",                                 external: false, sep: true },
   { icon: LinkedinIcon, label: "LinkedIn", href: "https://www.linkedin.com/in/abusid07",  external: true },
-  { icon: FileTextIcon, label: "Resume",   href: "https://flowcv.com/resume/lf8n1rng7ncs",                           external: true },
+  { icon: FileTextIcon, label: "Resume",   href: "https://flowcv.com/resume/2tmoqbj5s6g9",                           external: true },
   { icon: GithubIcon,   label: "GitHub",   href: "https://github.com/Abu-sid07",          external: true },
   { icon: MailIcon,     label: "Gmail",    href: "mailto:abubackersiddique311@gmail.com", external: false },
 ]

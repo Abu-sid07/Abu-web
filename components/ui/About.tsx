@@ -238,7 +238,7 @@ export default function About() {
                 viewport={{ once: true }}
                 transition={{ delay: 0.1 }}
               >
-                Hi, I'm Abubacker Siddique — a frontend developer and tech content creator who loves turning complex ideas into clean, responsive, and delightful digital experiences.
+                Hi, I'm Abubacker Siddique — a Software developer and tech content creator who loves turning complex ideas into clean, responsive, and delightful digital experiences.
 
 Whether I'm writing clean code or scripting engaging tech content, I focus on making technology accessible, interactive, and fun.
               </motion.p>

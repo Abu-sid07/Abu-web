@@ -38,8 +38,8 @@ const CODEX_SVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" f
 
 const skillCategories: SkillCategory[] = [
   {
-    id: "frontend",
-    title: "Frontend",
+    id: "Languages & Frameworks",
+    title: "Languages & Frameworks",
     icon: Code2,
     description: "Core technologies I use daily",
     skills: [

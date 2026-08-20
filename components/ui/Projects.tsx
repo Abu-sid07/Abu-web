@@ -24,13 +24,13 @@ const projects: Project[] = [
     title: "Hameed Air Travels — Visa Services Platform",
     description:
       "Visa services website with country-specific visa data, dynamic routing, and interactive UI components including a hero section, testimonials, and carousels.",
-    tags: ["Next.js", "React", "TypeScript", "Tailwind CSS"],
+    tags: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Vercel"],
     category: "Web App",
     images: [
       "/HAT_pro1.png",
       "/HAT_pro2.png"
     ],
-    link: "https://hameed-air-travels.vercel.app",
+    link: "https://hameedairtravels.vercel.app",
   },
   
   {
@@ -49,7 +49,7 @@ const projects: Project[] = [
     title: "Pump Management & AI-Based Recommendation Dashboard",
     description:
       "Interactive dashboard for pump inventory management with AI-driven recommendation workflows and chat UI.",
-    tags: ["Next.js", "React", "Tailwind CSS", "AI"],
+    tags: ["Next.js", "React", "Tailwind CSS", "AI", "Vercel"],
     category: "Dashboard",
     images: [
       "/pump1/pump-1.png",
