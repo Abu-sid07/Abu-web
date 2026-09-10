@@ -43,9 +43,22 @@ const projects: Project[] = [
     images: ["/asto-img.png"],
     link: "https://vishwasangam.vercel.app/",
   },
+  {
+    id: "03",
+    title: "Ladder Academy — Become a Real-World Software Engineer in 16 Weeks",
+    description:
+      "Visually appealing and responsive landing page for a software engineering bootcamp, focused on UX and driving student sign-ups.",
+    tags: ["Next.js", "Framer Motion", "Tailwind CSS"],
+    category: "Landing Page",
+    images: [
+      "/Ladder-pro.png",
+      "/Ladder-pro2.png",
+    ],
+    link: "https://ladder-academy-tn.vercel.app",
+  },
   
    {
-    id: "03",
+    id: "04",
     title: "Pump Management & AI-Based Recommendation Dashboard",
     description:
       "Interactive dashboard for pump inventory management with AI-driven recommendation workflows and chat UI.",
@@ -62,7 +75,7 @@ const projects: Project[] = [
   },
   
   {
-  id: "04",
+  id: "05",
   title: "Al Amanath English Academy — Spoken English & Confidence Building",
   description:
     "Free spoken English education platform for underserved communities in Melapalayam, Tirunelveli. Features course curriculum, trainer profiles, admissions flow, and WhatsApp-integrated demo class registration.",
@@ -73,7 +86,7 @@ const projects: Project[] = [
 },
 
 {
-    id: "05",
+    id: "06",
     title: "GenZ UV — Digital Marketing Agency for Principled Entrepreneurs",
     description:
       "Agency website for a Gen-Z-led digital marketing collective helping Muslim entrepreneurs grow halal brands through video editing, content creation, social media, branding, AI automation, and web development. Built with a custom UV (ultraviolet) violet-magenta design system.",
@@ -81,19 +94,6 @@ const projects: Project[] = [
     category: "Agency Website",
     images: ["/genzuv-img.png"],
     link: "https://gen-z-uv-offical.vercel.app/",
-  },
-   {
-    id: "06",
-    title: "Ladder Academy — Become a Real-World Software Engineer in 16 Weeks",
-    description:
-      "Visually appealing and responsive landing page for a software engineering bootcamp, focused on UX and driving student sign-ups.",
-    tags: ["Next.js", "Framer Motion", "Tailwind CSS"],
-    category: "Landing Page",
-    images: [
-      "/Ladder-pro.png",
-      "/Ladder-pro2.png",
-    ],
-    link: "https://ladder-academy-tn.vercel.app",
   },
   {  id: "07",
   title: "Space Shooting Game",
