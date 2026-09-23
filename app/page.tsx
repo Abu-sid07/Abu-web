@@ -8,6 +8,7 @@ import Skills from '@/components/ui/Skills';
 import Projects from '@/components/ui/Projects';
 import Experience from '@/components/ui/Experience';
 import ProjectGallery from '@/components/ui/CircularGallery';
+
 import Link from 'next/link';
 import Footer from '@/components/ui/Footer';
 import {
@@ -20,6 +21,11 @@ import {
   MoonIcon,
   BookOpenIcon,
 } from 'lucide-react';
+
+import HeroParallaxDemo from '@/src/feature/hero-parallax-demo';
+import AnimatedPinDemo from '@/src/feature/3d-pin-demo';
+import TimelineDemo from '@/src/feature/timeline-demo';
+
 
 
 
@@ -479,6 +485,8 @@ export default function Home() {
         <Experience />
       </section>
 
+    
+
       <section
         id="gallery"
         className="w-full"
@@ -501,7 +509,14 @@ export default function Home() {
       <div className="h-24" aria-hidden="true" />
 
       <Footer />
-      
+
+      {/* <TimelineDemo />
+      <AnimatedPinDemo />
+      <HeroParallaxDemo />
+        <section id="showcase" className="w-full">
+        <HeroParallaxDemo />
+      </section>
+       */}
     </main>
   );
 }
