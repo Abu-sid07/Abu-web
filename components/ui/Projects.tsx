@@ -50,7 +50,7 @@ const projects: Project[] = [
       "Onboarding platform designed to guide users through the Uni Hope experience with a clear, welcoming interface.",
     tags: ["Onboarding", "Web App", "Vercel"],
     category: "Web App",
-    images: ["/uni-hope.png"],
+    images: ["/Uni-hope.png"],
     link: "https://uni-hope.vercel.app/",
   },
   {
