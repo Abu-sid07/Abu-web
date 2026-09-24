@@ -25,11 +25,11 @@ const timelineData: TimelineItem[] = [
     id: "work-genz-uv",
     type: "work",
     title: "Software Developer",
-    organization: "GenZ UV Digital Marketing Solutions",
+    organization: "Freelancer",
     period: "04/2026 – Present",
     location: "Remote",
     badge: "Work",
-    link: "https://genzuv.in",
+    // link: "https://genzuv.in",
     bullets: [
       "Building and maintaining the agency website and client-facing web pages using Next.js, React.js, Tailwind CSS, and Framer Motion.",
       "Developing responsive UI components for digital marketing service pages to support SEO and lead generation.",
