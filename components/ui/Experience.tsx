@@ -79,7 +79,7 @@ const timelineData: TimelineItem[] = [
     type: "work",
     title: "Junior Frontend Developer",
     organization: "Hameed Air Travels",
-    period: "07/2024 – 04/2025",
+    period: "05/2024 – 04/2025",
     location: "Chennai, Tamil Nadu",
     badge: "Work",
      link: "https://hameedairtravels.vercel.app",  

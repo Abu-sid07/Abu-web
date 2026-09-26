@@ -25,7 +25,7 @@ const DATA = {
   chapters: [
     {
       label: "Chapter 01",
-      heading: "July 2024 – Arriving with a Dream",
+      heading: "May 2024 – Arriving with a Dream",
       body: "I came to Chennai carrying my BCA degree and one clear goal — to work in the software industry. But reality hit fast. Days passed, then weeks, and the software job I had dreamed about wasn't coming easily. Rejections are never easy, but I refused to sit still. Instead of waiting, I started looking at every door that was open — even if it wasn't the one I had originally planned to walk through.",
       images: [
         {

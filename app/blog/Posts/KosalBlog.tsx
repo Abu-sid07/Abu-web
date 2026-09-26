@@ -41,7 +41,7 @@ const DATA = {
       body: "Gouse got the job! I was genuinely happy for him. A few days later, I took a chance and asked him, 'Bro, can you put in a word for me there?' Because I had already finished my full stack course and was ready for a real switch, his recommendation opened the door. I went for the interview — and I got it. Just like that, two college friends were about to work under the same roof again.",
       images: [
         {
-          src: "/blog/gouse-abu.jpg",
+          src: "/blog/gouse-abu.jpeg",
           alt: "Abu and Gouse together, looking happy and professional",
           caption: "From college to colleagues — the circle came full circle",
         },
