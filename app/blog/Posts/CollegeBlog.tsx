@@ -42,7 +42,7 @@ const DATA = {
       images: [],
     },
     {
-      heading: "🤝 The People Who Made It Unforgettable",
+      heading: "ðŸ¤ The People Who Made It Unforgettable",
       body: "Here's what the syllabus never taught: friendship is its own kind of curriculum. Group studies that turned into midnight snack runs. Cultural fest rehearsals that went completely off-script. The inside jokes that still land over WhatsApp today. These three — the ones in this photo — walked every single step of this journey with me.",
       images: [
         {
@@ -102,7 +102,7 @@ export function CollegeBlog({
 }) {
   return (
     <article
-      className="max-w-[740px] mx-auto px-4 sm:px-5 pb-32 transition-all duration-500"
+      className="max-w-[680px] mx-auto px-4 sm:px-5 pb-28 transition-all duration-500"
       style={{
         opacity: animIn ? 1 : 0,
         transform: animIn ? "translateY(0)" : "translateY(24px)",
@@ -111,14 +111,14 @@ export function CollegeBlog({
       <BackBtn onClick={onBack} />
 
       {/* Header */}
-      <header className="pb-8 sm:pb-10 border-b border-stone-200 dark:border-stone-800">
+      <header className="pb-6 sm:pb-8 border-b border-stone-200 dark:border-stone-800">
         <span className="inline-block text-[10px] sm:text-[11px] font-semibold tracking-widest uppercase bg-blue-50 dark:bg-blue-950 text-blue-700 dark:text-blue-300 px-3 py-1.5 rounded-full mb-4 sm:mb-5 font-sans">
           {DATA.subtitle}
         </span>
-        <h1 className="font-serif text-[28px] sm:text-[36px] md:text-[44px] font-bold leading-[1.15] text-stone-900 dark:text-stone-50 tracking-tight mb-3 sm:mb-4">
+        <h1 className="font-serif text-[25px] sm:text-[30px] md:text-[36px] font-bold leading-[1.15] text-stone-900 dark:text-stone-50 tracking-tight mb-3">
           {DATA.title}
         </h1>
-        <p className="font-serif italic text-base sm:text-lg text-stone-500 dark:text-stone-400 leading-relaxed mb-6 sm:mb-7">
+        <p className="font-serif italic text-[15px] sm:text-base text-stone-600 dark:text-stone-300 leading-relaxed mb-5 sm:mb-6">
           {DATA.summary}
         </p>
 
@@ -127,19 +127,19 @@ export function CollegeBlog({
           <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-blue-100 dark:bg-blue-900 flex items-center justify-center text-xs sm:text-sm font-bold text-blue-700 dark:text-blue-300 shrink-0">
             A
           </div>
-          <div className="text-xs sm:text-sm text-stone-400 dark:text-stone-500">
+          <div className="text-xs sm:text-sm text-stone-600 dark:text-stone-400">
             <span className="text-stone-600 dark:text-stone-300 font-semibold">{DATA.author}</span>
-            <span className="mx-1 sm:mx-1.5 text-stone-300 dark:text-stone-700">·</span>
+            <span className="mx-1 sm:mx-1.5 text-stone-400 dark:text-stone-500">·</span>
             {DATA.date}
-            <span className="mx-1 sm:mx-1.5 text-stone-300 dark:text-stone-700">·</span>
+            <span className="mx-1 sm:mx-1.5 text-stone-400 dark:text-stone-500">·</span>
             {DATA.read_time}
           </div>
           <div className="ml-auto flex gap-1.5 sm:gap-2">
-            <span className="text-xs bg-stone-100 dark:bg-stone-800 text-stone-500 dark:text-stone-400 px-2.5 sm:px-3 py-1 rounded-full flex items-center gap-1">
+            <span className="text-xs bg-stone-100 dark:bg-stone-800 text-stone-600 dark:text-stone-300 px-2.5 sm:px-3 py-1 rounded-full flex items-center gap-1">
               <EyeIcon className="w-3 h-3" />
               {liveViews}
             </span>
-            <span className="text-xs bg-stone-100 dark:bg-stone-800 text-stone-500 dark:text-stone-400 px-2.5 sm:px-3 py-1 rounded-full">
+            <span className="text-xs bg-stone-100 dark:bg-stone-800 text-stone-600 dark:text-stone-300 px-2.5 sm:px-3 py-1 rounded-full">
               {DATA.course}
             </span>
           </div>
@@ -172,7 +172,7 @@ export function CollegeBlog({
         <PostSection key={i}>
           <SLabel text={`Chapter ${String(i + 1).padStart(2, "0")}`} />
           <SHeading text={ch.heading} />
-          <p className="text-[15px] sm:text-[16px] text-stone-500 dark:text-stone-400 leading-[1.9] mb-6 sm:mb-7">
+          <p className="text-[14px] sm:text-[15px] text-stone-600 dark:text-stone-300 leading-[1.85] mb-5 sm:mb-6">
             {ch.body}
           </p>
           {ch.images.length > 0 && (

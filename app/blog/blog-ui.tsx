@@ -20,7 +20,7 @@ export interface BlogImage {
 
 export function SLabel({ text }: { text: string }) {
   return (
-    <p className="text-[10px] sm:text-[11px] font-semibold tracking-[0.12em] uppercase text-stone-400 dark:text-stone-500 mb-2 font-sans">
+    <p className="text-[10px] sm:text-[11px] font-semibold tracking-[0.12em] uppercase text-stone-600 dark:text-stone-400 mb-2 font-sans">
       {text}
     </p>
   )
@@ -28,7 +28,7 @@ export function SLabel({ text }: { text: string }) {
 
 export function SHeading({ text }: { text: string }) {
   return (
-    <h2 className="font-serif text-[20px] sm:text-[22px] md:text-2xl font-bold text-stone-900 dark:text-stone-50 leading-snug mb-4">
+    <h2 className="font-serif text-[18px] sm:text-[20px] md:text-[22px] font-bold text-stone-900 dark:text-stone-50 leading-snug mb-3">
       {text}
     </h2>
   )
@@ -37,17 +37,18 @@ export function SHeading({ text }: { text: string }) {
 // Fixed BlogImg with max-height + object-fit
 export function BlogImg({ src, alt, caption }: { src: string; alt: string; caption?: string }) {
   return (
-    <figure className="rounded-2xl overflow-hidden border border-stone-800">
-      <div className="relative w-full max-h-[480px] overflow-hidden">
-        <img
+    <figure className="rounded-xl overflow-hidden border border-stone-200 dark:border-stone-800">
+      <div className="relative w-full aspect-[16/9] overflow-hidden">
+        <Image
           src={src}
           alt={alt}
-          className="w-full h-full object-cover object-top"
-          style={{ maxHeight: "480px" }}
+          fill
+          sizes="(max-width: 680px) 100vw, 680px"
+          className="object-cover object-top"
         />
       </div>
       {caption && (
-        <figcaption className="px-4 py-2.5 text-xs text-stone-400 italic bg-stone-900">
+        <figcaption className="border-t border-stone-200 bg-white px-4 py-2.5 text-xs italic text-stone-600 dark:border-stone-800 dark:bg-stone-900 dark:text-stone-300">
           {caption}
         </figcaption>
       )}
@@ -59,8 +60,8 @@ export function BackBtn({ onClick }: { onClick: () => void }) {
   return (
     <button
       onClick={onClick}
-      className="inline-flex items-center gap-2 text-xs sm:text-sm text-stone-400 dark:text-stone-500
-                 hover:text-stone-800 dark:hover:text-stone-100 transition-colors mb-8 sm:mb-10 group"
+        className="inline-flex items-center gap-2 text-xs sm:text-sm text-stone-600 dark:text-stone-400
+                 hover:text-stone-800 dark:hover:text-stone-100 transition-colors mb-6 sm:mb-8 group"
     >
       <ArrowLeftIcon className="w-3.5 h-3.5 sm:w-4 sm:h-4 group-hover:-translate-x-1 transition-transform" />
       Back to all posts
@@ -79,12 +80,12 @@ export function ClosingQuote({
 }) {
   return (
     <blockquote
-      className={`mt-10 sm:mt-14 px-5 sm:px-7 py-5 sm:py-7 bg-white dark:bg-stone-900 rounded-xl sm:rounded-2xl border-l-[4px] ${accentColor} border border-stone-100 dark:border-stone-800`}
+      className={`mt-8 sm:mt-10 px-4 sm:px-6 py-4 sm:py-5 bg-white dark:bg-stone-900 rounded-xl border-l-[4px] ${accentColor} border border-stone-100 dark:border-stone-800`}
     >
-      <p className="font-serif text-[16px] sm:text-[18px] italic text-stone-700 dark:text-stone-300 leading-[1.85]">
+      <p className="font-serif text-[15px] sm:text-[16px] italic text-stone-700 dark:text-stone-300 leading-[1.8]">
         "{text}"
       </p>
-      <footer className="mt-3 sm:mt-4 text-[12px] sm:text-[13px] text-stone-400 dark:text-stone-500 font-sans">
+      <footer className="mt-3 sm:mt-4 text-[12px] sm:text-[13px] text-stone-600 dark:text-stone-400 font-sans">
         — {author}
       </footer>
     </blockquote>
@@ -93,7 +94,7 @@ export function ClosingQuote({
 
 export function PostSection({ children }: { children: React.ReactNode }) {
   return (
-    <section className="py-10 sm:py-12 border-b border-stone-100 dark:border-stone-800/60">
+    <section className="py-7 sm:py-9 border-b border-stone-100 dark:border-stone-800/60">
       {children}
     </section>
   )

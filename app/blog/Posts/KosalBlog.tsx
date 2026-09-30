@@ -6,39 +6,39 @@
 //   1. Import KosalBlog and KOSAL_CARD from this file
 //   2. Push KOSAL_CARD into the CARDS array in page.tsx
 //   3. Add <KosalBlog /> to the view switch in BlogPageContent
-
+import ProjectGallery from "@/components/ui/CircularGallery"
 import { EyeIcon } from "lucide-react"
 import { BackBtn, BlogImg, ClosingQuote, PostSection, SHeading, SLabel } from "../blog-ui"
 
 // ── Data ─────────────────────────────────────────────────────────────────────
 
 const DATA = {
-  title: "My Journey:  Frontend Development",
-  subtitle: "Career · Kosal.io",
+  title: "The Phone Call That Changed My Career",
+  subtitle: "Career Story · Kosal IT Solutions",
   author: "Abu",
   date: "June 2025",
   read_time: "4 min read",
   views: 434,
   summary:
-    "After a year of balancing operations work in Chennai with relentless coding practice, a single opportunity shifted my trajectory. Here is the story of how I transitioned into the software career I had been building toward all along.",
+    "A referral from a friend helped turn my MERN stack internship into a Front-End Developer role—and opened the door to a new team, new skills, and creative work beyond code.",
 
   chapters: [
     {
       label: "Chapter 01",
-      heading: "Late June 2025 – Bridging the Gap",
-      body: "I was based in Chennai, working as a Junior Frontend Developer . My days were a mix of managing travel documentation and optimizing digital workflows for the agency. While the operations work was fast-paced, my true focus was always on the screen in front of me—coding. Evenings and weekends were dedicated to completing my MERN Full Stack course and refining my React skills. Everything changed with one phone call from my friend Gouse, who shared an exciting opening at a growing tech startup. That call wasn't just an alert; it was the bridge I had been preparing to cross.",
+      heading: "The Grind at Greens Tech",
+      body: "I was working hard as a MERN Stack Development Intern at Greens Technology. My days were filled with writing code, learning new tools, and building full web applications. I loved what I was doing and was getting better every day. As my internship went on, I knew I was ready for a full-time job where I could use my skills in the real world.",
       images: [
         {
           src: "/blog/laptop-work.jpg",
-          alt: "Abu working on his laptop, balancing professional tasks with coding",
-          caption: "Building digital solutions while mastering the stack",
+          alt: "Abu working on his laptop during his development internship",
+          caption: "Learning, building, and preparing for the next step",
         },
       ],
     },
     {
       label: "Chapter 02",
-      heading: "A Helping Hand",
-      body: "Gouse got the job! I was genuinely happy for him. A few days later, I took a chance and asked him, 'Bro, can you put in a word for me there?' Because I had already finished my full stack course and was ready for a real switch, his recommendation opened the door. I went for the interview — and I got it. Just like that, two college friends were about to work under the same roof again.",
+      heading: "The Important Phone Call",
+      body: "I thought of my good friend, Ghouse, who was already working at Kosal IT Solutions. One day, I picked up the phone and asked, 'Bro, are there any open vacancies in your company?' Because he knew how hard I worked, he referred me for an open Front-End Developer role. I went to the interview, gave it my best, and got the job. It was amazing to see how one phone call could open such a big door.",
       images: [
         {
           src: "/blog/gouse-abu.jpeg",
@@ -49,32 +49,39 @@ const DATA = {
     },
     {
       label: "Chapter 03",
-      heading: "Working with My Best Friend",
-      body: "There's something special about working alongside someone who has known you since college. At Kosal.io in Tirunelveli, Gouse and I sat at the same desk as Front-End Developers, debugging code, building features, and brainstorming together. We even created tech content for Instagram — writing scripts, shooting reels, and growing an audience. From sharing notes in college to sharing a workspace in a real company, it felt like the journey had come full circle.",
+      heading: "A New Team and a Fresh Start",
+      body: "Joining Kosal IT Solutions was an exciting new chapter. I was welcomed into a talented team. As a Front-End Developer, I spent my days building web features, working with the team, and making sure our websites looked great and worked well. It felt great to be doing what I love in a real company.",
       images: [
         {
-          src: "/blog/two-laptops.jpg",
-          alt: "Two laptops on a desk, representing teamwork",
-          caption: "Same desk, same mission — two developers building things together",
+          src: "/blog/Kosal-team.jpeg",
+          alt: "The Kosal IT Solutions team",
+          caption: "A fresh start with a talented new team",
         },
       ],
     },
     {
       label: "Chapter 04",
+      heading: "Growing Beyond Code",
+      body: "The learning did not stop at programming. Being part of this new team pushed me to try new things and step outside my comfort zone. I started learning content creation: planning, shooting, and editing tech videos, then making Instagram reels to share what I knew. It was fun to bring coding and creativity together. This is how my Creative & Studio projects began. I realized that being a developer is also about sharing ideas with the world.",
+      images: [],
+    },
+    {
+      label: "Chapter 05",
       heading: "What Comes Next?",
-      body: "One year as a developer at Kosal.io has taught me more than I ever expected — not just about code, but about collaboration, content creation, and what I'm truly capable of. But I'm not stopping here. My next big step in this career is already taking shape, and I'm excited to take it. The road ahead looks bright.",
+      body: "My time at Kosal IT Solutions has taught me more than I expected. I learned how to be a better developer, work well with a new team, and create content people enjoy. My next big step is already taking shape, and I am excited for the future.",
       images: [
         {
-          src: "/blog/road-ahead.jpg",
-          alt: "A sunrise or a road leading forward, representing a new beginning",
-          caption: "The road doesn't end here — it's just getting started",
+          src: "/blog/what%20Next.jpg",
+          alt: "What comes next in Abu's career journey",
+          caption: "The next step is already taking shape",
         },
       ],
     },
   ],
+  
 
   closingQuote:
-    "It took one year, one friend, and one phone call to change the direction of everything. Sometimes the right door opens not when you force it — but when you've quietly done the work to deserve it.",
+    "Sometimes, all it takes is hard work and one brave phone call to a friend to open the right door.",
 }
 
 // ── Card config (used by the listing page) ───────────────────────────────────
@@ -105,7 +112,7 @@ export function KosalBlog({
 }) {
   return (
     <article
-      className="max-w-[740px] mx-auto px-4 sm:px-5 pb-32 transition-all duration-500"
+      className="max-w-[680px] mx-auto px-4 sm:px-5 pb-28 transition-all duration-500"
       style={{
         opacity: animIn ? 1 : 0,
         transform: animIn ? "translateY(0)" : "translateY(24px)",
@@ -114,14 +121,14 @@ export function KosalBlog({
       <BackBtn onClick={onBack} />
 
       {/* Header */}
-      <header className="pb-8 sm:pb-10 border-b border-stone-200 dark:border-stone-800">
+      <header className="pb-6 sm:pb-8 border-b border-stone-200 dark:border-stone-800">
         <span className="inline-block text-[10px] sm:text-[11px] font-semibold tracking-widest uppercase bg-violet-50 dark:bg-violet-950 text-violet-700 dark:text-violet-300 px-3 py-1.5 rounded-full mb-4 sm:mb-5 font-sans">
           {DATA.subtitle}
         </span>
-        <h1 className="font-serif text-[28px] sm:text-[36px] md:text-[44px] font-bold leading-[1.15] text-stone-900 dark:text-stone-50 tracking-tight mb-3 sm:mb-4">
+        <h1 className="font-serif text-[25px] sm:text-[30px] md:text-[36px] font-bold leading-[1.15] text-stone-900 dark:text-stone-50 tracking-tight mb-3">
           {DATA.title}
         </h1>
-        <p className="font-serif italic text-base sm:text-lg text-stone-500 dark:text-stone-400 leading-relaxed mb-6 sm:mb-7">
+        <p className="font-serif italic text-[15px] sm:text-base text-stone-600 dark:text-stone-300 leading-relaxed mb-5 sm:mb-6">
           {DATA.summary}
         </p>
 
@@ -130,19 +137,19 @@ export function KosalBlog({
           <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-violet-100 dark:bg-violet-900 flex items-center justify-center text-xs sm:text-sm font-bold text-violet-700 dark:text-violet-300 shrink-0">
             A
           </div>
-          <div className="text-xs sm:text-sm text-stone-400 dark:text-stone-500">
+          <div className="text-xs sm:text-sm text-stone-600 dark:text-stone-400">
             <span className="text-stone-600 dark:text-stone-300 font-semibold">{DATA.author}</span>
-            <span className="mx-1 sm:mx-1.5 text-stone-300 dark:text-stone-700">·</span>
+            <span className="mx-1 sm:mx-1.5 text-stone-400 dark:text-stone-500">·</span>
             {DATA.date}
-            <span className="mx-1 sm:mx-1.5 text-stone-300 dark:text-stone-700">·</span>
+            <span className="mx-1 sm:mx-1.5 text-stone-400 dark:text-stone-500">·</span>
             {DATA.read_time}
           </div>
           <div className="ml-auto flex gap-1.5 sm:gap-2">
-            <span className="text-xs bg-stone-100 dark:bg-stone-800 text-stone-500 dark:text-stone-400 px-2.5 sm:px-3 py-1 rounded-full flex items-center gap-1">
+            <span className="text-xs bg-stone-100 dark:bg-stone-800 text-stone-600 dark:text-stone-300 px-2.5 sm:px-3 py-1 rounded-full flex items-center gap-1">
               <EyeIcon className="w-3 h-3" />
               {liveViews}
             </span>
-            <span className="text-xs bg-stone-100 dark:bg-stone-800 text-stone-500 dark:text-stone-400 px-2.5 sm:px-3 py-1 rounded-full">
+            <span className="text-xs bg-stone-100 dark:bg-stone-800 text-stone-600 dark:text-stone-300 px-2.5 sm:px-3 py-1 rounded-full">
               Kosal.io
             </span>
           </div>
@@ -154,10 +161,14 @@ export function KosalBlog({
         <PostSection key={i}>
           <SLabel text={ch.label} />
           <SHeading text={ch.heading} />
-          <p className="text-[15px] sm:text-[16px] text-stone-500 dark:text-stone-400 leading-[1.9] mb-6 sm:mb-7">
+          <p className="text-[14px] sm:text-[15px] text-stone-600 dark:text-stone-300 leading-[1.85] mb-5 sm:mb-6">
             {ch.body}
           </p>
-          {ch.images.length > 0 && (
+          {ch.label === "Chapter 04" ? (
+            <div className="mt-6 h-[480px] w-full overflow-hidden rounded-xl bg-transparent p-3 transition-colors dark:bg-black sm:p-4">
+              <ProjectGallery />
+            </div>
+          ) : ch.images.length > 0 && (
             <div className="flex flex-col gap-3 sm:gap-4">
               {ch.images.map((img, j) => (
                 <BlogImg key={j} {...img} />

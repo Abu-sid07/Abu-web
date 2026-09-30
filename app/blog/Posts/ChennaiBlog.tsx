@@ -13,38 +13,44 @@ import { BackBtn, BlogImg, ClosingQuote, PostSection, SHeading, SLabel } from ".
 // ── Data ─────────────────────────────────────────────────────────────────────
 
 const DATA = {
-  title: "The Journey of Faith – The Beginning in Chennai",
+  title: "My Journey: How I Built My Tech Career in Chennai",
   subtitle: "Career · Personal Story",
   author: "Abu",
   date: "June 2025",
   read_time: "4 min read",
   views: 407,
   summary:
-    "I arrived in Chennai with a BCA degree and a software dream. What followed was a year of early mornings, midnight coursework, and a bicycle ride I'll never forget.",
+    "I came to Chennai with a BCA degree and a dream of working in software. Rejections didn't stop me: I built digital tools at Hameed Air Travels, learned full-stack development at Greens Technology, and kept moving forward.",
 
   chapters: [
     {
       label: "Chapter 01",
-      heading: "May 2024 – Arriving with a Dream",
-      body: "I came to Chennai carrying my BCA degree and one clear goal — to work in the software industry. But reality hit fast. Days passed, then weeks, and the software job I had dreamed about wasn't coming easily. Rejections are never easy, but I refused to sit still. Instead of waiting, I started looking at every door that was open — even if it wasn't the one I had originally planned to walk through.",
+      heading: "Starting with a Dream",
+      body: "I came to Chennai with my BCA degree and a big dream: to work in software. The start was difficult. I faced rejections and didn't get a software job right away, but I refused to give up. I chose to take the opportunities available to me and make the most of them.",
       images: [
         {
           src: "/blog/chennai-arrival.png",
-          alt: "Abu with his BCA certificate, looking hopeful and determined",
-          caption: "Arrived with a degree, a dream, and a lot to prove",
+          alt: "Abu with his BCA certificate at the start of his career journey",
+          caption: "A BCA degree and a dream of working in software",
         },
       ],
     },
     {
       label: "Chapter 02",
-      heading: "5:00 AM — The Day Starts with Prayer",
-      body: "Before anything else — before the city woke up, before the office opened — I prayed. Every single morning at 5:00 AM. That quiet moment before the day began was the anchor that kept everything else in place. It wasn't just a habit. It was a reminder of why I was doing all of this.",
-      images: [],
+      heading: "My Morning Routine",
+      body: "Every day, I woke up at 5:00 AM for Fajr prayer. It gave me peace and a clear mind before the day began. That routine helped me stay grounded through long days of work and study.",
+      images: [
+        {
+          src: "/blog/Prayer.jpg",
+          alt: "Prayer as part of Abu's morning routine",
+          caption: "Finding peace and focus through Fajr prayer",
+        },
+      ],
     },
     {
       label: "Chapter 03",
-      heading: "7:00 AM — The Gym Before the Grind",
-      body: "After Fajr, I hit the gym from 7:00 to 8:30 AM. While others were still in bed, I was already pushing through reps. The discipline I built in that gym every morning quietly carried over into everything else — the late-night studying, the hard days at the office, the moments I wanted to give up.",
+      heading: "7:00 AM — The Gym Before Work",
+      body: "After prayer, I went to the gym at 7:00 AM. Waking up early and working out gave me the strength and focus I needed to balance long days of work with studying at night.",
       images: [
         {
           src: "/blog/gym.png",
@@ -55,44 +61,56 @@ const DATA = {
     },
    {
       label: "Chapter 04",
-      heading: "My Start as a Junior Frontend Developer",
-      body: "That's when I took my first steps into the tech world as a Junior Frontend Developer. I balanced my daily routines with the responsibility of managing the agency's digital operations. I didn't just handle visa applications; I began optimizing them. It wasn't my ultimate destination — but I approached every task with the focus of a developer, learning to build and maintain digital systems from the ground up.",
+    heading: "My First Step: Hameed Air Travels",
+    body: <>In May 2024, I joined Hameed Air Travels as a Junior Frontend Developer. Much of the agency&apos;s visa work was done on paper, so I created digital tools and a website to track visa applications online. This helped reduce mistakes and made the work faster. You can see the website I built at <a className="text-orange-600 underline underline-offset-4 hover:text-orange-700 dark:text-orange-400 dark:hover:text-orange-300" href="https://hameedairtravels.vercel.app" target="_blank" rel="noopener noreferrer">hameedairtravels.vercel.app</a>. I learned that you don&apos;t have to wait for a tech company to use technology; you can bring it to any company.</>,
       images: [
         {
           src: "/blog/visa-office.jpeg",
-          alt: "Abu at his workstation, coding and managing digital tools",
-          caption: "Every morning, the office opened — and so did my journey into development",
+          alt: "Abu working at Hameed Air Travels on digital tools",
+          caption: "Turning paper-based visa work into a digital process",
         },
       ],
     },
     {
       label: "Chapter 05",
-      heading: "Automating and Growing",
-      body: "During this time, I dove deep into web technologies and CRM tools. My focus on digitizing manual workflows didn't go unnoticed — within six months, I was taking on more technical responsibilities as a lead for our digital portals. I continued in this hybrid role for a year, bridging the gap between operations and frontend development. While I was delivering results for the agency, my passion for building web applications was growing stronger every day.",
+      heading: "Learning More: Greens Technology",
+      body: "After a year at Hameed Air Travels, I wanted to learn more. In April 2025, I started a MERN Stack Internship at Greens Technology. I learned how to build complete websites from start to finish and practiced with MongoDB, React.js, and Node.js to create fast, useful web experiences.",
       images: [
         {
           src: "/blog/promotion.jpg",
-          alt: "A display of digital projects or a professional workspace, representing growth",
-          caption: "Six months in — moving from manual tasks to digital solutions. The growth was real.",
+          alt: "A professional workspace representing Abu's continued learning in technology",
+          caption: "Building full-stack skills during my internship",
         },
       ],
     },
     {
       label: "Chapter 06",
-      heading: "A Step Closer to My Dream",
-      body: "The software dream wouldn't let me rest. So I enrolled in an intense MERN Full Stack course — office by day, coursework by night. Some days I caught the bus. On Sundays, when no bus pass was available, I cycled a long distance just to attend class. No shortcut, no excuse. I completed the course. With new skills in hand and one year of real work experience behind me — I was ready. A big change was right around the corner.",
+      heading: "Hard Work and Bus Travel",
+      body: "It was a busy time: I worked during the day and studied late into the night. On Sundays, when I didn't have a bus pass, I rode my bicycle a long way to get to class. I was tired, but I kept going and didn't make excuses.",
       images: [
         {
-          src: "/blog/night-study.jpeg",
-          alt: "Abu studying late at night or on a bus with his laptop and notes",
-          caption: "Office by day, MERN stack by night — no days off",
+          src: "/blog/bus.jpg",
+          alt: "Abu studying late at night after a day of work",
+          caption: "Working by day and studying late into the night",
+        },
+      ],
+    },
+    {
+      label: "Chapter 07",
+      heading: "Ready for the Future",
+      body: "Some people wait for the perfect job to be handed to them. I chose to work hard and build my skills while I waited. That effort, along with the experience I've gained, has prepared me for my next big step as a software developer.",
+      images: [
+        {
+          src: "/blog/Feature.jpg",
+          alt: "Abu looking ahead to his next step as a software developer",
+          caption: "Ready for the next step in my software career",
         },
       ],
     },
   ],
 
   closingQuote:
-    "Some people wait for the right opportunity. I decided to build the skills while waiting — so when the door finally opened, I was ready to walk through it.",
+    "I didn't wait for the perfect opportunity. I kept learning, building, and showing up until I was ready for the next step.",
 }
 
 // ── Card config (used by the listing page) ───────────────────────────────────
@@ -123,7 +141,7 @@ export function ChennaiBlog({
 }) {
   return (
     <article
-      className="max-w-[740px] mx-auto px-4 sm:px-5 pb-32 transition-all duration-500"
+      className="max-w-[680px] mx-auto px-4 sm:px-5 pb-28 transition-all duration-500"
       style={{
         opacity: animIn ? 1 : 0,
         transform: animIn ? "translateY(0)" : "translateY(24px)",
@@ -132,14 +150,14 @@ export function ChennaiBlog({
       <BackBtn onClick={onBack} />
 
       {/* Header */}
-      <header className="pb-8 sm:pb-10 border-b border-stone-200 dark:border-stone-800">
+      <header className="pb-6 sm:pb-8 border-b border-stone-200 dark:border-stone-800">
         <span className="inline-block text-[10px] sm:text-[11px] font-semibold tracking-widest uppercase bg-orange-50 dark:bg-orange-950 text-orange-700 dark:text-orange-300 px-3 py-1.5 rounded-full mb-4 sm:mb-5 font-sans">
           {DATA.subtitle}
         </span>
-        <h1 className="font-serif text-[28px] sm:text-[36px] md:text-[44px] font-bold leading-[1.15] text-stone-900 dark:text-stone-50 tracking-tight mb-3 sm:mb-4">
+        <h1 className="font-serif text-[25px] sm:text-[30px] md:text-[36px] font-bold leading-[1.15] text-stone-900 dark:text-stone-50 tracking-tight mb-3">
           {DATA.title}
         </h1>
-        <p className="font-serif italic text-base sm:text-lg text-stone-500 dark:text-stone-400 leading-relaxed mb-6 sm:mb-7">
+        <p className="font-serif italic text-[15px] sm:text-base text-stone-600 dark:text-stone-300 leading-relaxed mb-5 sm:mb-6">
           {DATA.summary}
         </p>
 
@@ -148,19 +166,19 @@ export function ChennaiBlog({
           <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-orange-100 dark:bg-orange-900 flex items-center justify-center text-xs sm:text-sm font-bold text-orange-700 dark:text-orange-300 shrink-0">
             A
           </div>
-          <div className="text-xs sm:text-sm text-stone-400 dark:text-stone-500">
+          <div className="text-xs sm:text-sm text-stone-600 dark:text-stone-400">
             <span className="text-stone-600 dark:text-stone-300 font-semibold">{DATA.author}</span>
-            <span className="mx-1 sm:mx-1.5 text-stone-300 dark:text-stone-700">·</span>
+            <span className="mx-1 sm:mx-1.5 text-stone-400 dark:text-stone-500">·</span>
             {DATA.date}
-            <span className="mx-1 sm:mx-1.5 text-stone-300 dark:text-stone-700">·</span>
+            <span className="mx-1 sm:mx-1.5 text-stone-400 dark:text-stone-500">·</span>
             {DATA.read_time}
           </div>
           <div className="ml-auto flex gap-1.5 sm:gap-2">
-            <span className="text-xs bg-stone-100 dark:bg-stone-800 text-stone-500 dark:text-stone-400 px-2.5 sm:px-3 py-1 rounded-full flex items-center gap-1">
+            <span className="text-xs bg-stone-100 dark:bg-stone-800 text-stone-600 dark:text-stone-300 px-2.5 sm:px-3 py-1 rounded-full flex items-center gap-1">
               <EyeIcon className="w-3 h-3" />
               {liveViews}
             </span>
-            <span className="text-xs bg-stone-100 dark:bg-stone-800 text-stone-500 dark:text-stone-400 px-2.5 sm:px-3 py-1 rounded-full">
+            <span className="text-xs bg-stone-100 dark:bg-stone-800 text-stone-600 dark:text-stone-300 px-2.5 sm:px-3 py-1 rounded-full">
               Chennai
             </span>
           </div>
@@ -172,7 +190,7 @@ export function ChennaiBlog({
         <PostSection key={i}>
           <SLabel text={ch.label} />
           <SHeading text={ch.heading} />
-          <p className="text-[15px] sm:text-[16px] text-stone-500 dark:text-stone-400 leading-[1.9] mb-6 sm:mb-7">
+          <p className="text-[14px] sm:text-[15px] text-stone-600 dark:text-stone-300 leading-[1.85] mb-5 sm:mb-6">
             {ch.body}
           </p>
           {ch.images.length > 0 && (

@@ -66,8 +66,8 @@ const DATA = {
       },
       {
         period: "July 2024",
-        label: "Chennai – Visa Executive",
-        body: "Moved to Chennai and joined as a Visa Executive. Due to work commitments and a new environment, teaching was paused — but never forgotten.",
+        label: "Chennai – Software Developer",
+        body: "Moved to Chennai and joined as a Software Developer. Due to work commitments and a new environment, teaching was paused — but never forgotten.",
         note: "",
       },
       {
@@ -75,6 +75,12 @@ const DATA = {
         label: "Home + Kosal.io",
         body: "Returned to my hometown and joined Kosal.io as a Software Developer. Restarted teaching students every morning from 6:00 to 7:30 AM, then continued with my professional office work.",
         note: "Balancing passion and profession — every single day.",
+      },
+      {
+        period: "March 2026 - Present",
+        label: "GenZ UV Digital Marketing Solutions",
+        body: "Began a new professional chapter with GenZ UV Digital Marketing Solutions.",
+        note: "",
       },
     ],
   },
@@ -156,7 +162,7 @@ export function TeachingBlog({
 }) {
   return (
     <article
-      className="max-w-[740px] mx-auto px-4 sm:px-5 pb-32 transition-all duration-500"
+      className="max-w-[680px] mx-auto px-4 sm:px-5 pb-28 transition-all duration-500"
       style={{
         opacity: animIn ? 1 : 0,
         transform: animIn ? "translateY(0)" : "translateY(24px)",
@@ -165,14 +171,14 @@ export function TeachingBlog({
       <BackBtn onClick={onBack} />
 
       {/* Header */}
-      <header className="pb-8 sm:pb-10 border-b border-stone-200 dark:border-stone-800">
+      <header className="pb-6 sm:pb-8 border-b border-stone-200 dark:border-stone-800">
         <span className="inline-block text-[10px] sm:text-[11px] font-semibold tracking-widest uppercase bg-emerald-50 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300 px-3 py-1.5 rounded-full mb-4 sm:mb-5 font-sans">
           {DATA.subtitle}
         </span>
-        <h1 className="font-serif text-[28px] sm:text-[36px] md:text-[44px] font-bold leading-[1.15] text-stone-900 dark:text-stone-50 tracking-tight mb-3 sm:mb-4">
+        <h1 className="font-serif text-[25px] sm:text-[30px] md:text-[36px] font-bold leading-[1.15] text-stone-900 dark:text-stone-50 tracking-tight mb-3">
           {DATA.title}
         </h1>
-        <p className="font-serif italic text-base sm:text-lg text-stone-500 dark:text-stone-400 leading-relaxed mb-6 sm:mb-7">
+        <p className="font-serif italic text-[15px] sm:text-base text-stone-600 dark:text-stone-300 leading-relaxed mb-5 sm:mb-6">
           {DATA.summary}
         </p>
 
@@ -181,19 +187,19 @@ export function TeachingBlog({
           <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-emerald-100 dark:bg-emerald-900 flex items-center justify-center text-xs sm:text-sm font-bold text-emerald-700 dark:text-emerald-300 shrink-0">
             A
           </div>
-          <div className="text-xs sm:text-sm text-stone-400 dark:text-stone-500">
+          <div className="text-xs sm:text-sm text-stone-600 dark:text-stone-400">
             <span className="text-stone-600 dark:text-stone-300 font-semibold">{DATA.author}</span>
-            <span className="mx-1 sm:mx-1.5 text-stone-300 dark:text-stone-700">·</span>
+            <span className="mx-1 sm:mx-1.5 text-stone-400 dark:text-stone-500">·</span>
             {DATA.date}
-            <span className="mx-1 sm:mx-1.5 text-stone-300 dark:text-stone-700">·</span>
+            <span className="mx-1 sm:mx-1.5 text-stone-400 dark:text-stone-500">·</span>
             {DATA.read_time}
           </div>
           <div className="ml-auto flex gap-1.5 sm:gap-2">
-            <span className="text-xs bg-stone-100 dark:bg-stone-800 text-stone-500 dark:text-stone-400 px-2.5 sm:px-3 py-1 rounded-full flex items-center gap-1">
+            <span className="text-xs bg-stone-100 dark:bg-stone-800 text-stone-600 dark:text-stone-300 px-2.5 sm:px-3 py-1 rounded-full flex items-center gap-1">
               <EyeIcon className="w-3 h-3" />
               {liveViews}
             </span>
-            <span className="text-xs bg-stone-100 dark:bg-stone-800 text-stone-500 dark:text-stone-400 px-2.5 sm:px-3 py-1 rounded-full flex items-center gap-1">
+            <span className="text-xs bg-stone-100 dark:bg-stone-800 text-stone-600 dark:text-stone-300 px-2.5 sm:px-3 py-1 rounded-full flex items-center gap-1">
               <ClockIcon className="w-3 h-3" />
               {DATA.schedule}
             </span>
@@ -206,7 +212,7 @@ export function TeachingBlog({
         <SLabel text={DATA.s1.label} />
         <SHeading text={DATA.s1.heading} />
         {DATA.s1.body.map((p, i) => (
-          <p key={i} className="text-[15px] sm:text-[16px] text-stone-500 dark:text-stone-400 leading-[1.9] mb-4">
+          <p key={i} className="text-[14px] sm:text-[15px] text-stone-600 dark:text-stone-300 leading-[1.85] mb-4">
             {p}
           </p>
         ))}
@@ -219,7 +225,7 @@ export function TeachingBlog({
       <PostSection>
         <SLabel text={DATA.s2.label} />
         <SHeading text={DATA.s2.heading} />
-        <p className="text-[15px] sm:text-[16px] text-stone-500 dark:text-stone-400 leading-[1.9] mb-5">
+        <p className="text-[14px] sm:text-[15px] text-stone-600 dark:text-stone-300 leading-[1.85] mb-5">
           {DATA.s2.intro}
         </p>
         <ul className="flex flex-col gap-2.5 sm:gap-3 mb-5 sm:mb-6">
@@ -235,7 +241,7 @@ export function TeachingBlog({
             </li>
           ))}
         </ul>
-        <p className="text-[15px] sm:text-[16px] text-stone-500 dark:text-stone-400 leading-[1.9] italic font-serif mb-6 sm:mb-7">
+        <p className="text-[14px] sm:text-[15px] text-stone-600 dark:text-stone-300 leading-[1.85] italic font-serif mb-5 sm:mb-6">
           "{DATA.s2.closing}"
         </p>
         <BlogImg {...DATA.s2.image} />
@@ -245,7 +251,7 @@ export function TeachingBlog({
       <PostSection>
         <SLabel text={DATA.s3.label} />
         <SHeading text={DATA.s3.heading} />
-        <p className="text-[15px] sm:text-[16px] text-stone-500 dark:text-stone-400 leading-[1.9] mb-7 sm:mb-8">
+        <p className="text-[14px] sm:text-[15px] text-stone-600 dark:text-stone-300 leading-[1.85] mb-6 sm:mb-7">
           {DATA.s3.intro}
         </p>
         <div className="flex flex-col gap-6 sm:gap-7">
@@ -258,7 +264,7 @@ export function TeachingBlog({
               <p className="text-[9px] sm:text-[10px] font-semibold tracking-widest uppercase text-emerald-600 dark:text-emerald-400 mb-1 font-sans">
                 {item.period} · {item.label}
               </p>
-              <p className="text-[14px] sm:text-[15px] text-stone-500 dark:text-stone-400 leading-relaxed">
+              <p className="text-[14px] sm:text-[15px] text-stone-600 dark:text-stone-300 leading-relaxed">
                 {item.body}
               </p>
               {item.note && (
@@ -275,7 +281,7 @@ export function TeachingBlog({
       <PostSection>
         <SLabel text={DATA.s4.label} />
         <SHeading text={DATA.s4.heading} />
-        <p className="text-[15px] sm:text-[16px] text-stone-500 dark:text-stone-400 leading-[1.9] mb-5 sm:mb-6">
+        <p className="text-[14px] sm:text-[15px] text-stone-600 dark:text-stone-300 leading-[1.85] mb-4 sm:mb-5">
           {DATA.s4.body}
         </p>
         <div className="flex flex-col gap-3 sm:gap-4">
@@ -287,7 +293,7 @@ export function TeachingBlog({
       <PostSection>
         <SLabel text={DATA.s5.label} />
         <SHeading text={DATA.s5.heading} />
-        <p className="text-[15px] sm:text-[16px] text-stone-500 dark:text-stone-400 leading-[1.9] mb-5 sm:mb-6">
+        <p className="text-[14px] sm:text-[15px] text-stone-600 dark:text-stone-300 leading-[1.85] mb-4 sm:mb-5">
           {DATA.s5.intro}
         </p>
         <div className="flex flex-col gap-3 sm:gap-4 mb-5 sm:mb-6">
@@ -304,7 +310,7 @@ export function TeachingBlog({
                 <h3 className="font-serif text-[15px] sm:text-[16px] font-bold text-stone-800 dark:text-stone-200 mb-1 sm:mb-1.5">
                   {a.title}
                 </h3>
-                <p className="text-[13px] sm:text-[14px] text-stone-500 dark:text-stone-400 leading-relaxed font-sans">
+                <p className="text-[13px] sm:text-[14px] text-stone-600 dark:text-stone-300 leading-relaxed font-sans">
                   {a.desc}
                 </p>
               </div>
@@ -317,7 +323,7 @@ export function TeachingBlog({
       <PostSection>
         <SLabel text={DATA.s6.label} />
         <SHeading text={DATA.s6.heading} />
-        <p className="text-[15px] sm:text-[16px] text-stone-500 dark:text-stone-400 leading-[1.9] mb-5 sm:mb-6">
+        <p className="text-[14px] sm:text-[15px] text-stone-600 dark:text-stone-300 leading-[1.85] mb-4 sm:mb-5">
           {DATA.s6.intro}
         </p>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
@@ -330,7 +336,7 @@ export function TeachingBlog({
               <p className="font-semibold text-[13px] sm:text-[14px] text-stone-800 dark:text-stone-200 mb-1 sm:mb-1.5 font-sans">
                 {v.title}
               </p>
-              <p className="text-[12px] sm:text-[13px] text-stone-500 dark:text-stone-400 leading-relaxed font-sans">
+              <p className="text-[12px] sm:text-[13px] text-stone-600 dark:text-stone-300 leading-relaxed font-sans">
                 {v.desc}
               </p>
             </div>

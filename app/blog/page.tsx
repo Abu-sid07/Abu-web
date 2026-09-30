@@ -306,46 +306,45 @@ function BlogList({
   return (
     <div>
       {/* Hero */}
-      <div className="relative h-[38vh] sm:h-[45vh] md:h-[52vh] overflow-hidden">
-        <HeroBackground isDark={isDark}/>
-        <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-[#faf9f6] dark:from-stone-950 to-transparent z-10"/>
+      <div className="relative h-[32vh] min-h-[240px] sm:h-[38vh] md:h-[44vh] overflow-hidden">
+        <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-white/15 dark:from-black/15 to-transparent z-10"/>
         <div
           className="relative z-20 flex flex-col items-center justify-center h-full px-4 text-center"
           style={{ opacity: animIn ? 1 : 0, transform: animIn ? "translateY(0)" : "translateY(20px)", transition: "opacity .8s ease, transform .8s ease" }}
         >
           <p className="text-[10px] sm:text-xs font-semibold tracking-[0.2em] uppercase mb-3 sm:mb-4 font-sans"
-            style={{ color: isDark ? "rgba(255,255,255,0.4)" : "rgba(255,255,255,0.75)" }}>
+            style={{ color: isDark ? "rgba(255,255,255,0.68)" : "rgba(41,37,36,0.78)" }}>
             Abu's Writing
           </p>
           <h1 className="font-serif font-light tracking-[-0.04em] leading-none mb-4 sm:mb-5"
-            style={{ fontSize: "clamp(2.8rem, 8vw, 6rem)", color: isDark ? "rgba(255,255,255,0.92)" : "rgba(255,255,255,0.95)", textShadow: isDark ? "0 0 40px rgba(255,255,255,0.1)" : "0 2px 20px rgba(0,0,0,0.18)" }}>
+            style={{ fontSize: "clamp(2.5rem, 7vw, 4.75rem)", color: isDark ? "rgba(255,255,255,0.96)" : "#292524", textShadow: isDark ? "0 0 32px rgba(255,255,255,0.1)" : "0 2px 16px rgba(255,255,255,0.28)" }}>
             Stories
           </h1>
           <p className="font-serif italic text-sm sm:text-base md:text-lg max-w-sm sm:max-w-md"
-            style={{ color: isDark ? "rgba(255,255,255,0.45)" : "rgba(255,255,255,0.75)" }}>
+            style={{ color: isDark ? "rgba(255,255,255,0.72)" : "rgba(41,37,36,0.76)" }}>
             Real moments — from college corridors to early morning classrooms.
           </p>
         </div>
       </div>
 
       {/* Cards */}
-      <div className="max-w-[740px] mx-auto px-4 sm:px-5 pb-32 pt-6 sm:pt-8">
+      <div className="max-w-[680px] mx-auto px-4 sm:px-5 pb-28 pt-5 sm:pt-7">
         <div
           className="flex items-center gap-2 mb-6 sm:mb-8"
           style={{ opacity: animIn?1:0, transform: animIn?"none":"translateY(12px)", transition:"opacity .6s .3s ease, transform .6s .3s ease" }}
         >
-          <BookOpenIcon className="w-4 h-4 text-stone-400 dark:text-stone-500"/>
-          <span className="text-sm font-medium text-stone-400 dark:text-stone-500 font-sans tracking-wide">
+          <BookOpenIcon className="w-4 h-4 text-stone-600 dark:text-stone-400"/>
+          <span className="text-sm font-medium text-stone-600 dark:text-stone-400 font-sans tracking-wide">
             {CARDS.length} {CARDS.length === 1 ? "story" : "stories"}
           </span>
         </div>
 
-        <div className="flex flex-col gap-4 sm:gap-5">
+        <div className="flex flex-col gap-3 sm:gap-4">
           {CARDS.map((card, idx) => (
             <button
               key={card.id}
               onClick={() => onSelect(card.id as ViewMode)}
-              className={`group w-full text-left bg-white dark:bg-stone-900 border border-stone-100 dark:border-stone-800 rounded-xl sm:rounded-2xl overflow-hidden transition-all duration-200 hover:shadow-md dark:hover:shadow-black/20 active:scale-[0.99] ${card.border}`}
+              className={`group w-full text-left bg-white/90 dark:bg-stone-900/90 border border-stone-100 dark:border-stone-800 rounded-xl overflow-hidden transition-all duration-200 hover:shadow-md dark:hover:shadow-black/20 active:scale-[0.99] ${card.border}`}
               style={{
                 opacity: animIn ? 1 : 0,
                 transform: animIn ? "translateY(0)" : "translateY(16px)",
@@ -353,29 +352,29 @@ function BlogList({
               }}
             >
               <div className={`h-[3px] w-full ${card.accent} opacity-0 group-hover:opacity-100 transition-opacity`}/>
-              <div className="p-4 sm:p-6 md:p-7">
+              <div className="p-4 sm:p-5 md:p-6">
                 <div className="flex items-start justify-between gap-3 sm:gap-4 mb-2 sm:mb-3">
                   <span className={`text-[10px] sm:text-[11px] font-semibold tracking-widest uppercase px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full font-sans ${card.tagColor}`}>
                     {card.tag}
                   </span>
-                  <span className="flex items-center gap-1 text-xs text-stone-400 dark:text-stone-500 font-sans shrink-0 mt-1">
+                  <span className="flex items-center gap-1 text-xs text-stone-600 dark:text-stone-400 font-sans shrink-0 mt-1">
                     <EyeIcon className="w-3 h-3"/>
                     {viewCounts[card.id] ?? card.initialViews}
                   </span>
                 </div>
-                <h2 className="font-serif text-[18px] sm:text-[21px] md:text-[23px] font-bold text-stone-900 dark:text-stone-50 leading-snug mb-1.5 sm:mb-2 group-hover:text-stone-700 dark:group-hover:text-stone-200 transition-colors">
+                <h2 className="font-serif text-[17px] sm:text-[19px] md:text-[21px] font-bold text-stone-900 dark:text-stone-50 leading-snug mb-1.5 sm:mb-2 group-hover:text-stone-700 dark:group-hover:text-stone-200 transition-colors">
                   {card.title}
                 </h2>
-                <p className="text-[13px] sm:text-[14px] text-stone-500 dark:text-stone-400 leading-relaxed mb-4 sm:mb-5 font-sans">
+                <p className="text-[12px] sm:text-[13px] text-stone-600 dark:text-stone-300 leading-relaxed mb-3 sm:mb-4 font-sans">
                   {card.summary}
                 </p>
                 <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-1.5 sm:gap-2 text-[11px] sm:text-[12px] text-stone-400 dark:text-stone-500 font-sans">
+                  <div className="flex items-center gap-1.5 sm:gap-2 text-[11px] sm:text-[12px] text-stone-600 dark:text-stone-400 font-sans">
                     <span>{card.date}</span>
                     <span className="text-stone-200 dark:text-stone-700">·</span>
                     <span className="flex items-center gap-1"><ClockIcon className="w-3 h-3"/>{card.read_time}</span>
                   </div>
-                  <span className="text-xs text-stone-400 dark:text-stone-500 group-hover:text-stone-600 dark:group-hover:text-stone-300 font-sans transition-colors">
+                  <span className="text-xs text-stone-600 dark:text-stone-400 group-hover:text-stone-600 dark:group-hover:text-stone-300 font-sans transition-colors">
                     Read →
                   </span>
                 </div>
@@ -476,8 +475,12 @@ function BlogPageContent() {
   const back = useCallback(() => go("list"), [go])
 
   return (
-    <div className="min-h-screen bg-[#faf9f6] dark:bg-stone-950 transition-colors duration-200">
+    <div className="relative isolate min-h-screen transition-colors duration-200">
+      <div className="pointer-events-none fixed inset-0 z-0" aria-hidden="true">
+        <HeroBackground isDark={isDark} />
+      </div>
 
+      <div className="relative z-10">
       {view === "list" && (
         <BlogList onSelect={go} viewCounts={viewCounts} animIn={animIn} isDark={isDark} />
       )}
@@ -503,6 +506,7 @@ function BlogPageContent() {
           <KosalBlog onBack={back} liveViews={kosalViews} animIn={animIn} />
         </div>
       )}
+      </div>
 
       {/* Fixed Dock */}
       <div className="fixed bottom-4 sm:bottom-6 left-0 right-0 flex justify-center z-50 pointer-events-none">

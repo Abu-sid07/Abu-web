@@ -2,6 +2,8 @@
 
 import { useEffect, useRef, useCallback, useState } from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
+import { useTheme } from 'next-themes';
+import { KOSAL_CONTENT_CREATION_CHAPTER } from '../../data/kosal-story';
 import {
   Camera,
   Mesh,
@@ -862,7 +864,8 @@ function GalleryHeader({ progress }: { progress: number }) {
       </h2>
 
       <p className="max-w-lg mx-auto text-base leading-relaxed text-gray-600 dark:text-gray-400">
-        Featured reels, creative work, and studio projects.
+        <strong>{KOSAL_CONTENT_CREATION_CHAPTER.label}: {KOSAL_CONTENT_CREATION_CHAPTER.heading}.</strong>{' '}
+        {KOSAL_CONTENT_CREATION_CHAPTER.body}
       </p>
 
       <div className="relative w-40 mx-auto mt-5 h-1 rounded-full overflow-hidden bg-black/10 dark:bg-white/10">
@@ -1124,12 +1127,14 @@ export function CircularGallery({
 // DEFAULT EXPORT
 // ─────────────────────────────────────────────────────────────────────────────
 
-export default function ProjectGallery(props: CircularGalleryProps) {
+export default function ProjectGallery({ textColor, ...props }: CircularGalleryProps) {
+  const { resolvedTheme } = useTheme();
+
   return (
     <CircularGallery
       items={MY_REELS}
       bend={3}
-      textColor="#ffffff"
+      textColor={textColor ?? (resolvedTheme === 'light' ? '#292524' : '#ffffff')}
       borderRadius={0.08}
       scrollSpeed={2}
       scrollEase={0.035} // TASK 1 FIX: slowed
