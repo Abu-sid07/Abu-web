@@ -18,7 +18,7 @@ const DATA = {
   author: "Abu",
   date: "June 2025",
   read_time: "4 min read",
-  views: 434,
+  views: 734,
   summary:
     "A referral from a friend helped turn my MERN stack internship into a Front-End Developer role—and opened the door to a new team, new skills, and creative work beyond code.",
 
@@ -71,7 +71,7 @@ const DATA = {
       body: "My time at Kosal IT Solutions has taught me more than I expected. I learned how to be a better developer, work well with a new team, and create content people enjoy. My next big step is already taking shape, and I am excited for the future.",
       images: [
         {
-          src: "/blog/what%20Next.jpg",
+          src: "/blog/what-next.jpg",
           alt: "What comes next in Abu's career journey",
           caption: "The next step is already taking shape",
         },

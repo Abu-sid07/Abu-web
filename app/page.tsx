@@ -8,7 +8,7 @@ import Skills from '@/components/ui/Skills';
 import Projects from '@/components/ui/Projects';
 import Experience from '@/components/ui/Experience';
 import ProjectGallery from '@/components/ui/CircularGallery';
-
+import timeline from '@/src/feature/timeline-demo';
 import Link from 'next/link';
 import Footer from '@/components/ui/Footer';
 import {
@@ -512,11 +512,11 @@ export default function Home() {
 
       {/* <TimelineDemo />
       <AnimatedPinDemo />
-      <HeroParallaxDemo />
+       <HeroParallaxDemo /> 
         <section id="showcase" className="w-full">
         <HeroParallaxDemo />
-      </section>
-       */}
+      </section> */}
+      
     </main>
   );
 }

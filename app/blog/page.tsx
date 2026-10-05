@@ -395,23 +395,54 @@ function useViewCounter(blogId: string, init: number, isActive: boolean) {
   const [views, setViews] = useState(init)
 
   useEffect(() => {
-    if (typeof window === "undefined") return
+    let cancelled = false
+    const visitorKey = "blog_viewer_id"
+    const countedKey = `blog_viewed_${blogId}`
 
-    const storageKey = `blog_views_${blogId}`
-    const sessionKey = `blog_viewed_${blogId}`
-
-    // Always read current stored count so the number displayed is accurate
-    const stored = parseInt(localStorage.getItem(storageKey) ?? String(init), 10) || init
-    setViews(stored)
-
-    // Only increment when this specific blog is the one being actively viewed,
-    // and only once per browser session (sessionStorage flag prevents refresh spam)
-    if (isActive && !sessionStorage.getItem(sessionKey)) {
-      const updated = stored + 1
-      localStorage.setItem(storageKey, String(updated))
-      sessionStorage.setItem(sessionKey, "1")
-      setViews(updated)
+    const syncViews = async () => {
+      try {
+        const response = await fetch(`/api/blog-views?slug=${encodeURIComponent(blogId)}`, { cache: "no-store" })
+        if (!response.ok) return
+        const data = (await response.json()) as { views: number }
+        if (!cancelled && Number.isInteger(data.views)) setViews(data.views)
+      } catch {
+        // Keep the seeded count visible if the analytics endpoint is unavailable.
+      }
     }
+
+    const recordView = async () => {
+      if (!isActive) return
+      if (localStorage.getItem(countedKey)) {
+        await syncViews()
+        return
+      }
+
+      let visitorId = localStorage.getItem(visitorKey)
+      if (!visitorId) {
+        visitorId = crypto.randomUUID()
+        localStorage.setItem(visitorKey, visitorId)
+      }
+
+      try {
+        const response = await fetch("/api/blog-views", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ slug: blogId, visitorId }),
+        })
+        if (!response.ok) {
+          return
+        }
+        localStorage.setItem(countedKey, "1")
+        const data = (await response.json()) as { views: number }
+        if (!cancelled && Number.isInteger(data.views)) setViews(data.views)
+      } catch {
+        // Leave the flag unset so a later visit can retry.
+      }
+    }
+
+    if (isActive) void recordView()
+    else void syncViews()
+    return () => { cancelled = true }
   }, [blogId, init, isActive])
 
   return views

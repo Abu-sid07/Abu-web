@@ -18,7 +18,7 @@ const DATA = {
   author: "Abu",
   date: "June 2025",
   read_time: "4 min read",
-  views: 407,
+  views: 713,
   summary:
     "I came to Chennai with a BCA degree and a dream of working in software. Rejections didn't stop me: I built digital tools at Hameed Air Travels, learned full-stack development at Greens Technology, and kept moving forward.",
 
