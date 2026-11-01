@@ -1,72 +1,184 @@
+// components/BlogCard.jsx
+'use client'
+
 import React from 'react'
 import { Calendar, Clock, ArrowRight } from 'lucide-react'
-import { motion, Variants } from 'framer-motion'
-import { Article } from '../../types/article'
+import type { Article } from '@/types/article'
 
-// Helper functions
-const getReadTime = (id: number) => {
-  const times = ['7 min read', '5 min read', '6 min read', '4 min read']
-  return times[id - 1] || '5 min read'
-}
-
-const getDate = (id: number) => {
-  const dates = ['Jan 15 2025', 'Dec 28 2024', 'Nov 10 2024', 'Oct 5 2024']
-  return dates[id - 1] || 'Jan 2025'
-}
-
-const getAccent = (id: number) => {
-  const accents = ['from-emerald-400 to-teal-500', 'from-teal-400 to-cyan-500', 'from-cyan-400 to-blue-500', 'from-blue-400 to-indigo-500']
-  return accents[id - 1] || 'from-emerald-400 to-teal-500'
-}
-
+/**
+ * BlogCard component
+ *
+ * Typography tokens used (from tailwind.config.js):
+ *   text-xs → 12px/1.5 — metadata, timestamps, tags
+ *   text-sm → 14px/1.625 — CTA links, UI chrome
+ *   text-base → 16px/1.75 — body copy (excerpts)
+ *   text-xl → 20px/1.5 — card titles (h3 under section h2)
+ *
+ * Accessibility:
+ *   - <article> wrapper for semantic grouping
+ *   - <time> element with datetime attribute for dates
+ *   - <a> element for CTA with descriptive aria-label
+ *   - aria-hidden on decorative icons and accent bar
+ *   - :focus-visible ring from global addBase() styles
+ */
 interface BlogCardProps {
-  article: Article;
-  onClick: () => void;
+  article: Article
+  onClick?: () => void
+  className?: string
 }
 
-const itemVariants: Variants = {
-  hidden: { opacity: 0, y: 20 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] } }
-}
+export default function BlogCard({ article, onClick, className }: BlogCardProps) {
+  // ──────────────────────────────────────────────────────────────
+  // Helper functions — kept local since they're static data mocks
+  // In production, these would come from the Article object directly
+  // ──────────────────────────────────────────────────────────────
+  const getReadTime = () => {
+    return article.read_time || '5 min read'
+  }
 
-const BlogCard: React.FC<BlogCardProps> = ({ article, onClick }) => {
+  const getDate = () => {
+    if (article.date) {
+      return new Date(article.date).toLocaleDateString('en-US', {
+        month: 'short',
+        day: 'numeric',
+        year: 'numeric',
+      })
+    }
+    return 'Jan 15, 2025'
+  }
+
+  const getAccentGradient = () => {
+    // Gradient variants for visual interest
+    const gradients = [
+      'from-emerald-400 to-teal-500',
+      'from-teal-400 to-cyan-500',
+      'from-cyan-400 to-blue-500',
+      'from-blue-400 to-indigo-500',
+    ]
+    const index = (article.id || 1) % gradients.length
+    return gradients[index]
+  }
+
   return (
-    <motion.div 
-      variants={itemVariants}
-      onClick={onClick} 
-      className="group relative bg-black/40 backdrop-blur-lg border border-white/10 rounded-2xl p-8 hover:border-emerald-500/50 transition-all duration-500 hover:shadow-2xl hover:shadow-emerald-500/10 cursor-pointer overflow-hidden"
+    <article
+      className={[
+        'group relative flex flex-col overflow-hidden',
+        'rounded-2xl border',
+        // Background — use CSS variables for dark mode support
+        'bg-card text-card-foreground',
+        'border-border',
+        // Shadow on hover — dark mode variant from theme
+        'transition-all duration-200 ease-out',
+        'hover:-translate-y-1',
+        'dark:hover:shadow-card-hover-dark',
+        // Use custom shadow token from config
+        'hover:shadow-card-hover',
+        // Optional glow effect for emphasis sections
+        'dark:bg-black/60 bg-black/40',
+        'dark:border-white/10 border-white/10',
+        'backdrop-blur-sm',
+        'p-8',
+        className, // allow override per instance
+      ].join(' ')}
     >
-      {/* Glow on hover */}
-      <div className="absolute inset-0 bg-gradient-to-r from-emerald-500/0 via-emerald-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+      {/* Decorative hover glow — correctly aria-hidden */}
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-r from-emerald-500/0 via-emerald-500/5 to-transparent"
+      />
 
-      <div className="relative z-10">
-        <div className="flex items-start justify-between mb-6">
-          <div className="flex items-center space-x-5 text-sm font-medium text-gray-500">
-            <div className="flex items-center space-x-2 bg-white/5 py-1 px-3 rounded-full border border-white/5">
-              <Calendar size={14} className="text-emerald-400" />
-              <span>{getDate(article.id)}</span>
-            </div>
-            <div className="flex items-center space-x-2 bg-white/5 py-1 px-3 rounded-full border border-white/5">
-              <Clock size={14} className="text-teal-400" />
-              <span>{getReadTime(article.id)}</span>
-            </div>
+      <div className="relative z-10 flex flex-col gap-6">
+
+        {/* ── Meta row — date + read time ─────────────────────────── */}
+        {/* Both are metadata → use text-xs (12px), not text-sm (14px) */}
+        <div className="flex items-center gap-4">
+          <div className="flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium tracking-wide">
+            <Calendar
+              size={13}
+              // Use theme colour variable — works in light/dark
+              className="text-emerald-500 dark:text-emerald-400"
+              aria-hidden="true"
+            />
+            <time
+              dateTime={new Date(article.date).toISOString()}
+              className="text-muted-foreground"
+            >
+              {getDate()}
+            </time>
+          </div>
+
+          <div className="flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium tracking-wide">
+            <Clock
+              size={13}
+              className="text-teal-500 dark:text-teal-400"
+              aria-hidden="true"
+            />
+            <span className="text-muted-foreground">
+              {getReadTime()}
+            </span>
           </div>
         </div>
 
-        <h3 className="text-2xl md:text-3xl font-bold text-white mb-4 group-hover:text-emerald-400 transition-colors duration-300">{article.title}</h3>
+        {/* ── Title — card h3 under section h2 ────────────────────── */}
+        {/* TYPE: text-xl = 20px/1.5 (not text-lg which is 18px pull-quote) */}
+        <h3 className="text-xl font-bold leading-snug transition-colors duration-300 group-hover:text-emerald-500 dark:group-hover:text-emerald-400">
+          {article.title}
+        </h3>
 
-        <p className="text-gray-400 mb-8 leading-relaxed text-lg line-clamp-2 md:line-clamp-none">{article.summary}</p>
+        {/* ── Excerpt — body copy ─────────────────────────────────── */}
+        {/* TYPE: text-base = 16px/1.75 (not text-sm)
+            line-clamp-3 prevents cards from blowing up height */}
+        <p className="text-base leading-relaxed text-muted-foreground line-clamp-3">
+          {article.summary}
+        </p>
 
-        <div className="flex items-center justify-between mt-auto">
-          <div className="flex items-center text-emerald-400 font-semibold group-hover:gap-3 transition-all duration-300 text-sm md:text-base">
-            <span>Read Article</span>
-            <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
-          </div>
-          <div className={`h-1.5 w-12 bg-gradient-to-r ${getAccent(article.id)} rounded-full group-hover:w-20 transition-all duration-500`} />
+        {/* ── Footer — CTA link + accent bar ──────────────────────── */}
+        <div className="flex items-center justify-between mt-auto pt-4 border-t border-border">
+        {/*
+            FIX: was styled div with onClick — now proper <a>
+            TYPE: text-sm = 14px (UI chrome, not body)
+            Global :focus-visible adds ring automatically
+          */}
+          <a
+            href={`/blog/${article.id}`}
+            onClick={(e) => {
+              // Prevent default if you're handling routing via onClick prop
+              e.preventDefault()
+              onClick?.()
+            }}
+            className={[
+              'inline-flex items-center gap-2 text-sm font-semibold',
+              // Theme colours for light/dark
+              'text-emerald-600 dark:text-emerald-400',
+              'transition-all duration-300',
+              // Underline grows on hover
+              'underline-offset-4 hover:underline',
+              // Focus styles handled by global :focus-visible rule
+              'rounded-sm outline-none',
+            ].join(' ')}
+            aria-label={`Read full article: ${article.title}`}
+          >
+            Read Article
+            <ArrowRight
+              size={16}
+              className="transition-transform duration-300 group-hover:translate-x-1"
+              aria-hidden="true"
+            />
+          </a>
+
+          {/* Decorative gradient bar — aria-hidden */}
+          <div
+            aria-hidden="true"
+            className={[
+              'h-1.5 w-12 rounded-full bg-gradient-to-r',
+              getAccentGradient(),
+              'transition-all duration-500',
+              'group-hover:w-20',
+            ].join(' ')}
+          />
         </div>
+
       </div>
-    </motion.div>
+    </article>
   )
 }
-
-export default BlogCard
