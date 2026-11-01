@@ -21,21 +21,21 @@ type TimelineItem = {
 type FilterTab = "all" | "work" | "edu";
 
 const timelineData: TimelineItem[] = [
-  {
-    id: "work-genz-uv",
+    {
+    id: "work-unihope-foundation",
     type: "work",
-    title: "Software Developer",
-    organization: "Freelancer",
+    title: "Software Developer & Content Creator",
+    organization: "UNIHOPE Foundation",
     period: "04/2026 – Present",
-    location: "Remote",
+    location: "Hybrid - Chennai, India",
     badge: "Work",
-    // link: "https://genzuv.in",
+    link: "https://unihopefoundation.org/",
     bullets: [
-      "Building and maintaining the agency website and client-facing web pages using Next.js, React.js, Tailwind CSS, and Framer Motion.",
-      "Developing responsive UI components for digital marketing service pages to support SEO and lead generation.",
-      "Collaborating with the marketing team to translate campaign requirements into performant, conversion-focused web experiences."
+      "Built modern foundation website using Next.js, React.js, TypeScript, Tailwind CSS, and shadcn/ui with reusable components.",
+      "Integrated Razorpay, Convex, Resend, and secure webhook-based payment workflows.",
+      "Created UNIHOPE social posts, reels, captions, and campaigns to promote community programmes and social impact awareness online."
     ],
-    skills: ["Next.js", "React", "Tailwind CSS", "Framer Motion", "SEO", "Lead Generation"],
+    skills: ["Next.js", "React.js", "TypeScript", "Tailwind CSS", "shadcn/ui", "Convex", "Razorpay", "Resend", "Content Creation"],
   },
 
   {
