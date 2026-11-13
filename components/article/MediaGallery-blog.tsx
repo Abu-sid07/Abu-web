@@ -1,3 +1,4 @@
+// components/article/MediaGallery-blog.tsx
 import React from 'react'
 import Image from 'next/image'
 
@@ -6,52 +7,148 @@ interface MediaGalleryProps {
   heading?: string;
 }
 
-const MediaGallery: React.FC<MediaGalleryProps> = ({ media, heading }) => {
-  const getMediaUrl = (mediaHint?: string) => {
-    if (!mediaHint) return null
-    const hint = mediaHint.toLowerCase()
-    // Map hints to local public assets (preferred filenames in /public)
-    if (hint.includes('video')) return { type: 'image', url: '/Graduation-Day.gif' }
-    if (hint.includes('graduation') || hint.includes('certificate')) return { type: 'image', url: '/gra-img.png' }
-    if (hint.includes('classroom') || hint.includes('lab') || hint.includes('project')) return { type: 'image', url: '/class.gif' }
-    if (hint.includes('teaching') || hint.includes('quran') || hint.includes('arabic') || hint.includes('islamic')) return { type: 'image', url: 'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=1200&h=800&fit=crop' }
-    if (hint.includes('friends') || hint.includes('group') || hint.includes('cultural')) return { type: 'image', url: 'https://images.unsplash.com/photo-1511632765486-a01980e01a18?w=1200&h=800&fit=crop' }
-    if (hint.includes('office') || hint.includes('work') || hint.includes('visa') || hint.includes('document')) return { type: 'image', url: 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=1200&h=800&fit=crop' }
-    if (hint.includes('speaking') || hint.includes('presentation') || hint.includes('speak in front')) return { type: 'image', url: 'https://images.unsplash.com/photo-1475721027785-f74eccf877e2?w=1200&h=800&fit=crop' }
-    if (hint.includes('campus') || hint.includes('college') || hint.includes('first day')) return { type: 'image', url: 'https://images.unsplash.com/photo-1562774053-701939374585?w=1200&h=800&fit=crop' }
-    return { type: 'image', url: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=1200&h=800&fit=crop' }
-  }
+type MediaResult =
+  | { type: 'gif'; url: string }
+  | { type: 'image'; url: string }
+  | null;
 
-  if (!media || media.length === 0) return null
+const getMediaUrl = (mediaHint?: string): MediaResult => {
+  if (!mediaHint) return null;
+  const hint = mediaHint.toLowerCase();
+
+  // ── College blog images ──────────────────────────────────────────────────
+  if (
+    hint.includes('campus') ||
+    hint.includes('college') ||
+    hint.includes('sadakathullah') ||
+    hint.includes('first day') ||
+    hint.includes('gate')
+  ) return { type: 'image', url: '/blogs/college/sadak-clg.png' };
+
+  if (
+    hint.includes('friends') ||
+    hint.includes('gang') ||
+    hint.includes('group') ||
+    hint.includes('boys') ||
+    hint.includes('cultural')
+  ) return { type: 'image', url: '/blogs/college/friends_png.jpeg' };
+
+  if (
+    hint.includes('graduation day') ||
+    hint.includes('ceremony') ||
+    hint.includes('stage') ||
+    hint.includes('gown')
+  ) return { type: 'gif', url: '/blogs/college/Graduation-Day.gif' };
+
+  if (
+    hint.includes('graduation') ||
+    hint.includes('certificate') ||
+    hint.includes('degree') ||
+    hint.includes('bittersweet')
+  ) return { type: 'image', url: '/blogs/college/gra-img.png' };
+
+  // ── Teaching blog images ─────────────────────────────────────────────────
+  if (
+    hint.includes('teaching') ||
+    hint.includes('quran') ||
+    hint.includes('arabic') ||
+    hint.includes('islamic') ||
+    hint.includes('madrasa') ||
+    hint.includes('prayer')
+  ) return { type: 'image', url: '/blogs/teaching/teach-01.jpeg' };
+
+  if (
+    hint.includes('students') ||
+    hint.includes('class') ||
+    hint.includes('circle') ||
+    hint.includes('sitting')
+  ) return { type: 'image', url: '/blogs/teaching/teach-5.jpeg' };
+
+  if (
+    hint.includes('award') ||
+    hint.includes('appreciation') ||
+    hint.includes('trophy') ||
+    hint.includes('recognition')
+  ) return { type: 'image', url: '/blogs/teaching/award-1.jpg' };
+
+  // ── Generic fallbacks ────────────────────────────────────────────────────
+  if (
+    hint.includes('office') ||
+    hint.includes('work') ||
+    hint.includes('visa') ||
+    hint.includes('document') ||
+    hint.includes('desk')
+  ) return {
+    type: 'image',
+    url: 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=1200&h=800&fit=crop',
+  };
+
+  if (
+    hint.includes('speaking') ||
+    hint.includes('presentation') ||
+    hint.includes('podium') ||
+    hint.includes('confident')
+  ) return {
+    type: 'image',
+    url: 'https://images.unsplash.com/photo-1475721027785-f74eccf877e2?w=1200&h=800&fit=crop',
+  };
+
+  if (
+    hint.includes('coding') ||
+    hint.includes('lab') ||
+    hint.includes('screen') ||
+    hint.includes('computer')
+  ) return {
+    type: 'image',
+    url: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=1200&h=800&fit=crop',
+  };
+
+  // Default
+  return {
+    type: 'image',
+    url: 'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=1200&h=800&fit=crop',
+  };
+};
+
+const MediaGallery: React.FC<MediaGalleryProps> = ({ media, heading }) => {
+  if (!media || media.length === 0) return null;
 
   return (
     <div className="space-y-4 my-6">
       {media.map((item, i) => {
-        const mediaData = getMediaUrl(item)
-        if (!mediaData) return null
-        if (mediaData.type === 'image') {
-          return (
-            <div key={i} className="rounded-xl overflow-hidden border border-gray-800 shadow-lg">
-              <Image 
-                src={mediaData.url} 
-                alt={heading || 'Media'} 
-                className="w-full h-auto object-cover" 
-                width={1200}
-                height={800}
-                priority={false}
-              />
-            </div>
-          )
-        }
+        const mediaData = getMediaUrl(item);
+        if (!mediaData) return null;
 
         return (
-          <div key={i} className="rounded-xl overflow-hidden border border-gray-800 shadow-lg aspect-video">
-            <iframe width="100%" height="100%" src={mediaData.url} title={heading} frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen className="w-full h-full" />
+          <div
+            key={i}
+            className="rounded-xl overflow-hidden border border-stone-100 shadow-sm"
+          >
+            {mediaData.type === 'gif' ? (
+              // Use plain <img> for GIFs — next/image strips animation
+              // eslint-disable-next-line @next/next/no-img-element
+              <img
+                src={mediaData.url}
+                alt={heading || item}
+                className="w-full h-auto object-cover"
+              />
+            ) : (
+              <div className="relative w-full h-64">
+                <Image
+                  src={mediaData.url}
+                  alt={heading || item}
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 768px) 100vw, 740px"
+                  priority={false}
+                />
+              </div>
+            )}
           </div>
-        )
+        );
       })}
     </div>
-  )
-}
+  );
+};
 
-export default MediaGallery
+export default MediaGallery;
